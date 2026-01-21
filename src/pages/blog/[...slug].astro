@@ -1,0 +1,95 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={post.data.title} description={post.data.description} />
+		<style is:global>
+			body {
+				background-color: #dfdfdf;
+				background-image: radial-gradient(#000 0.5px, transparent 0.5px), url('https://www.transparenttextures.com/patterns/p6-static.png');
+				background-size: 3px 3px, auto;
+				background-attachment: fixed;
+				color: #000;
+				margin: 0;
+			}
+
+			main {
+				background: #fff !important;
+				max-width: 900px !important;
+				margin: 40px auto !important;
+				padding: 50px !important;
+				box-shadow: 20px 20px 0px #000 !important;
+				border: 4px solid #000 !important;
+				transform: rotate(-0.5deg);
+			}
+
+			h1, .title {
+				font-family: 'Aptos', sans-serif !important;
+				font-weight: 950 !important;
+				background: #000 !important;
+				color: #fff !important;
+				display: inline-block !important;
+				padding: 5px 20px !important;
+				font-size: 3.5rem !important;
+				text-transform: uppercase;
+				letter-spacing: -2px !important;
+				transform: rotate(1deg);
+				margin-bottom: 30px !important;
+			}
+
+			img {
+				filter: grayscale(1) contrast(1.5) !important;
+				border: 5px solid #000 !important;
+				box-shadow: 10px 10px 0px #000 !important;
+			}
+
+			article p {
+				font-family: 'Aptos', sans-serif !important;
+				font-weight: 500 !important;
+				line-height: 1.8 !important;
+				margin-bottom: 2.5rem !important;
+				border-left: 4px solid #000 !important;
+				padding-left: 20px !important;
+				font-size: 1.2rem !important;
+			}
+
+			hr {
+				border: none !important;
+				border-top: 8px dashed #000 !important;
+				margin: 40px 0 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{post.data.heroImage && <img src={post.data.heroImage} alt="" />}
+				</div>
+				<h1>{post.data.title}</h1>
+				<hr />
+				<Content />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

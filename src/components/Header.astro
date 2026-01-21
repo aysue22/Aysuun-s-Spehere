@@ -1,0 +1,77 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+
+	<nav class="anarchist-nav">
+  <div class="nav-links">
+    <a href="/">HOME</a>
+    <a href="/blog">BLOGS</a>
+    <a href="/lists">LISTS</a>
+    <a href="/collective">COLLECTIVE</a>
+    <a href="/news">NEWS</a>
+    <a href="/about">WHO?</a>
+  </div>
+  <div class="anarchy-symbol">Ⓐ</div>
+</nav>
+</header>
+<style>
+	/* HEADER KONUMU */
+	header {
+		margin: 0;
+		padding: 2em 1em;
+		background: transparent; /* Arka plan yeşil kalsın diye */
+		display: flex;
+		justify-content: center;
+	}
+
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap; /* Mobilde taşmasın diye */
+		gap: 10px;
+	}
+
+	/* SEKME ETİKETLERİ - ANA TASARIM */
+	nav a {
+		font-family: 'Crimson Text', serif !important;
+		font-weight: 700 !important;
+		font-size: 1.1rem !important;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: #1a1a1a !important;      
+		background: #e9dcc9 !important; /* Kirli kağıt rengi */
+		padding: 8px 18px !important;
+		text-decoration: none !important;
+		border: 1px solid #3e2723; 
+		box-shadow: 4px 4px 0px #d4af37; /* Altın gölge */
+		display: inline-block;
+		transition: all 0.2s ease-in-out;
+		
+		/* Salaş Fanzin Yamukluğu */
+		transform: rotate(-1.5deg);
+	}
+
+	/* Sekmelerin yarısı sağa yarısı sola yatsın (Salaşlık artar) */
+	nav a:nth-child(even) {
+		transform: rotate(2deg);
+	}
+
+	/* ÜZERİNE GELİNCE (HOVER) */
+	nav a:hover {
+		background: #1a1a1a !important; /* Siyah bant efekti */
+		color: #fdfaf1 !important;    
+		transform: rotate(0deg) translateY(-5px);
+		box-shadow: 0px 8px 15px rgba(0,0,0,0.3);
+	}
+
+	/* AKTİF SEKME (Hangi sayfadaysan o mühürlenmiş görünsün) */
+	nav a.active {
+		background: #d4af37 !important;
+		border: 2px dashed #1a1a1a;
+		transform: scale(1.1) rotate(0deg);
+	}
+</style>

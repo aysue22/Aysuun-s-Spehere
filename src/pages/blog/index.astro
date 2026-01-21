@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+// Verileri en güvenli haliyle çekiyoruz
+const posts = await getCollection('blog');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			<style is:global>
+			
+	body {
+		font-family: 'Aptos', sans-serif !important;
+		line-height: 1.8 !important;
+	}
+	.title {
+		font-family: 'Aptos', sans-serif !important;
+		font-weight: 900 !important; /* Ekstra kalın */
+		color: #000 !important;
+		font-size: 2.2rem;
+		text-decoration: none !important;
+		margin-top: 10px;
+	}
+	.date {
+		color: #666;
+		font-weight: bold;
+	}
+	
+</style>
+		</style>
+	</head>
+	<body>
+		<Header /> <main>
+			<section>
+				<ul>
+  {
+    posts.map((post) => {
+      // Link hatasını önlemek için güvenli slug oluşturma
+      const cleanSlug = String(post.slug || post.id).replace('.md', '');
+
+      return (
+        <li>
+          <a href={`/blog/${cleanSlug}/`}>
+            {post.data.heroImage && (
+              <img 
+                src={post.data.heroImage} 
+                alt={post.data.title} 
+                style="width: 100%; border-radius: 12px; margin-bottom: 1rem;" 
+              />
+            )}
+            <h4 class="title">{post.data.title}</h4>
+            <p class="date">{post.data.pubDate.toLocaleDateString()}</p>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
