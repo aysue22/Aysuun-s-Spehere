@@ -5,7 +5,7 @@ pubDate: "2023-07-11"
 heroImage: "/sertelresim.jpg"
 ---
 
-## I.	 Why Sabiha Sertel is important in Turkish Politics?
+## I.	  First Woman Journalist: Why Sabiha Sertel is important in Turkish Politics?
 
 Sabiha Sertel, the first female journalist of the Republic of Turkey, is known for addressing issues concerning women of her time through her writings. While women began to question their place after the industrial revolution, the questioning of the roles of women in the Ottoman Empire took place during a period when looking to the West as an example was viewed positively. The traditional environment was questioned, and women's social life gained importance. Sabiha Sertel's family structure (her childhood questioning household chores, her parents' relationship, her marriage to someone outside the community) and the community she belonged to (Dönme) enabled her to question these issues in depth. 
 
