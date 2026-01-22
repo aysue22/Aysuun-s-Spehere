@@ -11,13 +11,208 @@ import HeaderLink from './HeaderLink.astro';
     <a href="/blog">BLOGS</a>
     <a href="/lists">LISTS</a>
     <a href="/collective">COLLECTIVE</a>
-    <a href="/news">NEWS</a>
+<div class="dropdown">
+    <a href="/news" class="dropbtn">News ▾</a>
+    <div class="dropdown-content">
+      <a href="/news/headlines" class="dropdown-link">→ Headlines</a>
+      <a href="/news/reports" class="dropdown-link">→ Reports</a>
+      <a href="/news/field-notes" class="dropdown-link">→ Field Notes</a>
+    </div>
+  </div>
+</div>
     <a href="/about">WHO?</a>
   </div>
   <div class="anarchy-symbol">Ⓐ</div>
 </nav>
 </header>
-<style>
+
+<style is:global>
+
+  /* SENİN ANA TASARIMIN (BURAYI HİÇ DEĞİŞTİRMEDİM) */
+  nav a {
+    font-family: 'Crimson Text', serif !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1a1a1a !important;      
+    background: #e9dcc9 !important; /* Kirli kağıt rengi */
+    padding: 8px 18px !important;
+    text-decoration: none !important;
+    border: 1px solid #3e2723; 
+    box-shadow: 4px 4px 0px #d4af37; /* Altın gölge */
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    transform: rotate(-1.5deg);
+  }
+
+  nav a:nth-child(even) {
+    transform: rotate(2deg);
+  }
+
+  nav a:hover {
+    background: #1a1a1a !important; /* Siyah bant efekti */
+    color: #fdfaf1 !important;    
+    transform: rotate(0deg) translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.3);
+  }
+
+  /* DROPDOWN ÖZEL AYARLARI */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Alt menü kutusu (News'in altına açılan kağıt parçası) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #e9dcc9; /* Yine kirli kağıt rengi */
+    min-width: 180px;
+    box-shadow: 4px 4px 0px #d4af37;
+    z-index: 1000;
+    border: 1px solid #3e2723;
+    /* Alt başlıkların kutusu da hafif yamuk durabilir fanzin havası için */
+    transform: rotate(1deg);
+    margin-top: 10px;
+  }
+
+  /* Alt menü içindeki linkler */
+  .dropdown-content a {
+    display: block !important;
+    transform: none !important; /* İçerdekiler yamuk olmasın, okunabilsin */
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(62, 39, 35, 0.2) !important;
+    box-shadow: none !important;
+    font-size: 0.9rem !important;
+    text-transform: none !important; /* Headlines gibi yazılar normal kalsın */
+  }
+
+  .dropdown-content a:hover {
+    background: #1a1a1a !important;
+    color: #fdfaf1 !important;
+  }
+
+  /* News'in üzerine gelince kutuyu aç */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+  /* News Butonunu Krem Etiket Yapma */
+  .news-label-btn {
+    background-color: #f0e6d2 !important; /* Krem rengi */
+    color: #1a1a1a !important; /* Siyah yazı */
+    padding: 0.3rem 0.8rem;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #000; /* Luna tasarımıyla uyumlu gölge */
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  /* Dropdown Konteynırı */
+  .news-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Alt Menü Kutusu */
+  .news-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1a1a1a; /* Menü içi koyu olsun (veya krem yapabiliriz) */
+    min-width: 160px;
+    border: 1px solid #444;
+    z-index: 1000;
+    box-shadow: 4px 4px 0px #bc95d4; /* Mor gölge */
+  }
+
+  /* Alt Başlıklar */
+  .news-menu a {
+    color: #e0e0e0 !important;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #333;
+  }
+
+  .news-menu a:hover {
+    background-color: #bc95d4;
+    color: #1a1a1a !important;
+  }
+
+  /* Hover olunca menüyü aç */
+  .news-dropdown:hover .news-menu {
+    display: block;
+  }
+
+  /* Diğer linklerin (Home, Essays vb.) altındaki çizgiyi kaldırmak için */
+  .nav-link {
+    text-decoration: none;
+    color: #e0e0e0;
+    margin: 0 10px;
+  }
+
+  /* Dropdown Konteynırı */
+  .news-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* News Butonu Stili (Mevcut linklerine uyumlu) */
+  .news-btn {
+    background: none;
+    border: none;
+    color: #e0e0e0; /* Yazı rengin beyaz/gri ise */
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+
+  /* GİZLİ OLAN MENÜ KUTUSU */
+  .news-menu {
+    display: none; /* Önce gizle */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f0e6d2; /* Senin meşhur KREM RENGİN */
+    min-width: 180px;
+    box-shadow: 5px 5px 0px #bc95d4; /* Mor gölge */
+    z-index: 999;
+    border: 1px solid #1a1a1a;
+  }
+
+  /* MENÜNÜN İÇİNDEKİ LİNKLER */
+  .news-menu a {
+    color: #1a1a1a !important; /* KREM ÜSTÜNE SİYAH YAZI (Görünürlüğü sağlar) */
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .news-menu a:hover {
+    background-color: #bc95d4; /* Üzerine gelince mor olsun */
+    color: #fff !important;
+  }
+
+  /* MOUSE ÜZERİNE GELİNCE GÖSTERME KOMUTU */
+  .news-dropdown:hover .news-menu {
+    display: block !important; /* Görünmüyorsa bu satır zorla gösterir */
+  }
+
 	/* HEADER KONUMU */
 	header {
 		margin: 0;
@@ -74,4 +269,92 @@ import HeaderLink from './HeaderLink.astro';
 		border: 2px dashed #1a1a1a;
 		transform: scale(1.1) rotate(0deg);
 	}
+	.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Alt başlıkların kutusu */
+  .dropdown-content {
+    display: none; /* Varsayılan olarak gizli */
+    position: absolute;
+    background-color: #1a1a1a; /* Sitenin koyu temasına uyumlu */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 10;
+    border: 1px solid #444; /* İnce bir çerçeve */
+  }
+
+  /* Alt başlık linkleri */
+  .dropdown-content a {
+    color: #e0e0e0 !important;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* Üstüne gelince rengi değişsin (Collective'deki moru kullanabilirsin) */
+  .dropdown-content a:hover {
+    background-color: #bc95d4;
+    color: #1a1a1a !important;
+  }
+
+  /* Mouse News'in üzerine gelince kutuyu aç */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Mevcut 'nav a' tasarımın burada kalıyor, ona dokunmuyoruz */
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* Alt menü kutusu */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #e9dcc9 !important; /* Kirli kağıt rengi */
+    min-width: 200px;
+    z-index: 9999;
+    border: 2px solid #3e2723 !important;
+    box-shadow: 6px 6px 0px #d4af37 !important;
+    margin-top: 5px;
+  }
+
+  /* DROPDOWN İÇİNDEKİ LİNKLERİ SIFIRLAMA (Görünür kılan kısım) */
+  nav .dropdown-content a.dropdown-link {
+    display: block !important;
+    width: 100% !important;
+    background: transparent !important; /* Arka planı kutuyla birleştir */
+    color: #1a1a1a !important;
+    transform: none !important; /* Yamukluğu kapat */
+    box-shadow: none !important; /* Dış gölgeyi kapat */
+    border: none !important; /* Dış çerçeveyi kapat */
+    border-bottom: 1px solid rgba(62, 39, 35, 0.2) !important;
+    padding: 12px 15px !important;
+    text-align: left !important;
+    font-size: 0.9rem !important;
+    margin: 0 !important;
+    position: static !important;
+  }
+
+  /* Alt linklerin üzerine gelince siyah bant olsun */
+  nav .dropdown-content a.dropdown-link:hover {
+    background: #1a1a1a !important;
+    color: #fdfaf1 !important;
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  /* Menüyü göster */
+  .dropdown:hover .dropdown-content {
+    display: block !important;
+  }
+
 </style>
