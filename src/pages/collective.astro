@@ -7,19 +7,24 @@ import BlogPost from '../layouts/BlogPost.astro';
 	description="A curated space for voices, works, and practices I resonate with."
 >
 	<section class="collective-intro">
-		<p class="manifesto-text">
-			<em>Collective is not a guest post dump.</em> It is a curated space for voices, works and practices I resonate with.
-		</p>
-	</section>
+    <h1 class="project-name">Collective</h1> 
+    <p class="manifesto-text">
+        <span class="short-desc">Collective is not a guest post dump.</span> <br>
+        
+        <span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.4rem 0.8rem; margin-top: 10px; font-family: 'Georgia', serif; box-shadow: 3px 3px 0px #000;">
+            It is a curated space for voices, works and practices I resonate with.
+        </span>
+    </p>
+</section>
 
-	<section class="selection-criteria">
-		<h4>Selection Criteria</h4>
-		<ul>
-			<li>Independent or non-institutional production</li>
-			<li>Ethical alignment (feminism, ecology, social justice)</li>
-			<li>Process over virality</li>
-		</ul>
-	</section>
+<section class="selection-criteria">
+    <h4 class="medium-tag">Selection Criteria</h4>
+    <ul style="list-style: none; padding: 0;">
+        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Independent or non-institutional production</span></li>
+        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Ethical alignment (feminism, ecology, social justice)</span></li>
+        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Process over virality</span></li>
+    </ul>
+</section>
 
 	<hr class="thin-line" />
 
@@ -43,15 +48,212 @@ import BlogPost from '../layouts/BlogPost.astro';
 </BlogPost>
 
 <style is:global> 
-  /* "is:global" eklemek Astro'nun bu stili tüm sayfaya yaymasını sağlar */
-  body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                      url('/images/arkaplan7.jpg') !important;
+
+  /* Manifesto'daki krem cümle için özel ayar */
+  .label-manifesto {
+    background-color: #f0e6d2 !important; /* Krem Rengi */
+    color: #1a1a1a !important; /* Siyah Yazı */
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    margin-top: 10px;
+    font-family: 'Georgia', serif;
+    box-shadow: 3px 3px 0px #000;
+    line-height: 1.6;
+  }
+
+  /* Kriterler ve Luna başlığı için ortak krem ayarı (garantiye alalım) */
+  .project-name, .selection-criteria span {
+    background-color: #f0e6d2 !important;
+    color: #1a1a1a !important;
+    display: table;
+    padding: 0.4rem 1rem;
+    margin-bottom: 8px !important;
+    box-shadow: 4px 4px 0px #000;
+  }
+
+  /* Diğer stillerini (medium-tag, short-desc) bozmadan devam edebilirsin */
+
+
+  /* Ortak Krem Rengi Etiket Tasarımı */
+  .project-name, .label-cream {
+    display: table;
+    background-color: #f0e6d2 !important; /* İstediğin krem rengi */
+    color: #1a1a1a !important;
+    padding: 0.4rem 1rem;
+    font-family: 'Georgia', serif;
+    margin: 0.5rem 0 !important;
+    box-shadow: 4px 4px 0px #000; /* Luna'daki gibi sert gölge */
+  }
+
+  /* Liste maddeleri için kutu genişliğini ayarla */
+  .selection-criteria .label-cream {
+    display: inline-block;
+    font-size: 0.9rem;
+    box-shadow: 2px 2px 0px #000; /* Maddeler için daha küçük gölge */
+    margin-bottom: 8px !important;
+  }
+
+  /* Mor Etiket (Selection Criteria başlığı için) */
+  .medium-tag {
+    background-color: #bc95d4;
+    color: #1a1a1a !important;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    transform: rotate(-1deg);
+  }
+
+  /* Siyah Bant (Collective is not a guest post dump kısmı) */
+  .short-desc {
+    background-color: #1a1a1a;
+    color: #f0e6d2 !important;
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+    border-left: 3px solid #bc95d4;
+  }
+
+  .selection-criteria ul {
+    list-style: none;
+    padding: 0;
+  }
+
+
+  /* Etiket: Mor Kısımlar (Selection Criteria ve Berlin kısmı) */
+  .medium-tag, .selection-criteria h4 {
+    background-color: #bc95d4;
+    color: #1a1a1a !important;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1rem;
+    transform: rotate(-1deg);
+  }
+
+  /* Başlıklar: Krem/Kağıt Etiket (Collective ve Luna Press) */
+  .project-name, .collective-intro h1 {
+    display: table;
+    background-color: #f0e6d2;
+    color: #1a1a1a !important;
+    padding: 0.4rem 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    margin: 0.5rem 0 !important;
+    box-shadow: 4px 4px 0px #000;
+  }
+
+  /* Siyah Bant Kısımları */
+  .short-desc, .list-label {
+    background-color: #1a1a1a;
+    color: #f0e6d2 !important;
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    border-left: 3px solid #bc95d4;
+  }
+
+  /* Manifesto'nun devamı için hafif şeffaf etiket */
+  .label-light {
+    background-color: rgba(240, 230, 210, 0.9);
+    color: #1a1a1a !important;
+    padding: 0.2rem 0.5rem;
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  /* Liste noktalarını gizlemek için */
+  .selection-criteria ul {
+    list-style: none;
+    padding: 0;
+  }
+
+
+  /* Etiket: Publishing · Berlin Kısmı */
+  .medium-tag {
+    background-color: #bc95d4; /* Mor etiket */
+    color: #1a1a1a !important;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1rem;
+    /* Hafif yamuk durması için (Zine estetiği) */
+    transform: rotate(-1deg);
+  }
+
+  /* Başlık: Luna Press Kısmı */
+  .project-name {
+    display: table; /* Sadece yazı genişliği kadar olması için */
+    background-color: #f0e6d2; /* Kağıt/Krem rengi etiket */
+    color: #1a1a1a !important;
+    padding: 0.4rem 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    margin: 0.5rem 0 !important;
+    box-shadow: 4px 4px 0px #000; /* Sert siyah gölge */
+  }
+
+  /* Açıklama: Independent feminist publishing. */
+  .short-desc {
+    background-color: #1a1a1a; /* Siyah bant */
+    color: #f0e6d2 !important;
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    border-left: 3px solid #bc95d4;
+  }
+
+  /* Link: → Read */
+  .read-link {
+    display: block;
+    margin-top: 1.5rem;
+    color: #bc95d4 !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .read-link:hover {
+    text-decoration: underline;
+    padding-left: 5px; /* Ok işareti kaysın */
+  }
+
+
+ body {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/arkaplan7.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
-    background-color: #1a1a1a; /* Resim yüklenmezse diye yedek renk */
+    background-color: #2d3e2d; /* Resim yüklenmezse diye yedek renk */
   }
+
+  /* Sayfanın ortasındaki beyaz kutu resmi kapatmasın diye şeffaf yapıyoruz */
+  main, .container, .alchemy-room {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+    
+    background-size: cover; /* Resmi tüm ekrana yayar */
+    background-position: center; /* Resmi ortalar */
+    background-attachment: fixed; /* Sayfa kayarken resim sabit kalır (Mistik bir derinlik katar) */
+    
+    padding: 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  
+
 
 	.manifesto-text {
 		font-size: 1.4rem;
