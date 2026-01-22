@@ -3,52 +3,96 @@ import BlogPost from '../layouts/BlogPost.astro';
 ---
 
 <BlogPost
-	title="Kolektif"
-	description="Toplumsal cinsiyet, sosyoloji ve akademik işbirlikleri."
-	pubDate={new Date('January 22 2026')}
-	heroImage="/blog-placeholder-about.jpg" 
+	title="Collective"
+	description="A curated space for voices, works, and practices I resonate with."
 >
-	<section class="intro">
-		<p>
-			Bu alan; akademik çalışmalarımın, dahil olduğum toplulukların ve 
-			ortak üretim süreçlerinin bir dökümüdür.
+	<section class="collective-intro">
+		<p class="manifesto-text">
+			<em>Collective is not a guest post dump.</em> It is a curated space for voices, works and practices I resonate with.
 		</p>
 	</section>
 
-	<hr />
+	<section class="selection-criteria">
+		<h4>Selection Criteria</h4>
+		<ul>
+			<li>Independent or non-institutional production</li>
+			<li>Ethical alignment (feminism, ecology, social justice)</li>
+			<li>Process over virality</li>
+		</ul>
+	</section>
 
-	<div class="kolektif-container">
-		<div class="card">
-			<h3>Başkent Sosyoloji Topluluğu</h3>
-			<p>Başkan Yardımcılığı ve topluluk içi akademik koordinasyon süreçleri.</p>
+	<hr class="thin-line" />
+
+	<div class="collective-grid">
+		<div class="collective-card">
+			<div class="card-header">
+				<span class="medium-tag">Publishing · Berlin</span>
+			</div>
+			<h3 class="project-name">Luna Press</h3>
+			<p class="short-desc">Independent feminist publishing.</p>
+			<a href="/collective/luna-press" class="read-link">→ Read</a>
 		</div>
 
-		<div class="card">
-			<h3>Toplumsal Cinsiyet Komisyonu</h3>
-			<p>Gençlik Meclisi bünyesinde toplumsal cinsiyet eşitliği savunuculuğu.</p>
 		</div>
 
-		<div class="card">
-			<h3>TÜBİTAK Projesi</h3>
-			<p>Kırsal alanlarda enerjiye erişim ve çevresel eşitsizlikler üzerine araştırma.</p>
-		</div>
-	</div>
+	<section class="submissions">
+		<p>This space is curated. You may suggest your work, but inclusion is not guaranteed.</p>
+		<a href="/contact" class="submit-btn">Open Submissions</a>
+	</section>
+
 </BlogPost>
 
-<style>
-	.kolektif-container {
+<style is:global> 
+  /* "is:global" eklemek Astro'nun bu stili tüm sayfaya yaymasını sağlar */
+  body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                      url('/images/arkaplan7.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-color: #1a1a1a; /* Resim yüklenmezse diye yedek renk */
+  }
+
+	.manifesto-text {
+		font-size: 1.4rem;
+		line-height: 1.6;
+		font-family: 'Georgia', serif; /* Editorial hissi için serif */
+		margin-bottom: 2rem;
+	}
+	.selection-criteria {
+		font-size: 0.9rem;
+		opacity: 0.8;
+		border-left: 1px solid #bc95d4;
+		padding-left: 20px;
+		margin-bottom: 3rem;
+	}
+	.collective-grid {
 		display: grid;
-		gap: 1.5rem;
-		margin-top: 2rem;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 2rem;
 	}
-	.card {
-		padding: 1rem;
-		border: 1px solid #444;
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.05);
+	.collective-card {
+		border-bottom: 1px solid #333;
+		padding-bottom: 1.5rem;
+		transition: all 0.3s ease;
 	}
-	.card h3 {
-		margin-top: 0;
-		color: #bc95d4; /* Witchcore moru */
+	.collective-card:hover {
+		border-color: #bc95d4;
 	}
+	.medium-tag {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: #888;
+	}
+	.project-name {
+		margin: 0.5rem 0;
+		font-weight: 500;
+	}
+	.read-link {
+		font-size: 0.9rem;
+		text-decoration: none;
+		color: #bc95d4;
+	}
+    
 </style>
