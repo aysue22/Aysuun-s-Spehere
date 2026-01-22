@@ -1,0 +1,54 @@
+---
+import BlogPost from '../layouts/BlogPost.astro';
+---
+
+<BlogPost
+	title="Kolektif"
+	description="Toplumsal cinsiyet, sosyoloji ve akademik işbirlikleri."
+	pubDate={new Date('January 22 2026')}
+	heroImage="/blog-placeholder-about.jpg" 
+>
+	<section class="intro">
+		<p>
+			Bu alan; akademik çalışmalarımın, dahil olduğum toplulukların ve 
+			ortak üretim süreçlerinin bir dökümüdür.
+		</p>
+	</section>
+
+	<hr />
+
+	<div class="kolektif-container">
+		<div class="card">
+			<h3>Başkent Sosyoloji Topluluğu</h3>
+			<p>Başkan Yardımcılığı ve topluluk içi akademik koordinasyon süreçleri.</p>
+		</div>
+
+		<div class="card">
+			<h3>Toplumsal Cinsiyet Komisyonu</h3>
+			<p>Gençlik Meclisi bünyesinde toplumsal cinsiyet eşitliği savunuculuğu.</p>
+		</div>
+
+		<div class="card">
+			<h3>TÜBİTAK Projesi</h3>
+			<p>Kırsal alanlarda enerjiye erişim ve çevresel eşitsizlikler üzerine araştırma.</p>
+		</div>
+	</div>
+</BlogPost>
+
+<style>
+	.kolektif-container {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+	.card {
+		padding: 1rem;
+		border: 1px solid #444;
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.05);
+	}
+	.card h3 {
+		margin-top: 0;
+		color: #bc95d4; /* Witchcore moru */
+	}
+</style>
