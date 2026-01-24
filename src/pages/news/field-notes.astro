@@ -1,0 +1,198 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+const notes = [
+	{
+		location: "KADIKÖY",
+		date: "22.01.2026",
+		context: "X EYLEMİ / BARINMA HAKKI PROTESTOSU",
+		whatIRead: "Bugün alanda dikkatimi çeken 3 şey: 1. Sloganların sınıfsal içeriğinden ziyade kuşaklar arası dil farkı. 2. Polis bariyerinin estetik bir nesne olarak fotoğraflanması. 3. Sessizliğin en yüksek sesten daha fazla gerilim yaratması.",
+		socioNote: "Sahada teori bazen bu sessizlikte kayboluyor. Bourdieu'nun habitus kavramı, sokağın o anki anlık öfkesini açıklamakta yetersiz kalabiliyor.",
+		link: "#"
+	}
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`FIELD NOTES | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+	</head>
+	<body class="field-body">
+		<Header />
+		<main class="field-radical">
+			
+			<div class="header-area">
+				<h1 class="graffiti-title">FIELD NOTES</h1>
+			</div>
+
+			<section class="notes-stream">
+				{notes.map((note) => (
+					<article class="notebook-page">
+						<div class="note-meta">
+							<span class="location-badge">📍 {note.location}</span>
+							<span class="date-tag">{note.date}</span>
+						</div>
+
+						<div class="note-context">
+							<strong>BAĞLAM:</strong> {note.context}
+						</div>
+
+						<div class="note-content">
+							<h3 class="note-label">NE FARK ETTİM?</h3>
+							<p class="observation-text">{note.whatIRead}</p>
+							
+							<div class="socio-reflection">
+								<span class="reflection-label">SOSYOLOJİK NOT</span>
+								<p class="reflection-text">{note.socioNote}</p>
+							</div>
+
+							<div class="note-footer">
+								<a href={note.link} class="tape-btn">NOTUN DEVAMI >></a>
+							</div>
+						</div>
+					</article>
+				))}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style is:inline is:global>
+	/* 1. ARKA PLAN: AGRESİF KIRMIZI (Süreklilik) */
+	.field-body {
+		background-color: #d10000 !important;
+		background-image: 
+			radial-gradient(rgba(0,0,0,0.2) 1px, transparent 1px) !important;
+		background-size: 30px 30px;
+		margin: 0;
+	}
+
+	.field-radical {
+		max-width: 800px;
+		margin: 40px auto;
+		padding: 20px;
+	}
+
+	.graffiti-title {
+		font-family: 'Permanent Marker', cursive !important;
+		font-size: clamp(3rem, 10vw, 5.5rem);
+		color: #000;
+		text-align: center;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+		transform: rotate(-1deg);
+		text-shadow: 4px 4px 0px #bc95d4; /* MOR DETAY */
+	}
+
+	/* 2. NOT DEFTERİ SAYFASI */
+	.notebook-page {
+		background: #fff !important;
+		background-image: repeating-linear-gradient(#fff 0, #fff 31px, #e5e5e5 31px, #e5e5e5 32px) !important; /* Çizgili defter efekti */
+		color: #1a1a1a !important;
+		padding: 40px;
+		margin-bottom: 70px;
+		border: 3px solid #000;
+		box-shadow: 12px 12px 0px #000;
+		position: relative;
+		transform: rotate(0.5deg);
+		line-height: 32px; /* Satır çizgileriyle uyum */
+	}
+
+	.note-meta {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 20px;
+		border-bottom: 2px solid #bc95d4; /* MOR çizgi */
+		padding-bottom: 10px;
+	}
+
+	.location-badge {
+		background: #000;
+		color: #bc95d4; /* MOR DETAY */
+		padding: 0 12px;
+		font-family: 'Courier New', monospace;
+		font-weight: 900;
+	}
+
+	.date-tag {
+		font-family: 'Courier New', monospace;
+		font-weight: 900;
+		color: #d10000;
+	}
+
+	.note-context {
+		background: #000;
+		color: #fff;
+		display: inline-block;
+		padding: 0 10px;
+		font-size: 0.85rem;
+		margin-bottom: 20px;
+		font-family: 'Courier New', monospace;
+	}
+
+	/* 3. İÇERİK */
+	.note-label {
+		font-family: 'Permanent Marker', cursive !important;
+		font-size: 1.5rem;
+		margin: 20px 0 10px 0;
+		color: #d10000;
+	}
+
+	.observation-text {
+		font-family: 'Courier New', Courier, monospace;
+		font-weight: bold;
+		font-size: 1.1rem;
+		margin: 0;
+	}
+
+	/* 4. SOSYOLOJİK YANSIMA (Bantlanmış not havası) */
+	.socio-reflection {
+		background: rgba(188, 149, 212, 0.2); /* Çok açık MOR */
+		border-left: 5px solid #bc95d4; /* MOR kenarlık */
+		padding: 15px 20px;
+		margin-top: 35px;
+		position: relative;
+	}
+
+	.reflection-label {
+		position: absolute;
+		top: -12px;
+		left: 10px;
+		background: #000;
+		color: #fff;
+		font-size: 0.7rem;
+		padding: 2px 8px;
+		font-weight: bold;
+	}
+
+	.reflection-text {
+		font-family: 'Georgia', serif;
+		font-style: italic;
+		font-weight: bold;
+		margin: 0;
+	}
+
+	/* 5. BUTON (Siyah bant efekti) */
+	.tape-btn {
+		display: inline-block;
+		margin-top: 30px;
+		background: #000;
+		color: #fff !important;
+		padding: 5px 20px;
+		font-weight: 900;
+		text-decoration: none;
+		font-family: 'Courier New', monospace;
+		box-shadow: 4px 4px 0px #bc95d4;
+	}
+
+	.tape-btn:hover {
+		background: #bc95d4;
+		color: #000 !important;
+	}
+</style>
