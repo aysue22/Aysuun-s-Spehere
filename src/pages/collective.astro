@@ -228,12 +228,14 @@ import BlogPost from '../layouts/BlogPost.astro';
 
 
  body {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('arkaplan7.jpg') !important;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('./arkaplan7.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
     background-color: #2d3e2d; /* Resim yüklenmezse diye yedek renk */
   }
+  <div style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/arkaplan7.jpg'); background-size: cover; background-position: center; min-height: 100vh;">
+   </div>
 
   /* Sayfanın ortasındaki beyaz kutu resmi kapatmasın diye şeffaf yapıyoruz */
   main, .container, .alchemy-room {
