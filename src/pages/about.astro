@@ -36,31 +36,15 @@ import BlogPost from '../layouts/BlogPost.astro';
 </BlogPost>
 
 <style is:global>
-
- .manual-title {
-    background-color: #69622b !important; /* Krem Rengi */
-    color: #c7b7b4 !important; /* Kahverengi Yazı */
-    display: table !important; 
-    margin: -40px auto 40px auto !important; /* Yukarıdaki boşluğu ayarlar */
-    padding: 10px 25px !important;
-    font-family: 'Crimson Text', serif !important;
-    text-transform: uppercase;
-    font-size: 2rem !important;
-    border: 1px solid #3e2723;
-    position: relative;
-    z-index: 10;
-  }
-
-  /* Eğer eski başlık hala orada duruyorsa onu gizleyelim */
-  h1:not(.manual-title) {
-    display: none !important;
-  }
-body {
-   background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/arkaplan10.jpg') !important;
-
+  /* 1. ARKA PLAN: Sadece en alta resmi yerleştirir */
+  html {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('/arkaplan10.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
+  }
+
+  body {
+    background: transparent !important;
     margin: 0;
     padding: 0;
     display: flex;
@@ -68,126 +52,66 @@ body {
     min-height: 100vh;
   }
 
-  /* Bu kısım yazının etrafındaki o krem kolonu geri getirir */
+  /* 2. TASARIM: Senin Krem Kolonun ve Yazıların */
+  .who-container {
+    max-width: 650px;
+    margin: 100px auto;
+    padding: 0 20px;
+  }
+
   .who-content {
-    max-width: 600px;
-    margin: 80px auto; /* Sayfayı ortalar */
+    background-color: rgba(240, 230, 210, 0.95) !important; /* Kirli kağıt rengi */
     padding: 60px 40px;
-    background-color: rgba(233, 220, 201, 0.9) !important; /* Kirli kağıt rengi + hafif şeffaflık */
     border: 1px solid #3e2723;
-    box-shadow: 15px 15px 0px rgba(212, 175, 55, 0.3); /* Altın gölgeyi hafiflettik */
-    
-    /* İçindeki tüm yazıları kahverengi yapar */
+    box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4); /* Mor gölge */
     color: #3e2723 !important;
     font-family: 'Georgia', serif;
     line-height: 1.8;
   }
 
-  /* main ve container'ı şeffaf bırakıyoruz ki body'deki resim görünsün */
+  /* 3. BAŞLIK: Who is this? */
+  .manual-title {
+    background-color: #69622b !important; /* Zeytin/Krem */
+    color: #f0e6d2 !important;
+    display: table !important; 
+    margin: -40px auto 40px auto !important;
+    padding: 10px 25px !important;
+    font-family: 'Crimson Text', serif !important;
+    text-transform: uppercase;
+    font-size: 2rem !important;
+    border: 1px solid #3e2723;
+    position: relative;
+    z-index: 10;
+    box-shadow: 5px 5px 0px #000;
+  }
+
+  /* Eski başlığı gizle */
+  h1:not(.manual-title) {
+    display: none !important;
+  }
+
+  /* 4. BUTON VE DİĞERLERİ */
+  .kofi-button {
+    background-color: #f0e6d2 !important;
+    color: #1a1a1a !important;
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    font-weight: 700;
+    border: 1px solid #3e2723;
+    box-shadow: 4px 4px 0px #bc95d4;
+    display: inline-block;
+  }
+
+  .main-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  /* Layout şeffaflığı */
   main, .container {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
-    width: 100%;
-  }
-
-  .main-text {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    font-weight: bold;
-  }
-
-  .sub-text {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .kofi-link {
-    color: #3e2723 !important;
-    text-decoration: underline;
-    font-weight: bold;
-  }
-
-	/* Tek Kolon ve Bol Boşluk */
-	.who-container {
-		max-width: 650px; /* Okunabilirlik için ideal dar kolon */
-		margin: 100px auto; /* Üstten ve alttan bol boşluk */
-		padding: 0 20px;
-	}
-
-	.who-content {
-		line-height: 1.8;
-		color: #493713;
-	}
-
-	/* Başlık Etiketi */
-	.intro-tag {
-		background-color: #bd93d8;
-		color: #dbc8c8 !important;
-		display: inline-block;
-		padding: 2px 10px;
-		font-weight: bold;
-		text-transform: uppercase;
-		font-size: 0.8rem;
-		margin-bottom: 2rem;
-		transform: rotate(-2deg);
-	}
-
-	/* Ana Metinler */
-	.main-text {
-		font-family: 'Georgia', serif;
-		font-size: 1.4rem;
-		margin-bottom: 2rem;
-		color: #493713; /* Kirli beyaz/krem */
-	}
-
-	.sub-text {
-		font-size: 1.1rem;
-		margin-bottom: 1.5rem;
-		opacity: 0.9;
-	}
-
-	/* Ko-fi Butonu Tasarımı */
-	.kofi-wrapper {
-		margin: 3rem 0;
-		text-align: left; /* Sidebar değil, metin akışı */
-	}
-
-	.kofi-button {
-		background-color: #f0e6d2 !important; /* Krem kağıt rengi */
-		color: #1a1a1a !important;
-		padding: 10px 20px !important;
-		text-decoration: none !important;
-		font-family: 'Crimson Text', serif;
-		font-weight: 700;
-		border: 1px solid #3e2723;
-		box-shadow: 4px 4px 0px #bc95d4; /* Mor gölge */
-		transition: all 0.2s ease;
-		display: inline-block;
-	}
-
-	.kofi-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 6px 6px 0px #bc95d4;
-		background-color: #fff !important;
-	}
-
-	/* Alt Not (Disclaimer) */
-	.disclaimer-text {
-		font-size: 0.9rem;
-		font-style: italic;
-		border-top: 1px solid rgba(162, 68, 68, 0.1);
-		padding-top: 1.5rem;
-		color: #493713;
-	}
-	html {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('/bg-v1.jpg') no-repeat center center fixed !important;
-    background-size: cover !important;
-  }
-  
-  /* Eğer sayfa hala beyazsa, sadece ana sarmalayıcıyı şeffaf yapar */
-  body {
-    background-color: transparent !important;
   }
 </style>
