@@ -6,7 +6,6 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-// Verileri en güvenli haliyle çekiyoruz
 const posts = await getCollection('blog');
 ---
 
@@ -14,58 +13,133 @@ const posts = await getCollection('blog');
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			<style is:global>
-			
-	body {
-		font-family: 'Aptos', sans-serif !important;
-		line-height: 1.8 !important;
-	}
-	.title {
-		font-family: 'Aptos', sans-serif !important;
-		font-weight: 900 !important; /* Ekstra kalın */
-		color: #000 !important;
-		font-size: 2.2rem;
-		text-decoration: none !important;
-		margin-top: 10px;
-	}
-	.date {
-		color: #666;
-		font-weight: bold;
-	}
-	
-</style>
-		</style>
 	</head>
 	<body>
-		<Header /> <main>
-			<section>
-				<ul>
-  {
-    posts.map((post) => {
-      // Link hatasını önlemek için güvenli slug oluşturma
-      const cleanSlug = String(post.slug || post.id).replace('.md', '');
+		<Header /> 
+		<main>
+			<section class="zine-section">
+                <div class="anarchist-banner">
+                    "Resistence starts with fighting against ıgnorant peopless and ıgnorance is not a personal failure, but a structural outcome. "
+                </div>
 
-      return (
-        <li>
-          <a href={`/blog/${cleanSlug}/`}>
-            {post.data.heroImage && (
-              <img 
-                src={post.data.heroImage} 
-                alt={post.data.title} 
-                style="width: 100%; border-radius: 12px; margin-bottom: 1rem;" 
-              />
-            )}
-            <h4 class="title">{post.data.title}</h4>
-            <p class="date">{post.data.pubDate.toLocaleDateString()}</p>
-          </a>
-        </li>
-      );
-    })
-  }
-</ul>
+				<ul class="post-list">
+					{
+						posts.map((post) => {
+							const cleanSlug = String(post.slug || post.id).replace('.md', '');
+							return (
+								<li class="zine-card">
+									<a href={`/blog/${cleanSlug}/`}>
+										<div class="image-wrapper">
+                                            {post.data.heroImage && (
+                                                <img 
+                                                    src={post.data.heroImage} 
+                                                    alt={post.data.title} 
+                                                    class="zine-image"
+                                                />
+                                            )}
+                                        </div>
+										<h4 class="zine-title">{post.data.title}</h4>
+										<p class="zine-date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style is:global>
+	/* 1. KOYU MOR ARKA PLAN */
+	html {
+		background-color: #1a0a24 !important; 
+		background-image: radial-gradient(rgba(255,0,0,0.05) 1px, transparent 1px) !important; /* Çok hafif kırmızı noktalar */
+		background-size: 20px 20px;
+	}
+
+	body {
+		background: transparent !important;
+		margin: 0;
+	}
+
+    /* 2. ANARŞİST SLOGAN BANNER (Kızıl ve Siyah) */
+    .anarchist-banner {
+        background-color: #8b0000 !important; /* Koyu Kan Kırmızısı */
+        color: #000 !important; /* Siyah Yazı */
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-bottom: 3rem;
+        transform: rotate(-1deg);
+        box-shadow: 5px 5px 0px #000;
+        border: 1px solid #000;
+    }
+
+	/* 3. DAKTİLO STİLİ BAŞLIKLAR */
+	.zine-title {
+		font-family: 'Courier New', Courier, monospace !important; /* Daktilo Fontu */
+		font-weight: bold !important;
+		color: #f0e6d2 !important; /* Krem */
+		font-size: 1.8rem;
+		text-transform: uppercase;
+		margin: 15px 0 5px 0;
+        line-height: 1.2;
+        /* Marker ile çizilmiş gibi efekt */
+        display: inline;
+        background-color: #000;
+        padding: 4px 10px;
+        box-decoration-break: clone;
+	}
+
+    .zine-card {
+        margin-bottom: 4rem;
+        list-style: none;
+        transition: transform 0.2s;
+    }
+
+    .zine-card:hover {
+        transform: scale(1.02) rotate(1deg);
+    }
+
+    /* 4. KOLAJ STİLİ RESİMLER */
+    .image-wrapper {
+        background-color: #000;
+        padding: 10px;
+        border: 1px solid #3d1a4d;
+        box-shadow: 2px 2px 0px #8b0000; /* Kızıl gölge */
+        transform: rotate( 0.5deg);
+    }
+
+    .zine-image {
+        width: 100%;
+        filter: grayscale(100%) contrast(120%); /* Siyah beyaz ve sert kontrast */
+        mix-blend-mode: screen;
+        opacity: 0.8;
+    }
+
+	.zine-date {
+		color: #8b0000 !important; /* Kırmızı tarih */
+		font-family: 'Courier New', monospace;
+		font-weight: bold;
+        margin-top: 10px;
+        display: block;
+	}
+
+    .zine-section {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+
+	li a {
+		text-decoration: none;
+	}
+</style>
