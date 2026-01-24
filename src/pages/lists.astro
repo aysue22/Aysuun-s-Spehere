@@ -52,6 +52,19 @@ const movies = [
 </Layout>
 
 <style is:global>
+html {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('/arkaplan3.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+  }
+  
+  /* 2. LAYOUT'UN GETİRDİĞİ BEYAZLIĞI ŞEFFAFLAŞTIR */
+  body, main, article, .prose, .container {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 .shelf-title, h1 {
     background: #1a1a1a !important; /* Siyah fanzin etiketi */
     color: #d4af37 !important;    /* Altın sarısı yazı */
@@ -91,30 +104,7 @@ const movies = [
     position: relative;
     z-index: 15;
   }
- body {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/arkaplan3.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    background-color: #2d3e2d; /* Resim yüklenmezse diye yedek renk */
-  }
-
-  /* Sayfanın ortasındaki beyaz kutu resmi kapatmasın diye şeffaf yapıyoruz */
-  main, .container, .alchemy-room {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-    
-    background-size: cover; /* Resmi tüm ekrana yayar */
-    background-position: center; /* Resmi ortalar */
-    background-attachment: fixed; /* Sayfa kayarken resim sabit kalır (Mistik bir derinlik katar) */
-    
-    padding: 40px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+ 
 
   .alchemy-room { background: #fdfaf1; padding: 40px; min-height: 100vh; }
   .shelf-title { font-family: 'UnifrakturMaguntia', cursive; text-align: center; font-size: 3rem; color: #1a331a; margin-bottom: 60px; }
