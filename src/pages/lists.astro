@@ -15,7 +15,7 @@ const movies = [
 ];
 ---
 
-<Layout title="Potion Shelf">
+<Layout title="🧙🏻‍♀️🧹🪄🐈‍⬛">
   <main class="alchemy-room">
     <h1 class="shelf-title">The Alchemist's Shelf</h1>
 
@@ -52,23 +52,32 @@ const movies = [
 </Layout>
 
 <style is:global>
-html {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('/arkaplan3.jpg') no-repeat center center fixed !important;
-    background-size: cover !important;
+html::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1000; /* Her şeyin en arkasında kalması için */
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                      url('/arkaplan3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
-  
- body, 
-  main, 
-  article, 
-  .prose, 
-  .container, 
-  section.content {
-    background-color: transparent !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+
+  /* Krem bloğun (main/article) arkasındaki her şeyi şeffaflaştır */
+  main, article, .prose, .container {
+    background-color: #e4dbb4 !important; /* Krem blok kalsın */
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    box-shadow: 10px 10px 0px #000;
   }
+
+	
+	
+
 .shelf-title, h1 {
     background: #1a1a1a !important; /* Siyah fanzin etiketi */
     color: #d4af37 !important;    /* Altın sarısı yazı */
