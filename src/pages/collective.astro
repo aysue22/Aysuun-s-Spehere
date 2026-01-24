@@ -6,298 +6,133 @@ import BlogPost from '../layouts/BlogPost.astro';
 	title="Collective"
 	description="A curated space for voices, works, and practices I resonate with."
 >
-	<section class="collective-intro">
-    <h1 class="project-name">Collective</h1> 
-    <p class="manifesto-text">
-        <span class="short-desc">Collective is not a guest post dump.</span> <br>
-        
-        <span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.4rem 0.8rem; margin-top: 10px; font-family: 'Georgia', serif; box-shadow: 3px 3px 0px #000;">
-            It is a curated space for voices, works and practices I resonate with.
-        </span>
-    </p>
-</section>
+	<div class="collective-page-container">
+		<section class="collective-intro">
+			<h1 class="project-name">Collective</h1> 
+			<p class="manifesto-text">
+				<span class="short-desc">Collective is not a guest post dump.</span> <br>
+				<span class="label-manifesto">
+					It is a curated space for voices, works and practices I resonate with.
+				</span>
+			</p>
+		</section>
 
-<section class="selection-criteria">
-    <h4 class="medium-tag">Selection Criteria</h4>
-    <ul style="list-style: none; padding: 0;">
-        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Independent or non-institutional production</span></li>
-        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Ethical alignment (feminism, ecology, social justice)</span></li>
-        <li><span style="background-color: #f0e6d2 !important; color: #1a1a1a !important; display: inline-block; padding: 0.3rem 0.6rem; margin-bottom: 8px; box-shadow: 2px 2px 0px #000;">Process over virality</span></li>
-    </ul>
-</section>
+		<section class="selection-criteria">
+			<h4 class="medium-tag">Selection Criteria</h4>
+			<ul class="criteria-list">
+				<li><span class="label-cream">Independent or non-institutional production</span></li>
+				<li><span class="label-cream">Ethical alignment (feminism, ecology, social justice)</span></li>
+				<li><span class="label-cream">Process over virality</span></li>
+			</ul>
+		</section>
 
-	<hr class="thin-line" />
+		<hr class="thin-line" />
 
-	<div class="collective-grid">
-		<div class="collective-card">
-			<div class="card-header">
-				<span class="medium-tag">Publishing · Berlin</span>
+		<div class="collective-grid">
+			<div class="collective-card">
+				<div class="card-header">
+					<span class="medium-tag">Publishing · Berlin</span>
+				</div>
+				<h3 class="project-name">Luna Press</h3>
+				<p class="short-desc">Independent feminist publishing.</p>
+				<a href="/collective/luna-press" class="read-link">→ Read</a>
 			</div>
-			<h3 class="project-name">Luna Press</h3>
-			<p class="short-desc">Independent feminist publishing.</p>
-			<a href="/collective/luna-press" class="read-link">→ Read</a>
 		</div>
 
-		</div>
-
-	<section class="submissions">
-		<p>This space is curated. You may suggest your work, but inclusion is not guaranteed.</p>
-		<a href="/contact" class="submit-btn">Open Submissions</a>
-	</section>
-
+		<section class="submissions">
+			<p>This space is curated. You may suggest your work, but inclusion is not guaranteed.</p>
+			<a href="/contact" class="submit-btn">Open Submissions</a>
+		</section>
+	</div>
 </BlogPost>
 
 <style is:global> 
-
-  /* Manifesto'daki krem cümle için özel ayar */
-  .label-manifesto {
-    background-color: #f0e6d2 !important; /* Krem Rengi */
-    color: #1a1a1a !important; /* Siyah Yazı */
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    margin-top: 10px;
-    font-family: 'Georgia', serif;
-    box-shadow: 3px 3px 0px #000;
-    line-height: 1.6;
-  }
-
-  /* Kriterler ve Luna başlığı için ortak krem ayarı (garantiye alalım) */
-  .project-name, .selection-criteria span {
-    background-color: #f0e6d2 !important;
-    color: #1a1a1a !important;
-    display: table;
-    padding: 0.4rem 1rem;
-    margin-bottom: 8px !important;
-    box-shadow: 4px 4px 0px #000;
-  }
-
-  /* Diğer stillerini (medium-tag, short-desc) bozmadan devam edebilirsin */
-
-
-  /* Ortak Krem Rengi Etiket Tasarımı */
-  .project-name, .label-cream {
-    display: table;
-    background-color: #f0e6d2 !important; /* İstediğin krem rengi */
-    color: #1a1a1a !important;
-    padding: 0.4rem 1rem;
-    font-family: 'Georgia', serif;
-    margin: 0.5rem 0 !important;
-    box-shadow: 4px 4px 0px #000; /* Luna'daki gibi sert gölge */
-  }
-
-  /* Liste maddeleri için kutu genişliğini ayarla */
-  .selection-criteria .label-cream {
-    display: inline-block;
-    font-size: 0.9rem;
-    box-shadow: 2px 2px 0px #000; /* Maddeler için daha küçük gölge */
-    margin-bottom: 8px !important;
-  }
-
-  /* Mor Etiket (Selection Criteria başlığı için) */
-  .medium-tag {
-    background-color: #bc95d4;
-    color: #1a1a1a !important;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    display: inline-block;
-    transform: rotate(-1deg);
-  }
-
-  /* Siyah Bant (Collective is not a guest post dump kısmı) */
-  .short-desc {
-    background-color: #1a1a1a;
-    color: #f0e6d2 !important;
-    padding: 0.3rem 0.6rem;
-    display: inline-block;
-    border-left: 3px solid #bc95d4;
-  }
-
-  .selection-criteria ul {
-    list-style: none;
-    padding: 0;
-  }
-
-
-  /* Etiket: Mor Kısımlar (Selection Criteria ve Berlin kısmı) */
-  .medium-tag, .selection-criteria h4 {
-    background-color: #bc95d4;
-    color: #1a1a1a !important;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 1rem;
-    transform: rotate(-1deg);
-  }
-
-  /* Başlıklar: Krem/Kağıt Etiket (Collective ve Luna Press) */
-  .project-name, .collective-intro h1 {
-    display: table;
-    background-color: #f0e6d2;
-    color: #1a1a1a !important;
-    padding: 0.4rem 1rem;
-    font-family: 'Georgia', serif;
-    font-size: 1.8rem;
-    margin: 0.5rem 0 !important;
-    box-shadow: 4px 4px 0px #000;
-  }
-
-  /* Siyah Bant Kısımları */
-  .short-desc, .list-label {
-    background-color: #1a1a1a;
-    color: #f0e6d2 !important;
-    padding: 0.3rem 0.6rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    border-left: 3px solid #bc95d4;
-  }
-
-  /* Manifesto'nun devamı için hafif şeffaf etiket */
-  .label-light {
-    background-color: rgba(240, 230, 210, 0.9);
-    color: #1a1a1a !important;
-    padding: 0.2rem 0.5rem;
-    display: inline-block;
-    margin-top: 5px;
-  }
-
-  /* Liste noktalarını gizlemek için */
-  .selection-criteria ul {
-    list-style: none;
-    padding: 0;
-  }
-
-
-  /* Etiket: Publishing · Berlin Kısmı */
-  .medium-tag {
-    background-color: #bc95d4; /* Mor etiket */
-    color: #1a1a1a !important;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 1rem;
-    /* Hafif yamuk durması için (Zine estetiği) */
-    transform: rotate(-1deg);
-  }
-
-  /* Başlık: Luna Press Kısmı */
-  .project-name {
-    display: table; /* Sadece yazı genişliği kadar olması için */
-    background-color: #f0e6d2; /* Kağıt/Krem rengi etiket */
-    color: #1a1a1a !important;
-    padding: 0.4rem 1rem;
-    font-family: 'Georgia', serif;
-    font-size: 1.8rem;
-    margin: 0.5rem 0 !important;
-    box-shadow: 4px 4px 0px #000; /* Sert siyah gölge */
-  }
-
-  /* Açıklama: Independent feminist publishing. */
-  .short-desc {
-    background-color: #1a1a1a; /* Siyah bant */
-    color: #f0e6d2 !important;
-    padding: 0.3rem 0.6rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    border-left: 3px solid #bc95d4;
-  }
-
-  /* Link: → Read */
-  .read-link {
-    display: block;
-    margin-top: 1.5rem;
-    color: #bc95d4 !important;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-  }
-
-  .read-link:hover {
-    text-decoration: underline;
-    padding-left: 5px; /* Ok işareti kaysın */
-  }
-
-
- body {
-    /* url içindeki yolu Netlify linkinle beraber tam olarak yaz */
-background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://aysuun-sphere.netlify.app/arkaplan7.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    background-color: #2d3e2d; /* Resim yüklenmezse diye yedek renk */
-  }
-  <div style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/arkaplan7.jpg'); background-size: cover; background-position: center; min-height: 100vh;">
-   </div>
-
-  /* Sayfanın ortasındaki beyaz kutu resmi kapatmasın diye şeffaf yapıyoruz */
-  main, .container, .alchemy-room {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-    
-    background-size: cover; /* Resmi tüm ekrana yayar */
-    background-position: center; /* Resmi ortalar */
-    background-attachment: fixed; /* Sayfa kayarken resim sabit kalır (Mistik bir derinlik katar) */
-    
-    padding: 40px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  
-
-
-	.manifesto-text {
-		font-size: 1.4rem;
-		line-height: 1.6;
-		font-family: 'Georgia', serif; /* Editorial hissi için serif */
-		margin-bottom: 2rem;
+	/* 1. DIŞ ARKA PLAN (Sitenin en arkası) */
+	body {
+		background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+						  url('https://aysuun-sphere.netlify.app/arkaplan7.jpg') !important;
+		background-size: cover !important;
+		background-position: center !important;
+		background-attachment: fixed !important;
+		background-repeat: no-repeat !important;
+		background-color: #1a1a1a; 
+		margin: 0;
 	}
-	.selection-criteria {
-		font-size: 0.9rem;
-		opacity: 0.8;
-		border-left: 1px solid #bc95d4;
-		padding-left: 20px;
-		margin-bottom: 3rem;
+
+	/* 2. KREM BLOK (İçeriği taşıyan o 'kağıt' katmanı) */
+	/* BlogPost içindeki ana yapıyı hedefliyoruz */
+	main, .prose, article {
+		background-color: #f0e6d2 !important; /* İstediğin o krem rengi */
+		color: #1a1a1a !important;
+		padding: 2rem !important;
+		margin: 2rem auto !important;
+		max-width: 850px !important;
+		box-shadow: 10px 10px 0px #000; /* Zine estetiği için sert gölge */
+		border: 2px solid #000;
 	}
-	.collective-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 2rem;
-	}
-	.collective-card {
-		border-bottom: 1px solid #333;
-		padding-bottom: 1.5rem;
-		transition: all 0.3s ease;
-	}
-	.collective-card:hover {
-		border-color: #bc95d4;
-	}
-	.medium-tag {
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		color: #888;
-	}
+
+	/* 3. İÇERİK ÖZELLEŞTİRMELERİ */
 	.project-name {
-		margin: 0.5rem 0;
-		font-weight: 500;
+		display: table;
+		background-color: #bc95d4 !important; /* Başlıkları mor yaparak krem üstünde patlatıyoruz */
+		color: #1a1a1a !important;
+		padding: 0.4rem 1rem;
+		font-family: 'Georgia', serif;
+		box-shadow: 4px 4px 0px #000;
+		margin: 1rem 0;
 	}
-	.read-link {
-		font-size: 0.9rem;
+
+	.medium-tag {
+		background-color: #1a1a1a !important;
+		color: #f0e6d2 !important;
+		padding: 0.2rem 0.6rem;
+		font-size: 0.8rem;
+		font-weight: bold;
+		text-transform: uppercase;
+		display: inline-block;
+	}
+
+	.short-desc {
+		background-color: #bc95d4;
+		color: #1a1a1a !important;
+		padding: 0.3rem 0.6rem;
+		display: inline-block;
+		font-weight: bold;
+	}
+
+	.label-manifesto, .label-cream {
+		background-color: #1a1a1a !important;
+		color: #f0e6d2 !important;
+		display: inline-block;
+		padding: 0.4rem 0.8rem;
+		margin-top: 5px;
+	}
+
+	.criteria-list {
+		list-style: none;
+		padding: 0;
+	}
+
+	.thin-line {
+		border: 0;
+		border-top: 2px solid #000;
+		margin: 2rem 0;
+	}
+
+	.submit-btn {
+		display: inline-block;
+		margin-top: 1rem;
+		padding: 0.5rem 1rem;
+		background: #1a1a1a;
+		color: #f0e6d2 !important;
 		text-decoration: none;
-		color: #bc95d4;
+		font-weight: bold;
+		box-shadow: 4px 4px 0px #bc95d4;
 	}
-    
+
+    .read-link {
+        color: #1a1a1a !important;
+        font-weight: bold;
+        text-decoration: underline;
+    }
 </style>
