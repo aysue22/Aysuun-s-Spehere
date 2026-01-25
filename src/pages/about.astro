@@ -3,16 +3,6 @@ import BlogPost from '../layouts/BlogPost.astro';
 ---
 
 <BlogPost title=""> <main class="who-container"> 
-<main class="who-container" style="background: none !important;">
-    </main>
-</BlogPost>
-
-<script>
-  // Vercel'de CSS renderlanmazsa bile bu script kesin çalışır
-  document.documentElement.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan10.jpg')";
-  document.documentElement.style.backgroundSize = "cover";
-  document.documentElement.style.backgroundAttachment = "fixed";
-</script>
     
     <h1 class="manual-title">Who is this?</h1>
 		<section class="who-content">
@@ -48,22 +38,41 @@ import BlogPost from '../layouts/BlogPost.astro';
 
 
 <style is:global>
-  html, body {
-    background-image: none !important; /* Temanın o yeşil noktalarını siler */
-    background-color: #1a1a1a !important;
+
+  /* 1. Tüm katmanları şeffaf yapıyoruz ki en arkadaki HTML görünsün */
+  html, body, main, article, section, .who-container {
+    background-color: transparent !important;
+    background-image: none !important;
   }
 
-  /* 2. RESMİ YENİDEN VE EN ÜSTE YERLEŞTİR */
+  /* 2. Arka planı doğrudan en temele, HTML'e gömüyoruz */
   html {
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('/arkaplan10.jpg') no-repeat center center fixed !important;
+                url("/arkaplan10.jpg") no-repeat center center fixed !important;
     background-size: cover !important;
+    background-color: #1a1a1a !important; /* Resim yüklenene kadar siyah kalsın */
   }
 
-  /* 3. ŞEFFAFLIK (Resmin önündeki tüm perdeleri kaldırır) */
-  body, main, article, section, .who-container {
-    background-color: transparent !important;
-    background: transparent !important;
+  /* 3. Senin fanzine tasarımı (Burası aynı kalabilir) */
+  .who-content {
+    background-color: rgba(240, 230, 210, 0.95) !important;
+    padding: 60px 40px;
+    border: 1px solid #3e2723;
+    box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4);
+    color: #3e2723 !important;
+    position: relative;
+    z-index: 1;
+  }
+
+  .manual-title {
+    background-color: #69622b !important;
+    color: #f0e6d2 !important;
+    display: table !important; 
+    margin: -40px auto 40px auto !important;
+    padding: 10px 25px !important;
+    box-shadow: 5px 5px 0px #000;
+    position: relative;
+    z-index: 10;
   }
 
   /* 4. SENİN TASARIMIN (Krem kolonun ve başlığın burada kalsın) */
