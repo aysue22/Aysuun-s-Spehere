@@ -67,13 +67,18 @@ html::before {
     background-attachment: fixed;
   }
 
-  /* Krem bloğun (main/article) arkasındaki her şeyi şeffaflaştır */
-  main, article, .prose, .container {
-    background-color: #f0e6d2 !important; /* Krem blok kalsın */
-    margin-top: 50px !important;
-    margin-bottom: 50px !important;
-    box-shadow: 10px 10px 0px #000;
-  }
+  
+	/* 2. KREM BLOK (İçeriği taşıyan o 'kağıt' katmanı) */
+	/* BlogPost içindeki ana yapıyı hedefliyoruz */
+	main, .prose, article {
+		background-color: #f0e6d2 !important; /* İstediğin o krem rengi */
+		color: #1a1a1a !important;
+		padding: 2rem !important;
+		margin: 2srem auto !important;
+		max-width: 850px !important;
+		box-shadow: 10px 10px 30px #000; /* Zine estetiği için sert gölge */
+		border: 2px solid #000;
+	}
 
 	
 	
@@ -83,7 +88,7 @@ html::before {
     color: #0f0e0a !important;    /* Altın sarısı yazı */
     padding: 15px 30px !important;
     display: table !important;    /* Etiketin yazı kadar olması için */
-    margin: 40px auto !important; /* Ortalar */
+    margin: 20px auto !important; /* Ortalar */
     
     font-family: 'UnifrakturMaguntia', cursive !important;
     font-size: 3rem !important;
