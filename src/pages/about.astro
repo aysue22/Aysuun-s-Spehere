@@ -3,7 +3,7 @@ import BlogPost from '../layouts/BlogPost.astro';
 ---
 
 <BlogPost title=""> <main class="who-container"> 
-    
+
     <h1 class="manual-title">Who is this?</h1>
 		<section class="who-content">
 			
@@ -137,3 +137,29 @@ import BlogPost from '../layouts/BlogPost.astro';
     border: none !important;
   }
 </style>
+<script is:inline>
+  // Bu script Vercel'de sayfa yüklendiği an çalışır ve 
+  // temayı (layout) bypass ederek resmi direkt arka plana çiviler.
+  
+  function setBackground() {
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
+
+    // Önce temadan gelen tüm engelleri kaldırıyoruz
+    htmlEl.style.setProperty('background', 'none', 'important');
+    bodyEl.style.setProperty('background', 'none', 'important');
+    
+    // Şimdi resmi en tepeye yerleştiriyoruz
+    htmlEl.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan10.jpg')";
+    htmlEl.style.backgroundSize = "cover";
+    htmlEl.style.backgroundPosition = "center";
+    htmlEl.style.backgroundAttachment = "fixed";
+    htmlEl.style.backgroundColor = "#1a1a1a";
+  }
+
+  // Sayfa ilk açıldığında çalıştır
+  setBackground();
+  
+  // Astro'nun sayfa geçişlerinde (eğer varsa) tekrar çalışması için
+  document.addEventListener('astro:after-swap', setBackground);
+</script>
