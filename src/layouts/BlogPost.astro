@@ -7,13 +7,14 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage,theme } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style is:global>
+  
   
 
   /* TÜM SİTENİN ARKA PLANI */
@@ -63,12 +64,41 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     color: #fdfaf1 !important;    
     transform: rotate(0deg) translateY(-3px);
   }
+  /* YEŞİL TEMA ÖZELLEŞTİRMESİ */
+  main.green-theme {
+    background: #e1f2e1 !important; /* Parşömen yerine taze yeşil */
+    border: 2px solid #2e7d32 !important;
+    box-shadow: 0 0 30px rgba(46, 125, 50, 0.4) !important;
+  }
+
+  /* RESMİN RENKLENMESİNİ SAĞLAYAN KRİTİK KOD */
+  main.green-theme img {
+    filter: none !important; /* Siyah-beyaz filtreyi zorla kaldırır */
+    -webkit-filter: grayscale(0) !important; /* Safari için */
+    border: 3px solid #4caf50 !important;
+    border-radius: 8px;
+  }
+
+  main.green-theme h1 {
+    color: #1b5e20 !important;
+  }
+  img, .hero-image img, article img {
+    filter: none !important;
+    -webkit-filter: grayscale(0) !important;
+    filter: grayscale(0) !important;
+  }
+
+  /* EĞER RESİM HALA RENKLENMİYORSA, MUHTEMELEN BİRİ ÜSTÜNE ŞEFFAF SİYAH BİR KATMAN KOYMUŞTUR */
+  .hero-image::after {
+    display: none !important;
+  }
 </style>
 	</head>
 
 	<body>
 		<Header />
 		<main>
+    <main class={theme === 'green' ? 'green-theme' : ''}>
 			<article>
 				<div class="hero-image">
 					{heroImage && <img src={heroImage} alt="" />}
