@@ -4,10 +4,12 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import type { CollectionEntry } from 'astro:content';
+const { title, description, pubDate, updatedDate, heroImage, theme } = Astro.props;
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage,theme } = Astro.props;
+
 ---
 
 <html lang="en">
@@ -92,13 +94,59 @@ const { title, description, pubDate, updatedDate, heroImage,theme } = Astro.prop
   .hero-image::after {
     display: none !important;
   }
+  body:has(.dark-blog-theme) {
+    background-color: #000000 !important;
+    background-image: radial-gradient(#333 0.5px, transparent 0.5px) !important;
+  }
+
+  /* Sadece bu temadaki beyaz blok */
+  main.dark-blog-theme {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Bu temadaki başlık ve çizgiler */
+  main.dark-blog-theme h1, 
+  main.dark-blog-theme .prose h1 {
+    color: #ffffff !important;
+  }
+
+  main.dark-blog-theme hr {
+    border-top: 1px solid #ddd !important;
+  }
+  /* SADECE DÖRDÜNCÜ YAZI (DARK-MODE) İÇİN HER ŞEYİ SIFIRLA */
+  html:has(.dark-blog-theme), 
+  body:has(.dark-blog-theme) {
+    background: #ffffff !important; /* İncele'de gördüğün o griyi ve gradyanı siler */
+    background-color: #ffffff !important;
+    background-image: none !important; 
+  }
+
+  main.dark-blog-theme {
+    background: #ffffff !important; /* Yazı kutusu tam beyaz */
+    color: #000000 !important;      /* Yazılar tam siyah */
+    border: none !important;
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Yazı alanındaki tüm metinleri siyah yap */
+  main.dark-blog-theme .prose, 
+  main.dark-blog-theme h1, 
+  main.dark-blog-theme p, 
+  main.dark-blog-theme li {
+    color: #ffffff !important;
+  }
 </style>
+
 	</head>
 
 	<body>
 		<Header />
 		<main>
     <main class={theme === 'green' ? 'green-theme' : ''}>
+    <main class={theme === 'dark-mode' ? 'dark-blog-theme' : ''}>
 			<article>
 				<div class="hero-image">
 					{heroImage && <img src={heroImage} alt="" />}

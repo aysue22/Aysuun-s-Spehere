@@ -3,7 +3,7 @@ title: "Sociological Perspective to Freud Series"
 description: "Bu yazı hakkında kısa bir özet."
 pubDate: 2026-01-25
 heroImage: "/freud.jpg" 
-theme: "black" 
+theme: "dark-mode" 
 ---
 
 ## Historical Context: 19th Century Vienna
@@ -40,3 +40,112 @@ While the Freud series beautifully and meticulously depicts 19th-century Austria
 Tobin, R. D. (2022). Habsburg Horror: Freud on Netflix. The Germanic Review: Literature, Culture, Theory, Vol. 97, NO. 3, 219–236. https://doi.org/10.1080/00168890.2022.2092389
 Arslan, K. (2025). Yeniden büyülenen dünyaya Weber’in kavramlarıyla bir bakış. HUMANITAS – Uluslararası Sosyal Bilimler Dergisi, 13(26), 49–72. https://doi.org/humanitas.1581068
 Uysal, B. (2025). Delilik ve psikiyatri: Tarihyazımında epistemolojik çatışmalar ve iktidar ilişkileri. Dört Öge, 14(27).
+
+
+<script is:inline>
+  // Sayfa yüklendiğinde çalışır
+  const applyDarkMode = () => {
+    // Body'deki tüm arka planları ve gradyanları zorla temizle
+    document.body.style.setProperty('background', '#ffffff', 'important');
+    document.body.style.setProperty('background-image', 'none', 'important');
+    document.body.style.setProperty('background-color', '#ffffff', 'important');
+    
+    // HTML etiketini de siyaha boya (gradyan bazen oraya yapışır)
+    document.documentElement.style.setProperty('background', '#000000', 'important');
+
+    // Main (yazı alanı) beyaz olsun
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.style.setProperty('background', '#000000', 'important');
+      mainElement.style.setProperty('background-color', '#000000', 'important');
+      mainElement.style.setProperty('color', '#000000', 'important');
+      mainElement.style.setProperty('border', 'none', 'important');
+    }
+  };
+
+  // Hem hemen çalıştır hem de Astro sayfa geçişlerini (eğer varsa) bekle
+  applyDarkMode();
+  document.addEventListener('astro:page-load', applyDarkMode);
+</script>
+
+<style>
+ 
+  :global(body) {
+    background-image: url('/hipnoz.jpg') !important; /* Buraya kendi resminin adını yaz */
+    background-size: cover !important;       /* Resmi tüm ekrana yayar */
+    background-position: center !important;  /* Resmi ortalar */
+    background-attachment: fixed !important;  /* Sayfa kaysa da resim sabit kalır */
+    background-repeat: no-repeat !important;
+  }
+
+  /* 2. SİYAH BLOG KUTUSU (Senin yaptığın kısım) */
+  main {
+    background-color: rgba(0, 0, 0, 1.0) !important; /* Hafif şeffaf siyah (daha şık durur) */
+    color: #ffffff !important;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  }
+
+  /* 3. YAZILARI BEYAZ YAPMA */
+  main h1, main h2, main p, main li, main date {
+    color: #ffffff !important;
+  }
+
+  /* Başlıkları, paragrafları ve listeleri tek tek garantiye alalım */
+  main h1, 
+  main h2, 
+  main h3, 
+  main p, 
+  main li, 
+  main span,
+  main time {
+    color: #ffffff !important;
+  }
+
+  /* Yazı kutusunun içindeki o ince çizgiyi (varsa) gri yapalım ki görünsün */
+  main hr {
+    border-top: 1px solid #444 !important;
+  }
+
+  /* Eğer tarih veya yazar ismi varsa onları da beyaza çekelim */
+  .prose .title .date, 
+  .prose .title h1 {
+    color: #ffffff !important;
+  }
+  <style>
+  /* 1. TÜM SİSTEM ARKA PLANINI SIFIRLA VE RESMİ KOY */
+  :global(html), :global(body) {
+    /* İncele'de gördüğün o gradyanı ve renkleri 'none' ile öldürüyoruz */
+    background: none !important; 
+    background-color: transparent !important;
+    
+    /* Şimdi kendi resmimizi ekliyoruz */
+    background-image: url('/senin-resmin.jpg') !important; 
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* 2. SİYAH BLOG KUTUSU */
+  :global(main) {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #333 !important; /* Siyah kutu belli olsun diye hafif gri çerçeve */
+    box-shadow: 0 0 50px rgba(0,0,0,0.8) !important;
+  }
+
+  /* 3. TÜM YAZILARI ZORLA BEYAZ YAP */
+  :global(main *) {
+    color: #ffffff !important;
+  }
+
+  /* 4. HEADER (SEKMELER) - Arka plan resminde kaybolmasınlar diye */
+  :global(header a) {
+    background: rgba(0,0,0,0.7) !important;
+    color: white !important;
+    border: 1px solid #ffffff !important;
+  }
+</style>
+</style>
