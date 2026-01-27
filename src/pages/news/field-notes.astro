@@ -6,11 +6,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
 const notes = [
 	{
-		location: "KADIKÖY",
+		location: "Online",
 		date: "22.01.2026",
-		context: "X EYLEMİ / BARINMA HAKKI PROTESTOSU",
-		whatIRead: "Bugün alanda dikkatimi çeken 3 şey: 1. Sloganların sınıfsal içeriğinden ziyade kuşaklar arası dil farkı. 2. Polis bariyerinin estetik bir nesne olarak fotoğraflanması. 3. Sessizliğin en yüksek sesten daha fazla gerilim yaratması.",
-		socioNote: "Sahada teori bazen bu sessizlikte kayboluyor. Bourdieu'nun habitus kavramı, sokağın o anki anlık öfkesini açıklamakta yetersiz kalabiliyor.",
+		context: "Multitasking",
+		whatIRead: "People's screen time has started to exceed normal levels. The minimum amount of time people around us spend on their phones has started to be at least two to three hours. This time quadruples, especially for young people who experience various material and emotional deficiencies in their lives. For some, these times increase as a result of multitasking; for others, they get hooked on their screens with the dream of achieving a process of withdrawal into their own worlds. The concept of multitasking refers to engaging in another activity while doing a job, but it should be considered more as a distraction than a contributor to productivity. Watching videos while eating, listening to music while studying for an exam, cooking and talking on the phone while watching a movie, listening to a podcast and eating dessert while reading a book... The list goes on, but we cannot figure out why. People have never had such easy access to information or other resources; everyone used to have to work and wait to get access to resources. Now, does easy access turn people into zombies by creating distracting activities in the capitalist system, or does it aim to minimize the negative factors of the concept of time and make humanity a source rather than dependent on resources?",
+		socioNote: "Zuboff: Humans are not users of system, they are source for the system",
 		link: "#"
 	}
 ];
@@ -39,20 +39,20 @@ const notes = [
 						</div>
 
 						<div class="note-context">
-							<strong>BAĞLAM:</strong> {note.context}
+							<strong>Context:</strong> {note.context}
 						</div>
 
 						<div class="note-content">
-							<h3 class="note-label">NE FARK ETTİM?</h3>
+							<h3 class="note-label">What did ı notice?</h3>
 							<p class="observation-text">{note.whatIRead}</p>
 							
 							<div class="socio-reflection">
-								<span class="reflection-label">SOSYOLOJİK NOT</span>
+								<span class="reflection-label">Sociological Perspective</span>
 								<p class="reflection-text">{note.socioNote}</p>
 							</div>
 
 							<div class="note-footer">
-								<a href={note.link} class="tape-btn">NOTUN DEVAMI >></a>
+							
 							</div>
 						</div>
 					</article>
