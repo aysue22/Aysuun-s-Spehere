@@ -64,6 +64,15 @@ import BlogPost from '../layouts/BlogPost.astro';
     background-position: center;
     background-attachment: fixed;
   }
+  h1, h2, h3, h4, h5, h6, p, div {
+  background-color: transparent !important;
+}
+
+/* Fazladan boşlukları da sıfırla */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
 
   /* Krem bloğun (main/article) arkasındaki her şeyi şeffaflaştır */
   main, article, .prose, .container {
@@ -90,7 +99,7 @@ import BlogPost from '../layouts/BlogPost.astro';
 		display: table;
 		background-color: #bc95d4 !important; /* Başlıkları mor yaparak krem üstünde patlatıyoruz */
 		color: #1a1a1a !important;
-		padding: 0.4rem 1rem;
+		padding: 0 rem 0rem;
 		font-family: 'Georgia', serif;
 		box-shadow: 4px 4px 0px #000;
 		margin: 1rem 0;

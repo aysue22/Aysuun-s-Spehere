@@ -97,6 +97,7 @@ type Props = CollectionEntry<'blog'>['data'];
   body:has(.dark-blog-theme) {
     background-color: #000000 !important;
     background-image: radial-gradient(#333 0.5px, transparent 0.5px) !important;
+    
   }
 
   /* Sadece bu temadaki beyaz blok */
@@ -144,9 +145,13 @@ type Props = CollectionEntry<'blog'>['data'];
 
 	<body>
 		<Header />
-		<main>
-    <main class={theme === 'green' ? 'green-theme' : ''}>
-    <main class={theme === 'dark-mode' ? 'dark-blog-theme' : ''}>
+		<main class={theme === 'green'
+  ? 'green-theme'
+  : theme === 'dark-mode'
+  ? 'dark-blog-theme'
+  : ''
+}>
+
 			<article>
 				<div class="hero-image">
 					{heroImage && <img src={heroImage} alt="" />}
