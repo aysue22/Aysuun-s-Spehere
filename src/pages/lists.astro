@@ -1,11 +1,10 @@
 ---
-import Layout from '../layouts/BlogPost.astro'; // Layout dosyanın adından emin ol
-
+import Layout from '../layouts/BlogPost.astro';
 
 const books = [
   { title: "Mülksüzler", author: "Ursula K. Le Guin" },
   { title: "Cadılar", author: "Roald Dahl" },
-  { title: "Gece Savaşları: 16. ve 17. Yüzyıllarda Cadılık ve Tarım Kültleri", author: "Carlo Ginzburg" }
+  { title: "Gece Savaşları", author: "Carlo Ginzburg" }
 ];
 
 const movies = [
@@ -23,11 +22,11 @@ const movies = [
       <h2 class="shelf-label">Magic Parchments (Books)</h2>
       <div class="potion-grid">
         {books.map((book) => (
-          <div class="potion-bottle book-potion">
-            <div class="potion-liquid"></div>
-            <div class="potion-label">
-              <span class="title">{book.title}</span>
-              <span class="info">{book.author}</span>
+          <div class="potion-bottle book-specific"> {/* Sadece buraya book-specific ekledik */}
+        <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+        <div class="potion-inner-text">
+          <span class="magic-title">{book.title}</span>
+          <span class="magic-info">{book.author}</span>
             </div>
           </div>
         ))}
@@ -37,124 +36,181 @@ const movies = [
     <div class="shelf">
       <h2 class="shelf-label">Visual Rituals (Movies)</h2>
       <div class="potion-grid">
-        {movies.map((movie) => (
-          <div class="potion-bottle movie-potion">
-            <div class="potion-liquid"></div>
-            <div class="potion-label">
-              <span class="title">{movie.title}</span>
-              <span class="info">{movie.director}</span>
-            </div>
-          </div>
-        ))}
+  {books.map((book) => (
+    <div class="potion-bottle">
+      <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+      <div class="potion-inner-text">
+        <span class="magic-title">{book.title}</span>
+        <span class="magic-info">{book.author}</span>
       </div>
+    </div>
+  ))}
+</div>
     </div>
   </main>
 </Layout>
 
 <style is:global>
-  /* 1. TÜM DIŞ KATMANLARI ŞEFFAFLAŞTIR VE MERKEZE ZORLA */
-  html, body, main, article, .prose, .container, .content-wrapper {
+/* EFEKT MOTORLARI - En üste yapıştır */
+@keyframes spellGlow {
+  0% { text-shadow: 0 0 5px rgba(232, 224, 224, 0.4); opacity: 0.8; }
+  50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); opacity: 1; }
+  100% { text-shadow: 0 0 5px rgba(232, 224, 224, 0.4); opacity: 0.8; }
+}
+
+@keyframes floatInPotion {
+  0% { transform: translate(-50%, -48%); }
+  50% { transform: translate(-50%, -52%); }
+  100% { transform: translate(-50%, -48%); }
+}
+
+  /* 1. TEMEL SIFIRLAMA */
+  html, body, main {
     background: transparent !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-
-    /* ORTALAMA İÇİN GEREKLİ OLAN KISIM */
+    width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Yatayda tam orta */
-    width: 100% !important;
+    align-items: center !important;
   }
 
-  /* 2. ARKA PLAN GÖRSELİN */
+  /* 2. ARKA PLAN */
   html::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1000;
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                      url('/arkaplan3.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan3.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
 
-  /* 3. ALCHEMY ROOM (Ana Taşıyıcı) */
-  .alchemy-room { 
-    background: transparent !important; 
-    padding: 40px 20px; 
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Rafları ve Başlığı ortalar */
+  .alchemy-room {
     width: 100%;
-    max-width: 1000px; /* İçeriğin çok yayılmasını önler, merkezi tutar */
+    max-width: 1000px;
+    padding: 40px 20px;
   }
 
-  /* 4. RAFLAR */
-  .shelf { 
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto 120px auto !important; /* Sağa sola 'auto' vererek ortalar */
-    border-bottom: 15px solid #6b6907; 
-    padding-bottom: 10px; 
-    position: relative; 
-  }
-
-  /* 5. İKSİR GRİDİ */
-  .potion-grid { 
-    display: flex; 
-    justify-content: center; /* Şişeleri rafın merkezinde toplar */
-    align-items: flex-end; 
-    padding: 20px; 
-    flex-wrap: wrap; 
-    gap: 40px; 
-  }
-
-  /* 6. BAŞLIK VE ETİKETLER */
-  .shelf-title, h1 {
+  /* 3. BAŞLIK */
+  .shelf-title {
     background: #e4dbb4 !important;
     color: #0f0e0a !important;
     padding: 15px 30px !important;
-    display: table !important;
-    margin: 20px auto !important; /* Başlığı tam ortaya çeker */
+    margin: 20px auto 60px auto !important;
     font-family: 'UnifrakturMaguntia', cursive !important;
     font-size: 3rem !important;
     transform: rotate(-1.5deg);
     border: 3px double #d4af37 !important;
     box-shadow: 8px 8px 0px #3e2723 !important;
-    position: relative;
-    z-index: 20;
+    text-align: center;
   }
 
-  /* İksir Şişesi ve İçerikleri (Senin orijinal kodun) */
-  .potion-bottle { width: 80px; height: 120px; background: rgba(255, 255, 255, 0.2); border: 2px solid #3e2723; position: relative; border-radius: 20px 20px 10px 10px; transition: transform 0.3s ease; }
-  .potion-liquid { position: absolute; width: 100%; bottom: 0; }
-  .book-potion .potion-liquid { background: #4cc14c; height: 70%; border-radius: 0 0 8px 8px; }
-  .movie-potion .potion-liquid { background: #cb7070; height: 60%; border-radius: 0 0 50% 50%; }
-  .potion-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e9dcc9; border: 1px solid #3e2723; padding: 5px; width: 90%; text-align: center; font-family: 'Crimson Text', serif; z-index: 10; }
+  /* 4. RAFLAR VE GRİD */
+  .shelf {
+    width: 100%;
+    margin-bottom: 120px !important;
+    border-bottom: 15px solid #6b6907;
+    padding-bottom: 5px;
+  }
+
+  .shelf-label {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .potion-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+ .potion-bottle { 
+  width: 300px; 
+  position: relative; /* İçindeki her şey buna göre hizalanacak */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5; /* Ana katman */
+}
+
+/* PNG RESMİ (Arkadaki Şişe) */
+.potion-img-element {
+  width: 100%;
+  height: auto;
+  position: relative; 
+  z-index: 1; /* Resim en altta kalsın */
+  mix-blend-mode: multiply; /* Arka plan beyazsa bunu ekle */
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+}
 
 
-  .alchemy-room { background: #f0e6d2; padding: 40px; min-height: 100vh; }
-  .shelf-title { font-family: 'UnifrakturMaguntia', cursive; text-align: center; font-size: 3rem; color: #1a331a; margin-bottom: 60px; }
-  .shelf { margin-bottom: 120px; border-bottom: 15px solid #6b6907; padding-bottom: 10px; position: relative; }
-  .shelf-label { font-family: 'Crimson Text', serif; font-style: italic; font-size: 1.5rem; color: #d4af37; text-align: center; margin-bottom: 20px; }
-  .potion-grid { display: flex; justify-content: space-around; align-items: flex-end; padding: 20px; flex-wrap: wrap; gap: 40px; }
+
+ .potion-inner-text {
+    position: absolute;
+    z-index: 10;
+    width: 80%; /* Yazılar şişenin kenarlarından taşmasın */
+    text-align: center;
+    pointer-events: none; /* Mouse etkileşimini bozmasın */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /* Yazıları biraz yukarı veya aşağı almak istersen burayı kurcala */
+    top: 55%; 
+    left: 50%;
+    animation: floatInPotion 4s infinite ease-in-out; 
   
-  .potion-bottle { width: 80px; height: 120px; background: rgba(255, 255, 255, 0.2); border: 2px solid #3e2723; position: relative; border-radius: 20px 20px 10px 10px; transition: transform 0.3s ease; }
-  .book-potion { height: 140px; border-radius: 5px 5px 10px 10px; }
-  .book-potion .potion-liquid { background: #4cc14c; height: 70%; bottom: 0; position: absolute; width: 100%; border-radius: 0 0 8px 8px; }
-  .movie-potion { width: 100px; height: 100px; border-radius: 50% 50% 10px 10px; }
-  .movie-potion .potion-liquid { background: #cb7070; height: 60%; bottom: 0; position: absolute; width: 100%; border-radius: 0 0 50% 50%; }
+  z-index: 10;
+  width: 70%; 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+    
+  }
 
-  .potion-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #e9dcc9; border: 1px solid #3e2723; padding: 5px; width: 90%; text-align: center; font-family: 'Crimson Text', serif; box-shadow: 2px 2px 0px rgba(0,0,0,0.2); z-index: 10; }
-  .potion-label .title { display: block; font-weight: bold; font-size: 0.75rem; color: #1a1a1a; }
-  .potion-label .info { font-size: 0.6rem; color: #3e2723; display: block; }
-  .potion-bottle:hover { transform: scale(1.1) translateY(-10px); }
+  .magic-title {
+    font-family: 'Crimson Text', serif;
+    font-weight: bold;
+    font-size: 0.9 rem;
+    color: #6a1133; /* Eğer iksirin koyuysa burayı #8a195c (açık sarı) yap */
+    line-height: 1.1;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5); /* Yazı okunabilsin diye hafif parıltı */
+    animation: spellGlow 3s infinite ease-in-out;
+  }
+
+  .magic-info {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 0.6rem;
+    color: #d6ccca;
+    opacity: 0.8;
+    
+  }
+  
+
+  /* HOVER: Üzerine gelince yazılar parlasın */
+  .potion-bottle:hover .magic-title {
+    color: #6f721b; /* Kan kırmızısı veya iksirin rengine göre bir renk */
+    text-shadow: 0px 0px 10px rgba(202, 205, 52, 0.8);
+    text-shadow: 0px 0px 15px rgba(205, 52, 187, 1), 0px 0px 30px rgba(205, 52, 187, 0.5);
+  transition: all 0.4s ease;
+  }
+  
+
+  /* 7. HOVER ETKİSİ */
+  .potion-bottle:hover {
+    transform: scale(1.15) translateY(-20px);
+  }
+
+  .potion-bottle:hover .potion-img-element {
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
+  }
 </style>
