@@ -159,11 +159,10 @@ type Props = CollectionEntry<'blog'>['data'];
 				<div class="prose">
 					<div class="title">
 						<div class="date">
-    {pubDate ? (
-        <FormattedDate date={new Date(pubDate)} />
-    ) : (
-        <span>Kadim Zamanlar</span>
-    )}
+    {pubDate && (
+  <FormattedDate date={new Date(pubDate)} />
+)}
+
     
     {updatedDate && (
         <div class="last-updated-on">
