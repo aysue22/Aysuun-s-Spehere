@@ -18,35 +18,39 @@ const movies = [
   <main class="alchemy-room">
     <h1 class="shelf-title">The Alchemist's Shelf</h1>
 
-    <div class="shelf">
-      <h2 class="shelf-label">Magic Parchments (Books)</h2>
+    <div class="alchemy-container">
+  <div class="bookshelf-bg">
+    
+    <section class="shelf-layer">
       <div class="potion-grid">
         {books.map((book) => (
-          <div class="potion-bottle book-specific"> {/* Sadece buraya book-specific ekledik */}
-        <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-        <div class="potion-inner-text">
-          <span class="magic-title">{book.title}</span>
-          <span class="magic-info">{book.author}</span>
+          <div class="potion-bottle">
+            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+            <div class="potion-inner-text">
+              <span class="magic-title">{book.title}</span>
+              <span class="magic-info">{book.author}</span>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
 
-    <div class="shelf">
-      <h2 class="shelf-label">Visual Rituals (Movies)</h2>
+    <section class="shelf-layer">
       <div class="potion-grid">
-  {books.map((book) => (
-    <div class="potion-bottle">
-      <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-      <div class="potion-inner-text">
-        <span class="magic-title">{book.title}</span>
-        <span class="magic-info">{book.author}</span>
+        {movies.map((movie) => (
+          <div class="potion-bottle">
+            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+            <div class="potion-inner-text">
+              <span class="magic-title">{movie.title}</span>
+              <span class="magic-info">{movie.director}</span>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
+    </section>
+
+  </div>
 </div>
-    </div>
   </main>
 </Layout>
 
@@ -74,25 +78,93 @@ const movies = [
     flex-direction: column !important;
     align-items: center !important;
   }
+<style is:global>
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: transparent !important;
+  }
 
-  /* 2. ARKA PLAN */
   html::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1000;
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan3.jpg');
+    /* Senin orijinal arkaplanın */
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                      url('/arkaplan3.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
   }
-
-  .alchemy-room {
+  /* ANA TAŞIYICI */
+  .alchemy-container {
     width: 100%;
-    max-width: 1000px;
-    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
   }
 
+  /* KİTAPLIK PNG'Sİ */
+  .bookshelf-bg {
+    background-image: url('potions/kitaplıkraf.jpg'); /* Buraya kendi PNG ismini yaz */
+    background-size: 130% auto;
+    background-repeat: repeat-y;
+    width: 1000px; /* Görselin genişliğine göre ayarla */
+    padding: 100px 0; /* Rafların en üstten başlaması için */
+    display: flex;
+    flex-direction: column;
+    gap: 230px; /* PNG'ndeki iki raf arasındaki mesafe ne kadarsa burayı ona göre ayarla */
+  }
+
+  /* RAF KATMANI */
+  .shelf-layer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* Şişelerin rafın tam çizgisine basması için alt padding */
+    padding-bottom: 10px; 
+  }
+
+  .potion-grid {
+    display: flex;
+    gap: 60px;
+    align-items: flex-end; /* Şişe tabanlarını rafa hizalar */
+  }
+
+  /* ŞİŞE AYARLARI (Önceki başarılı ayarlarımız) */
+  .potion-bottle {
+    width: 150px;
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+
+  .potion-img-element {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 15px 10px rgba(0,0,0,0.8));
+    mix-blend-mode: multiply; /* Şeffaflık için */
+  }
+
+  /* YAZILAR (Önceki mükemmel ayarlarımız) */
+  .potion-inner-text {
+    position: absolute;
+    top: 55%;
+    left: 60%;
+    width: 50%;
+    text-align: center;
+    animation: floatInPotion 4s infinite ease-in-out;
+  }
+
+  @keyframes floatInPotion {
+    0% { transform: translate(-50%, -48%); }
+    50% { transform: translate(-50%, -52%); }
+    100% { transform: translate(-50%, -48%); }
+  }
+
+  
   /* 3. BAŞLIK */
   .shelf-title {
     background: #e4dbb4 !important;
@@ -107,14 +179,7 @@ const movies = [
     text-align: center;
   }
 
-  /* 4. RAFLAR VE GRİD */
-  .shelf {
-    width: 100%;
-    margin-bottom: 120px !important;
-    border-bottom: 15px solid #6b6907;
-    padding-bottom: 5px;
-  }
-
+  
   .shelf-label {
     font-family: 'Crimson Text', serif;
     font-style: italic;
