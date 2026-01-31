@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import type { CollectionEntry } from 'astro:content';
+import "../styles/global.css";
+import BaseHead from "../components/BaseHead.astro";
 const { title, description, pubDate, updatedDate, heroImage, theme } = Astro.props;
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -17,7 +19,13 @@ type Props = CollectionEntry<'blog'>['data'];
 		<BaseHead title={title} description={description} />
 		<style is:global>
   
-  
+  html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 
   /* TÜM SİTENİN ARKA PLANI */
   body {
@@ -31,10 +39,11 @@ type Props = CollectionEntry<'blog'>['data'];
   }
 
   /* TÜM SAYFALARIN ANA KUTUSU (Parşömen) */
-  main {
-    width: 1000px;
-    max-width: 90%;
-    margin: 50px auto;
+   main {
+  max-width: 900px;
+  margin: 50px auto;
+
+
     background: #fdfaf1 !important; 
     padding: 50px;
     border-radius: 5px;
@@ -100,22 +109,11 @@ type Props = CollectionEntry<'blog'>['data'];
     
   }
 
-  /* Sadece bu temadaki beyaz blok */
   main.dark-blog-theme {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: none !important;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.1) !important;
-  }
+  background: #ffffff !important;
+  color: #000000 !important;
+}
 
-  /* Bu temadaki başlık ve çizgiler */
-  main.dark-blog-theme h1, 
-  main.dark-blog-theme .prose h1 {
-    color: #ffffff !important;
-  }
-
-  main.dark-blog-theme hr {
-    border-top: 1px solid #ddd !important;
   }
   /* SADECE DÖRDÜNCÜ YAZI (DARK-MODE) İÇİN HER ŞEYİ SIFIRLA */
   html:has(.dark-blog-theme), 
