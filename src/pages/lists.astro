@@ -2,15 +2,15 @@
 import Layout from '../layouts/BlogPost.astro';
 
 const books = [
-  { title: "Mülksüzler", author: "Ursula K. Le Guin" },
-  { title: "Cadılar", author: "Roald Dahl" },
+  { title: "Yolpalas Cinayeti", author: "Halide Edip" },
+  { title: "Matmazel Noraliya’nın Koltuğu", author: "Peyami Safa" },
   { title: "Gece Savaşları", author: "Carlo Ginzburg" }
 ];
 
 const movies = [
   { title: "Suspiria", director: "Luca Guadagnino" },
-  { title: "The Witch", director: "Robert Eggers" },
-  { title: "Stalker", director: "Andrey Tarkovski" }
+  { title: "Blade", director: "Stephen Norrington" },
+  { title: "Kız Kardeşler", director: "Emin Alper" }
 ];
 ---
 
@@ -208,13 +208,6 @@ main {
     align-items: flex-end; /* Şişe tabanlarını rafa hizalar */
   }
 
-  /* ŞİŞE AYARLARI (Önceki başarılı ayarlarımız) */
-  .potion-bottle {
-    width: 150px;
-    position: relative;
-    transition: transform 0.4s ease;
-  }
-
   .potion-img-element {
     width: 100%;
     height: auto;
@@ -222,15 +215,6 @@ main {
     mix-blend-mode: multiply; /* Şeffaflık için */
   }
 
-  /* YAZILAR (Önceki mükemmel ayarlarımız) */
-  .potion-inner-text {
-    position: absolute;
-    top: 55%;
-    left: 60%;
-    width: 50%;
-    text-align: center;
-    animation: floatInPotion 4s infinite ease-in-out;
-  }
 
   @keyframes floatInPotion {
     0% { transform: translate(-50%, -48%); }
@@ -305,6 +289,12 @@ main {
   }
 
   .magic-title {
+    display: -webkit-box;
+  -webkit-line-clamp: 2;   /* kitap adı max 2 satır */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.85rem;
+  line-height: 1.1;
     font-family: 'Crimson Text', serif;
     font-weight: bold;
     font-size: 0.9 rem;
@@ -312,9 +302,15 @@ main {
     line-height: 1.1;
     text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5); /* Yazı okunabilsin diye hafif parıltı */
     animation: spellGlow 3s infinite ease-in-out;
+    
   }
 
   .magic-info {
+    display: -webkit-box;
+  -webkit-line-clamp: 1;   /* yazar adı tek satır */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.6rem;
     font-family: 'Crimson Text', serif;
     font-style: italic;
     font-size: 0.6rem;
@@ -342,5 +338,34 @@ main {
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
   }
   
-  
+  /* ŞİŞE: MASKE */
+.potion-bottle {
+  width: 300px;
+  position: relative;
+  overflow: hidden; /* taşanı KES */
+}
+
+/* PNG */
+.potion-img-element {
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+/* YAZI ALANI (sabit alan) */
+.potion-inner-text {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-height: 60px;      /* <<< KRİTİK */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  z-index: 10;
+}
+
 </style>
