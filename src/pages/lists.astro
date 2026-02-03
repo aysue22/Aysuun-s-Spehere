@@ -16,45 +16,84 @@ const movies = [
 
 <Layout title="🧙🏻‍♀️🧹🪄🐈‍⬛">
   <main class="alchemy-room">
-    <h1 class="shelf-title">The Alchemist's Shelf</h1>
+  <h1 class="shelf-title">The Alchemist's Shelf</h1>
 
-    <div class="alchemy-container">
-  <div class="bookshelf-bg">
-    
-    <section class="shelf-layer">
-      <div class="potion-grid">
-        {books.map((book) => (
-          <div class="potion-bottle">
-            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-            <div class="potion-inner-text">
-              <span class="magic-title">{book.title}</span>
-              <span class="magic-info">{book.author}</span>
+  <div class="alchemy-container">
+    <div class="bookshelf-bg">
+      
+      <div class="shelf-label"><span>GRIMOIRES & BOOKS</span></div>
+      
+      <section class="shelf-layer">
+        <div class="potion-grid">
+          {books.map((book) => (
+            <div class="potion-bottle">
+              <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+              <div class="potion-inner-text">
+                <span class="magic-title">{book.title}</span>
+                <span class="magic-info">{book.author}</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
 
-    <section class="shelf-layer">
-      <div class="potion-grid">
-        {movies.map((movie) => (
-          <div class="potion-bottle">
-            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-            <div class="potion-inner-text">
-              <span class="magic-title">{movie.title}</span>
-              <span class="magic-info">{movie.director}</span>
+      <div class="shelf-label"><span>VISIONS & CINEMA</span></div>
+
+      <section class="shelf-layer">
+        <div class="potion-grid">
+          {movies.map((movie) => (
+            <div class="potion-bottle">
+              <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+              <div class="potion-inner-text">
+                <span class="magic-title">{movie.title}</span>
+                <span class="magic-info">{movie.director}</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
+          ))}
+        </div>
+      </section>
+    </div>
   </div>
-</div>
-  </main>
+</main>
 </Layout>
 
 <style is:global>
+
+
+  /* Etiket Tasarımı */
+  .shelf-label {
+    text-align: center;
+    margin: 40px 0 20px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .shelf-label span {
+    background: #1a0a20; /* Çok koyu mor */
+    color: #e0c068;      /* Eskitilmiş altın rengi */
+    padding: 10px 30px;
+    border: 2px solid #4a2d56;
+    border-radius: 50px; /* Oval etiket görünümü */
+    font-family: 'Crimson Text', serif; /* Eğer fontun varsa */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  }
+
+.alchemy-room {
+display: block !important; /* Flex'i iptal et */
+    margin-top: 0 !important;
+    padding-top: 1px !important; /* Margin sızıntısını önleyen görünmez bariyer */
+    background: transparent !important;
+}
+
+.shelf-title {
+ margin: 0 auto 40px auto !important;
+    display: table; /* Başlığın genişliğini yazısı kadar yapar */
+    padding: 15px 40px !important;
+}
+
 /* EFEKT MOTORLARI - En üste yapıştır */
 @keyframes spellGlow {
   0% { text-shadow: 0 0 5px rgba(232, 224, 224, 0.4); opacity: 0.8; }
@@ -78,7 +117,7 @@ const movies = [
     flex-direction: column !important;
     align-items: center !important;
   }
-<style is:global>
+
 html, body {
     margin: 0;
     padding: 0;
@@ -112,8 +151,8 @@ ul, li {
 }
 
 main {
-  padding: 0;
-  margin: 0;
+  max-width: 900px;
+  margin: 0 auto 50px auto !important;
 }
 
   }
@@ -189,7 +228,6 @@ main {
     background: #e4dbb4 !important;
     color: #0f0e0a !important;
     padding: 15px 30px !important;
-    margin: 20px auto 60px auto !important;
     font-family: 'UnifrakturMaguntia', cursive !important;
     font-size: 3rem !important;
     transform: rotate(-1.5deg);
@@ -297,4 +335,16 @@ main {
   .potion-bottle:hover .potion-img-element {
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
   }
+  main {
+  /* Globalden gelen boşlukları ve genişlik sınırını kaldırıyoruz */
+  max-width: none !important; 
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important; 
+}
+
+.alchemy-room {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
 </style>
