@@ -59,26 +59,42 @@ const movies = [
 
 <style is:global>
 
-
-  /* Etiket Tasarımı */
-  .shelf-label {
-    text-align: center;
-    margin: 40px 0 20px 0;
-    position: relative;
-    z-index: 2;
+/* Sadece başlıkların etrafındaki o zoraki beyaz alanları yok eder */
+  .shelf-title, 
+  .shelf-label, 
+  .shelf-label span {
+    background-color: transparent !important; /* Arka planı şeffaf yapar */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important; /* Beyaz gölge sızıntısını engeller */
   }
 
+  /* Başlığın Layout içindeki yerleşim boşluğunu temizler */
+  .alchemy-room {
+    display: flow-root !important; /* Beyazlığın sızmasını engelleyen bariyer */
+    padding-top: 1px !important;
+  }
+
+  .shelf-label {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 20px 0; /* Üstten ve alttan boşluk */
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Yazının arkasındaki etiket (Burası beyazlığı kapatacak olan yer) */
   .shelf-label span {
-    background: #1a0a20; /* Çok koyu mor */
-    color: #e0c068;      /* Eskitilmiş altın rengi */
-    padding: 10px 30px;
-    border: 2px solid #4a2d56;
-    border-radius: 50px; /* Oval etiket görünümü */
-    font-family: 'Crimson Text', serif; /* Eğer fontun varsa */
-    font-weight: bold;
+    background-color: #000000 !important; /* Arka planı simsiyah yapar, beyazlık kalmaz */
+    color: #d4af37 !important;           /* Altın rengi yazı */
+    padding: 10px 30px !important;
+    border: 2px solid #d4af37;           /* Çerçeve */
+    display: inline-block;
+    box-shadow: 0 0 20px rgba(0,0,0,1);  /* Gölge ile derinlik */
+    font-size: 1.3rem;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    letter-spacing: 2px;
   }
 
 .alchemy-room {
@@ -236,16 +252,6 @@ main {
     text-align: center;
   }
 
-  
-  .shelf-label {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    color: #d4af37;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
   .potion-grid {
     display: flex;
     justify-content: center;
@@ -335,16 +341,6 @@ main {
   .potion-bottle:hover .potion-img-element {
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
   }
-  main {
-  /* Globalden gelen boşlukları ve genişlik sınırını kaldırıyoruz */
-  max-width: none !important; 
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important; 
-}
-
-.alchemy-room {
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
+  
+  
 </style>
