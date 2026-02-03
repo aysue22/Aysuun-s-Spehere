@@ -145,7 +145,7 @@ html, body {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1000;
+    z-index: -1;
     /* Senin orijinal arkaplanın */
     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                       url('/arkaplan3.jpg');
@@ -183,7 +183,8 @@ main {
 
   /* KİTAPLIK PNG'Sİ */
   .bookshelf-bg {
-    background-image: url('potions/kitaplıkraf.jpg'); /* Buraya kendi PNG ismini yaz */
+    background-image: url('/potions/kitaplıkraf.jpg'); /* Buraya kendi PNG ismini yaz */
+    min-height: 1200px;
     background-size: 130% auto;
     background-repeat: repeat-y;
     width: 1000px; /* Görselin genişliğine göre ayarla */
