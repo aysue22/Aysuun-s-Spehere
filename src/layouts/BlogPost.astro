@@ -137,18 +137,30 @@ type Props = CollectionEntry<'blog'>['data'];
   main.dark-blog-theme li {
     color: #ffffff !important;
   }
+  .no-paper {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
 </style>
 
 	</head>
 
 	<body>
 		<Header />
-		<main class={theme === 'green'
-  ? 'green-theme'
-  : theme === 'dark-mode'
-  ? 'dark-blog-theme'
-  : ''
-}>
+	<main
+  class={`blog-main ${
+    Astro.props.noPaper ? 'no-paper' : ''
+  } ${
+    theme === 'green'
+      ? 'green-theme'
+      : theme === 'dark-mode'
+      ? 'dark-blog-theme'
+      : ''
+  }`}
+>
 
 			<article>
 				<div class="hero-image">
