@@ -19,124 +19,62 @@ const movies = [
   <h1 class="shelf-title">The Alchemist's Shelf</h1>
 
   <div class="alchemy-container">
-    <div class="bookshelf-bg">
-      
-      <div class="shelf-label"><span>GRIMOIRES & BOOKS</span></div>
-      
-      <section class="shelf-layer">
-        <div class="potion-grid">
-          {books.map((book) => (
-            <div class="potion-bottle">
-              <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-              <div class="potion-inner-text">
-                <span class="magic-title">{book.title}</span>
-                <span class="magic-info">{book.author}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+   <div class="bookshelf-bg">
 
-      <div class="shelf-label"><span>VISIONS & CINEMA</span></div>
-
-      <section class="shelf-layer">
-        <div class="potion-grid">
-          {movies.map((movie) => (
-            <div class="potion-bottle">
-              <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
-              <div class="potion-inner-text">
-                <span class="magic-title">{movie.title}</span>
-                <span class="magic-info">{movie.director}</span>
-              </div>
+  <div class="shelf-group">
+    <div class="shelf-label"><span>GRIMOIRES & BOOKS</span></div>
+    <section class="shelf-layer">
+      <div class="potion-grid">
+        {books.map((book) => (
+          <div class="potion-bottle">
+            <div class="bubbles-container">
+              <span class="bubble"></span>
+              <span class="bubble"></span>
+              <span class="bubble"></span>
             </div>
-          ))}
-        </div>
-      </section>
-    </div>
+            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+            <div class="potion-inner-text">
+              <span class="magic-title">{book.title}</span>
+              <span class="magic-info">{book.author}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   </div>
+    <div class="shelf-group">
+    <div class="shelf-label"><span>VISIONS & CINEMA</span></div>
+    <section class="shelf-layer">
+      <div class="potion-grid">
+        {movies.map((movie) => (
+          <div class="potion-bottle">
+            <div class="bubbles-container">
+              <span class="bubble"></span>
+              <span class="bubble"></span>
+              <span class="bubble"></span>
+            </div>
+            <img src="/potions/potion1.png" class="potion-img-element" alt="Potion" />
+            <div class="potion-inner-text">
+              <span class="magic-title">{movie.title}</span>
+              <span class="magic-info">{movie.director}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+
+</div>
 </main>
 </Layout>
 
 <style is:global>
 
-/* Sadece başlıkların etrafındaki o zoraki beyaz alanları yok eder */
-  .shelf-title, 
-  .shelf-label, 
-  .shelf-label span {
-    background-color: transparent !important; /* Arka planı şeffaf yapar */
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    box-shadow: none !important; /* Beyaz gölge sızıntısını engeller */
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  ul, li { list-style: none; }
 
-  /* Başlığın Layout içindeki yerleşim boşluğunu temizler */
-  .alchemy-room {
-    display: flow-root !important; /* Beyazlığın sızmasını engelleyen bariyer */
-    padding-top: 1px !important;
-  }
-
-  .shelf-label {
-    display: flex;
-    justify-content: center;
-    margin: 50px 0 20px 0; /* Üstten ve alttan boşluk */
-    width: 100%;
-    position: relative;
-    z-index: 10;
-  }
-
-  /* Yazının arkasındaki etiket (Burası beyazlığı kapatacak olan yer) */
-  .shelf-label span {
-    background-color: #000000 !important; /* Arka planı simsiyah yapar, beyazlık kalmaz */
-    color: #d4af37 !important;           /* Altın rengi yazı */
-    padding: 10px 30px !important;
-    border: 2px solid #d4af37;           /* Çerçeve */
-    display: inline-block;
-    box-shadow: 0 0 20px rgba(0,0,0,1);  /* Gölge ile derinlik */
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-.alchemy-room {
-display: block !important; /* Flex'i iptal et */
-    margin-top: 0 !important;
-    padding-top: 1px !important; /* Margin sızıntısını önleyen görünmez bariyer */
-    background: transparent !important;
-}
-
-.shelf-title {
- margin: 0 auto 40px auto !important;
-    display: table; /* Başlığın genişliğini yazısı kadar yapar */
-    padding: 15px 40px !important;
-}
-
-/* EFEKT MOTORLARI - En üste yapıştır */
-@keyframes spellGlow {
-  0% { text-shadow: 0 0 5px rgba(232, 224, 224, 0.4); opacity: 0.8; }
-  50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); opacity: 1; }
-  100% { text-shadow: 0 0 5px rgba(232, 224, 224, 0.4); opacity: 0.8; }
-}
-
-@keyframes floatInPotion {
-  0% { transform: translate(-50%, -48%); }
-  50% { transform: translate(-50%, -52%); }
-  100% { transform: translate(-50%, -48%); }
-}
-
-  /* 1. TEMEL SIFIRLAMA */
-  html, body, main {
-    background: transparent !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-html, body {
-    margin: 0;
-    padding: 0;
+  html, body {
+    margin: 0; padding: 0;
     min-height: 100vh;
     background: transparent !important;
   }
@@ -146,89 +84,49 @@ html, body {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
-    /* Senin orijinal arkaplanın */
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                      url('/arkaplan3.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan3.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* GLOBAL RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* LISTS PAGE FIX */
-ul, li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-main {
-  max-width: 900px;
-  margin: 0 auto 50px auto !important;
-}
-
-  }
-  /* ANA TAŞIYICI */
-  .alchemy-container {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 50px 0;
   }
 
-  /* KİTAPLIK PNG'Sİ */
-  .bookshelf-bg {
-    background-image: url('/potions/kitaplıkraf.jpg'); /* Buraya kendi PNG ismini yaz */
-    min-height: 1200px;
-    background-size: 130% auto;
-    background-repeat: repeat-y;
-    width: 1000px; /* Görselin genişliğine göre ayarla */
-    padding: 100px 0; /* Rafların en üstten başlaması için */
-    display: flex;
-    flex-direction: column;
-    gap: 230px; /* PNG'ndeki iki raf arasındaki mesafe ne kadarsa burayı ona göre ayarla */
+  main {
+    background: transparent !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 0 auto 50px auto !important;
+    padding: 0 !important;
   }
 
-  /* RAF KATMANI */
-  .shelf-layer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    /* Şişelerin rafın tam çizgisine basması için alt padding */
-    padding-bottom: 10px; 
+  /* ANIMASYONLAR */
+  @keyframes spellGlow {
+    0%   { text-shadow: 0 0 5px rgba(232,224,224,0.4); opacity: 0.8; }
+    50%  { text-shadow: 0 0 15px rgba(255,255,255,0.9); opacity: 1; }
+    100% { text-shadow: 0 0 5px rgba(232,224,224,0.4); opacity: 0.8; }
   }
 
-  .potion-grid {
-    display: flex;
-    gap: 60px;
-    align-items: flex-end; /* Şişe tabanlarını rafa hizalar */
+  @keyframes floatText {
+    0%   { transform: translate(-50%, -50%) translateY(0px); }
+    50%  { transform: translate(-50%, -50%) translateY(-4px); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
   }
 
-  .potion-img-element {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 15px 10px rgba(0,0,0,0.8));
-    mix-blend-mode: multiply; /* Şeffaflık için */
+  @keyframes riseUp {
+    0%   { opacity: 0;    transform: translateX(-50%) scale(0)    translateY(0px); }
+    15%  { opacity: 0.9; transform: translateX(-50%) scale(1)    translateY(-8px); }
+    85%  { opacity: 0.4; transform: translateX(-50%) scale(1.1)  translateY(-60px); }
+    100% { opacity: 0;    transform: translateX(-50%) scale(0.6)  translateY(-75px); }
   }
 
-
-  @keyframes floatInPotion {
-    0% { transform: translate(-50%, -48%); }
-    50% { transform: translate(-50%, -52%); }
-    100% { transform: translate(-50%, -48%); }
-  }
-
-  
-  /* 3. BAŞLIK */
+  /* BAŞLIK */
   .shelf-title {
+    display: table;
+    margin: 30px auto 40px auto !important;
+    padding: 15px 40px !important;
     background: #e4dbb4 !important;
     color: #0f0e0a !important;
-    padding: 15px 30px !important;
     font-family: 'UnifrakturMaguntia', cursive !important;
     font-size: 3rem !important;
     transform: rotate(-1.5deg);
@@ -237,136 +135,226 @@ main {
     text-align: center;
   }
 
+  /* RAF ETİKETİ */
+  .shelf-label {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    margin-bottom: -20px;
+  }
+
+  .shelf-label span {
+    background-color: #000000 !important;
+    color: #d4af37 !important;
+    padding: 4px 15px !important;
+    border: 1px solid #d4af37;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,5);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* ANA CONTAINER */
+  .alchemy-room {
+    display: block !important;
+    width: 100%;
+    background: transparent !important;
+  }
+
+  .alchemy-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  /* KİTAPLIK */
+  .bookshelf-bg {
+    background-image: url('/potions/pngwing.com.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 800px;
+    height: 850px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 180px 80px 100px 80px; 
+    gap: 40px; /* Raflar arası boşluk */
+    margin: 0 auto;
+  }
+
+  /* RAF GRUBU */
+  .shelf-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+   height: 350px;
+  }
+.shelf-group:nth-child(1) {
+    top: 105px; /* Üstten mesafe */
+  }
+
+  /* ALT RAF KONUMU (VISIONS) - Kaymayı buradan düzelttik */
+  .shelf-group:nth-child(2) {
+    top: 555px; /* Bu değeri ekranına göre 550px-565px arası oynatabilirsin */
+  }
+  /* ŞİŞE SIRASI */
+  .shelf-layer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible;
+  }
+
   .potion-grid {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 50px;
-    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 70px;
   }
 
- .potion-bottle { 
-  width: 300px; 
-  position: relative; /* İçindeki her şey buna göre hizalanacak */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 5; /* Ana katman */
-}
-
-/* PNG RESMİ (Arkadaki Şişe) */
-.potion-img-element {
-  width: 100%;
-  height: auto;
-  position: relative; 
-  z-index: 1; /* Resim en altta kalsın */
-  mix-blend-mode: multiply; /* Arka plan beyazsa bunu ekle */
-  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-}
-
-
-
- .potion-inner-text {
-    position: absolute;
-    z-index: 10;
-    width: 80%; /* Yazılar şişenin kenarlarından taşmasın */
-    text-align: center;
-    pointer-events: none; /* Mouse etkileşimini bozmasın */
+  /* ŞİŞE */
+  .potion-bottle {
+    width: 180px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    /* Yazıları biraz yukarı veya aşağı almak istersen burayı kurcala */
-    top: 55%; 
-    left: 50%;
-    animation: floatInPotion 4s infinite ease-in-out; 
-  
-  z-index: 10;
-  width: 70%; 
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-    
+    align-items: center;
+    z-index: 5;
+    overflow: visible;
+    cursor: pointer;
+    transition: transform 0.3s ease;
   }
 
-  .magic-title {
-    display: -webkit-box;
-  -webkit-line-clamp: 2;   /* kitap adı max 2 satır */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.85rem;
-  line-height: 1.1;
-    font-family: 'Crimson Text', serif;
-    font-weight: bold;
-    font-size: 0.9 rem;
-    color: #6a1133; /* Eğer iksirin koyuysa burayı #8a195c (açık sarı) yap */
-    line-height: 1.1;
-    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5); /* Yazı okunabilsin diye hafif parıltı */
-    animation: spellGlow 3s infinite ease-in-out;
-    
-  }
-
-  .magic-info {
-    display: -webkit-box;
-  -webkit-line-clamp: 1;   /* yazar adı tek satır */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.6rem;
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 0.6rem;
-    color: #d6ccca;
-    opacity: 0.8;
-    
-  }
-  
-
-  /* HOVER: Üzerine gelince yazılar parlasın */
-  .potion-bottle:hover .magic-title {
-    color: #6f721b; /* Kan kırmızısı veya iksirin rengine göre bir renk */
-    text-shadow: 0px 0px 10px rgba(202, 205, 52, 0.8);
-    text-shadow: 0px 0px 15px rgba(205, 52, 187, 1), 0px 0px 30px rgba(205, 52, 187, 0.5);
-  transition: all 0.4s ease;
-  }
-  
-
-  /* 7. HOVER ETKİSİ */
   .potion-bottle:hover {
-    transform: scale(1.15) translateY(-20px);
+    transform: scale(1.1) translateY(-10px);
+    z-index: 100;
+  }
+
+  /* ŞIŞE GÖRSELİ */
+  .potion-img-element {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+    transition: filter 0.3s ease;
   }
 
   .potion-bottle:hover .potion-img-element {
-    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
+    filter: drop-shadow(0 0 16px rgba(212,175,55,0.8));
+    mix-blend-mode: normal;
   }
-  
-  /* ŞİŞE: MASKE */
-.potion-bottle {
-  width: 300px;
-  position: relative;
-  overflow: hidden; /* taşanı KES */
-}
 
-/* PNG */
-.potion-img-element {
-  width: 100%;
-  height: auto;
-  z-index: 1;
-}
+  /* --- DÜZELTME BURADA --- YAZI ALANI */
+  .potion-inner-text {
+    position: absolute;
+    /* Dikey konumu şişe gövdesine tam oturtmak için %52'den %55'e çektik */
+    top: 57%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: floatText 4s infinite ease-in-out;
+    z-index: 10;
+    /* Genişliği daralttık (%72 -> %60), böylece şişe kenarlarına çarpmaz */
+    width: 48%; 
+    /* Max yüksekliği kaldırdık veya artırdık ki 2 satır sığsın */
+    height: 80px; 
+    /* Taşmayı gizle (gerekirse) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* İçeriği dikeyde ortala */
+    text-align: center;
+    pointer-events: none;
+  }
 
-/* YAZI ALANI (sabit alan) */
-.potion-inner-text {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  max-height: 60px;      /* <<< KRİTİK */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: center;
-  z-index: 10;
-}
+  /* BAŞLIK (Kitap/Film Adı) */
+  .magic-title {
+    /* Metni 2 satırda tut, sığmazsa '...' koy (Sadece Webkit tarayıcılar için) */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* --- */
+    font-family: 'Crimson Text', serif;
+    font-weight: bold;
+    /* Okunabilirlik için çok az büyüttük (0.62rem -> 0.7rem) */
+    font-size: 0.85rem; 
+    color: #6a1133;
+    line-height: 1.1; /* Satır aralığını daralttık */
+    margin-bottom: 2px;
+    text-shadow: 0 0 4px rgba(255,255,255,0.6);
+    animation: spellGlow 3s infinite ease-in-out;
+  }
+
+  /* BİLGİ (Yazar/Yönetmen Adı) */
+  .magic-info {
+    /* Metni tek satırda tut, sığmazsa kes */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* --- */
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    /* Okunabilirlik için çok az büyüttük (0.52rem -> 0.6rem) */
+    font-size: 0.6rem; 
+    color: #d6ccca;
+    opacity: 0.80;
+  }
+
+  .potion-bottle:hover .magic-title {
+    color: #6f721b;
+    text-shadow: 0 0 15px rgba(205,52,187,1), 0 0 30px rgba(205,52,187,0.5);
+    transition: all 0.4s ease;
+  }
+
+  /* BALONCUKLAR */
+  .bubbles-container {
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    width: 50px;
+    height: 20px;
+    z-index: 30;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+    background: radial-gradient(circle at 35% 35%, rgba(255,210,230,0.95), rgba(255,140,190,0.7));
+    border: 1px solid rgba(255,180,220,0.8);
+  }
+
+  .bubble:nth-child(1) { left: 8px;  width: 7px;  height: 7px; }
+  .bubble:nth-child(2) { left: 22px; width: 10px; height: 10px; }
+  .bubble:nth-child(3) { left: 36px; width: 6px;  height: 6px; }
+
+  .potion-bottle:hover .bubble:nth-child(1) {
+    animation: riseUp 1.6s ease-in 0s infinite;
+  }
+  .potion-bottle:hover .bubble:nth-child(2) {
+    animation: riseUp 1.6s ease-in 0.4s infinite;
+  }
+  .potion-bottle:hover .bubble:nth-child(3) {
+    animation: riseUp 1.6s ease-in 0.8s infinite;
+  }
 
 </style>
