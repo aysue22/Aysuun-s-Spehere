@@ -35,27 +35,33 @@ const today = new Date();
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 20px;
-	height: 60px;
-	color: #dbdbdb;
+	padding: 10px 14px;
+	height: 64px;
+	background: #fff;
+	color: #000;
 	font-size: 14px;
 }
 
+/* LEFT - BIGGER LOGO */
 .footer-left img {
-	height: 26px;
+	height: 42px;
 	object-fit: contain;
 }
 
+/* CENTER */
 .footer-center {
 	flex: 1;
 	text-align: center;
 }
 
+/* RIGHT */
 .footer-right {
 	display: flex;
-	gap: 14px;
+	gap: 10px; /* daha yakın ikonlar */
+	align-items: center;
 }
 
+/* ICONS */
 .footer-right a svg {
 	width: 18px;
 	height: 18px;
@@ -67,11 +73,17 @@ const today = new Date();
 	transform: translateY(-2px);
 }
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
 	.footer {
 		flex-direction: column;
 		height: auto;
 		gap: 10px;
+		padding: 14px;
+	}
+
+	.footer-right {
+		gap: 14px;
 	}
 }
 </style>
