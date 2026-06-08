@@ -2,31 +2,76 @@
 const today = new Date();
 ---
 
-<footer>
-	&copy; {today.getFullYear()} Aysun Nur Baysal. All rights reserved.
-	<div class="social-links">
-		
-		</a>
+<footer class="footer">
+	<div class="footer-left">
+		<img src="public/covenjournallogo2.png" alt="Coven Journal" />
+	</div>
+
+	<div class="footer-center">
+		<span>© {today.getFullYear()} The Coven Journal — All rights reserved.</span>
+	</div>
+
+	<div class="footer-right">
+		<a href="#" aria-label="LinkedIn">LinkedIn</a>
+		<a href="#" aria-label="Instagram">Instagram</a>
+		<a href="#" aria-label="GitHub">GitHub</a>
+		<a href="#" aria-label="Twitter">X</a>
 	</div>
 </footer>
+
 <style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 24px;
+	height: 70px;
+	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	color: rgb(var(--gray));
+	font-size: 14px;
+}
+
+/* LEFT */
+.footer-left img {
+	height: 28px;
+	object-fit: contain;
+}
+
+/* CENTER */
+.footer-center {
+	text-align: center;
+	flex: 1;
+}
+
+/* RIGHT */
+.footer-right {
+	display: flex;
+	gap: 14px;
+}
+
+.footer-right a {
+	text-decoration: none;
+	color: rgb(var(--gray));
+	font-size: 13px;
+	transition: 0.2s ease;
+}
+
+.footer-right a:hover {
+	color: rgb(var(--gray-dark));
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+	.footer {
+		flex-direction: column;
+		height: auto;
+		gap: 10px;
 		text-align: center;
 	}
-	.social-links {
-		display: flex;
+
+	.footer-right {
 		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
+		flex-wrap: wrap;
 	}
-	.social-links a {
-		text-decoration: none;
-		color: rgb(var(--gray));
-	}
-	.social-links a:hover {
-		color: rgb(var(--gray-dark));
-	}
+}
 </style>
