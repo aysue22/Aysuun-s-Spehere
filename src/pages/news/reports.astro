@@ -7,11 +7,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 const reports = [
 	{
 		title: "St. Augustine and Pirates",
-		intro: "The increasingly difficult nature of our daily lives is reflected in our superficial political outlook; the most striking detail is the lack of trust in institutions. The main reason why spoken and written laws are important and prevent chaos in society is that they are enforced, and we believe that those who enforce them will apply the laws “no matter what.” We can compare this to the belief in the afterlife. In this world, I will do whatever I can, and God will reward me with a good or bad outcome. The state and its institutions are based on this belief. When this belief disappears, questioning of order and the afterlife begins. For some, this questioning brings chaos; for others, rebirth.",
-        analysis: "Consider a customer who purchases a product monthly and, according to the agreement, should pay a certain amount each month. However, if the company that will reflect the fee on him charges a fee as it sees fit and forces this person to pay, and if they can bend and twist everything according to their own wishes because all legal procedures are under the influence of the system's malfunction, then the fee they are trying to charge is nothing less than robbery. As St. Augustine said in ancient Greece, In the “City of God,” St. Augustine tells the story of a pirate captured by Alexander the Great. The Emperor angrily demanded of him, “How dare you molest the seas?” To which the pirate replied, “How dare you molest the whole world? Because I do it with a small boat, I am called a pirate and a thief. You, with a great navy, molest the world and are called an emperor.”Solution:Should this internal matter be considered an absolute crime of anarchy? If a person who is forced to pay more than the agreed-upon fee is being treated unjustly, should they not steal this product? Or would it be wrong to steal it? If they do steal it, who is the real thief in this situation? Although it seems like a real dilemma, the answer actually lies in which one society sees as the thief. If trust in institutions is built on society's belief in them, then who the ultimate thief is also depends on which one society believes in.",
+		intro: `The increasingly difficult nature of our daily lives is reflected in our superficial political outlook; the most striking detail is the lack of trust in institutions. The main reason why spoken and written laws are important and prevent chaos in society is that they are enforced, and we believe that those who enforce them will apply the laws "no matter what." We can compare this to the belief in the afterlife. In this world, I will do whatever I can, and God will reward me with a good or bad outcome. The state and its institutions are based on this belief. When this belief disappears, questioning of order and the afterlife begins. For some, this questioning brings chaos; for others, rebirth.`,
+        analysis: `Consider a customer who purchases a product monthly and, according to the agreement, should pay a certain amount each month. However, if the company that will reflect the fee on him charges a fee as it sees fit and forces this person to pay, and if they can bend and twist everything according to their own wishes because all legal procedures are under the influence of the system's malfunction, then the fee they are trying to charge is nothing less than robbery. As St. Augustine said in ancient Greece, In the "City of God," St. Augustine tells the story of a pirate captured by Alexander the Great. The Emperor angrily demanded of him, "How dare you molest the seas?" To which the pirate replied, "How dare you molest the whole world? Because I do it with a small boat, I am called a pirate and a thief. You, with a great navy, molest the world and are called an emperor." Solution: Should this internal matter be considered an absolute crime of anarchy? If a person who is forced to pay more than the agreed-upon fee is being treated unjustly, should they not steal this product? Or would it be wrong to steal it? If they do steal it, who is the real thief in this situation? Although it seems like a real dilemma, the answer actually lies in which one society sees as the thief. If trust in institutions is built on society's belief in them, then who the ultimate thief is also depends on which one society believes in.`,
 		theory: "According to Weber, the state holds many monopolies, but it does so through belief. It is not important for people that laws are fair: what is important is that they believe in the institutions that say they will be fair. If this trust is broken, laws still exist but lose their legitimacy, leading people to question what the rules are, whether there are rules, and whether they should follow them. Durkheim, on the other hand, defines society as a building, with norms as its foundation. If these norms are arbitrary, anomalies arise. The social contract states that the individual is obedient and the state distributes justice, but if the state fails to implement this, for Locke, resistance must begin; for Rousseau, it means the end of the general will; and for Hobbes, it signifies the beginning of chaos.",
 		result: "The Thief-Victim allegory is shaped in line with the belief of the society.",
-		
+		link: "#",
 	}
 ];
 ---
@@ -68,8 +68,12 @@ const reports = [
 	</body>
 </html>
 
-<style is:inline is:global>
-	/* 1. ARKA PLAN: AGRESİF KIRMIZI (Headlines ile aynı) */
+<style is:global>
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+
+	/* ── ARKA PLAN ── */
 	.reports-body {
 		background-color: #d10000 !important;
 		background-image: 
@@ -79,29 +83,33 @@ const reports = [
 		margin: 0;
 	}
 
+	/* ── ANA KAPSAYICI ── */
 	.reports-radical {
+		width: 90%;
 		max-width: 850px;
-		margin: 40px auto;
-		padding: 20px;
+		margin: 80px auto 60px;
+		padding: 0;
 	}
 
+	/* ── GRAFFİTİ BAŞLIK ── */
 	.graffiti-title {
 		font-family: 'Permanent Marker', cursive !important;
-		font-size: clamp(3rem, 10vw, 6rem);
+		font-size: clamp(3rem, 12vw, 6rem);
 		color: #000;
 		text-align: center;
 		text-transform: uppercase;
-		margin-bottom: 2rem;
-		transform: rotate(2deg); /* Zıt yöne eğim */
-		text-shadow: 4px 4px 0px #bc95d4; /* MOR DETAY */
+		margin-bottom: clamp(1.5rem, 5vw, 2rem);
+		transform: rotate(2deg);
+		text-shadow: 4px 4px 0px #bc95d4;
+		line-height: 1;
 	}
 
-	/* 2. REPORT SEKMESİ: SARARMIŞ ARŞİV KAĞIDI */
+	/* ── REPORT KARTI ── */
 	.report-sheet {
-		background: #fdf6e3 !important; /* Hafif sararmış, "vintage" kağıt rengi */
+		background: #fdf6e3 !important;
 		color: #1a1a1a !important;
-		padding: 50px;
-		margin-bottom: 80px;
+		padding: clamp(20px, 5vw, 50px);
+		margin-bottom: clamp(40px, 8vw, 80px);
 		border: 4px solid #000;
 		box-shadow: 20px 20px 0px #000;
 		position: relative;
@@ -110,16 +118,16 @@ const reports = [
 
 	.report-main-title {
 		font-family: 'Permanent Marker', cursive !important;
-		font-size: 2.2rem;
-		line-height: 1.1;
-		margin-bottom: 30px;
+		font-size: clamp(1.4rem, 5vw, 2.2rem);
+		line-height: 1.2;
+		margin-bottom: clamp(16px, 4vw, 30px);
 		color: #000;
 		text-transform: uppercase;
-		border-bottom: 8px solid #bc95d4; /* Kalın MOR alt çizgi */
+		border-bottom: 8px solid #bc95d4;
 		padding-bottom: 10px;
 	}
 
-	/* 3. İÇERİK YAPISI */
+	/* ── İÇERİK YAPISI ── */
 	.report-section {
 		margin-bottom: 25px;
 	}
@@ -130,7 +138,7 @@ const reports = [
 		font-family: 'Courier New', monospace;
 		font-weight: 900;
 		padding: 2px 8px;
-		font-size: 0.8rem;
+		font-size: clamp(0.7rem, 2vw, 0.8rem);
 		display: inline-block;
 		margin-bottom: 10px;
 	}
@@ -141,14 +149,14 @@ const reports = [
 		font-family: 'Courier New', monospace;
 		font-weight: 900;
 		padding: 2px 8px;
-		font-size: 0.8rem;
+		font-size: clamp(0.7rem, 2vw, 0.8rem);
 		display: inline-block;
 		margin-bottom: 10px;
 	}
 
 	.report-text {
-		font-family: 'Georgia', serif; /* Analiz metni olduğu için daha okunaklı bir serif */
-		font-size: 1.15rem;
+		font-family: 'Georgia', serif;
+		font-size: clamp(0.9rem, 2.5vw, 1.15rem);
 		line-height: 1.6;
 		margin: 0;
 	}
@@ -157,10 +165,10 @@ const reports = [
 		font-weight: bold;
 	}
 
-	/* 4. TEORİK BAĞ (KRİTİK ALAN) */
+	/* ── TEORİK BAĞ ── */
 	.theory-connection {
-		border: 2px dashed #bc95d4; /* MOR Kesik çizgi */
-		padding: 20px;
+		border: 2px dashed #bc95d4;
+		padding: clamp(15px, 4vw, 20px);
 		background: rgba(188, 149, 212, 0.1);
 		margin: 30px 0;
 		position: relative;
@@ -170,23 +178,25 @@ const reports = [
 		position: absolute;
 		top: -12px;
 		right: 15px;
-		background: #bc95d4; /* MOR ETİKET */
+		background: #bc95d4;
 		color: #000;
 		font-weight: 900;
 		padding: 2px 10px;
-		font-size: 0.75rem;
+		font-size: clamp(0.6rem, 1.8vw, 0.75rem);
 		font-family: 'Courier New', monospace;
+		white-space: nowrap;
 	}
 
 	.theory-text {
 		font-family: 'Courier New', monospace;
 		font-weight: bold;
 		font-style: italic;
+		font-size: clamp(0.85rem, 2.2vw, 1rem);
 		margin: 0;
 		color: #3d1a4d;
 	}
 
-	/* 5. BUTON */
+	/* ── BUTON ── */
 	.archive-btn {
 		display: inline-block;
 		margin-top: 30px;
@@ -196,6 +206,7 @@ const reports = [
 		font-weight: 900;
 		text-decoration: none;
 		font-family: 'Courier New', monospace;
+		font-size: clamp(0.85rem, 2.5vw, 1rem);
 		transition: 0.2s;
 	}
 
@@ -203,5 +214,45 @@ const reports = [
 		background: #d10000;
 		transform: translate(-5px, -5px);
 		box-shadow: 5px 5px 0px #bc95d4;
+	}
+
+	/* ── MOBİL BREAKPOINT (≤600px) ── */
+	@media (max-width: 600px) {
+		.reports-radical {
+			margin: 60px auto 40px;
+		}
+
+		.graffiti-title {
+			transform: rotate(1deg);
+		}
+
+		.report-sheet {
+			transform: rotate(0deg);
+			box-shadow: 8px 8px 0px #000;
+		}
+
+		.theory-label {
+			white-space: normal;
+			max-width: 70%;
+			line-height: 1.3;
+			right: 10px;
+		}
+
+		.archive-btn {
+			display: block;
+			text-align: center;
+		}
+	}
+
+	/* ── HAREKET HASSAS ── */
+	@media (prefers-reduced-motion: reduce) {
+		.report-sheet,
+		.graffiti-title {
+			transform: none;
+		}
+
+		.archive-btn:hover {
+			transform: none;
+		}
 	}
 </style>
