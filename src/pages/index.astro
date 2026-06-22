@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import BaseHead from '../components/BaseHead.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// Blogları çekiyoruz ama ana sayfada listelemeyeceğiz
 const posts = await getCollection('blog');
 ---
 
@@ -17,179 +16,211 @@ const posts = await getCollection('blog');
 			@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap');
 
 			body {
-    background-image: url('/arkaplan5.jpg') !important;
-    background-size: cover; /* Sayfayı kaplar */
-    background-position: center;
-    background-attachment: fixed;
-}
-/* Editor's Peek Genel Alanı */
-.editors-peek {
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 3px dashed #1a331a;
-}
-header a {
-    /* 1. OKUNABİLİR MİSTİK FONT: Crimson Text veya klasik bir Serif */
-    font-family: 'Crimson Text', serif !important; 
-    font-weight: 700 !important;
-    font-size: 1.1rem !important;
-    text-transform: uppercase; /* Okunurluğu artırmak için büyük harf */
-    letter-spacing: 1px; /* Harfleri biraz açalım ki karışmasın */
-    
-    /* 2. ETİKET RENKLERİ VE KONTRAST */
-    color: #1a1a1a !important;      /* Koyu mürekkep rengi yazı */
-    background: #e9dcc9 !important;  /* Kirli parşömen etiketi */
-    
-    padding: 8px 18px !important;
-    margin: 0 5px !important;
-    text-decoration: none !important;
-    display: inline-block !important;
-    
-    /* 3. SALAŞ FANZİN ETKİSİ */
-    border: 1px solid #3e2723; /* Koyu kahve ince çerçeve */
-    box-shadow: 4px 4px 0px #d4af37; /* Altın rengi sert gölge (belirginleştirir) */
-    transform: rotate(-1.5deg);
-    transition: all 0.2s ease-in-out;
-}
+				background-image: url('/arkaplan5.jpg') !important;
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
 
-header a:hover {
-    background: #1a1a1a !important; /* Üzerine gelince tersine dönsün (negatif efekt) */
-    color: #fdfaf1 !important;    
-    transform: rotate(0deg) translateY(-3px);
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-}
+			/* ── HEADER LİNKLER ── */
+			header nav {
+				flex-wrap: wrap; /* Linkler taşarsa alt satıra geçsin */
+			}
 
-/* Aktif sayfa belirtisi (sanki oraya bir mühür vurulmuş gibi) */
-header a.active {
-    border: 2px dashed #1a1a1a;
-    background: #d4af37 !important;
-}
+			header a {
+				font-family: 'Crimson Text', serif !important;
+				font-weight: 700 !important;
+				font-size: clamp(0.75rem, 2vw, 1.1rem) !important; /* Fluid font */
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				color: #1a1a1a !important;
+				background: #e9dcc9 !important;
+				padding: 6px 12px !important; /* Mobilde daha küçük padding */
+				margin: 4px 3px !important;   /* Sarıldığında boşluk kalsın */
+				text-decoration: none !important;
+				display: inline-block !important;
+				border: 1px solid #3e2723;
+				box-shadow: 4px 4px 0px #d4af37;
+				transform: rotate(-1.5deg);
+				transition: all 0.2s ease-in-out;
+			}
 
-header a:hover {
-    background: #d4af37 !important; /* Üzerine gelince altın rengi parla */
-    transform: rotate(2deg) translateY(-5px); /* Yukarı zıplar */
-    box-shadow: 6px 6px 0px #1a1a1a;
-}
+			header a:hover {
+				background: #d4af37 !important;
+				color: #1a1a1a !important;
+				transform: rotate(2deg) translateY(-5px);
+				box-shadow: 6px 6px 0px #1a1a1a;
+			}
 
-.peek-title {
-    font-family: 'UnifrakturMaguntia', cursive !important;
-    font-size: 3rem;
-    text-align: center;
-    color: #1a331a;
-    margin-bottom: 40px;
-}
+			header a.active {
+				border: 2px dashed #1a1a1a;
+				background: #d4af37 !important;
+			}
 
-/* Yazı Kartları (Grid Yapısı) */
-.peek-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-/* Tekil Kart Tasarımı (Yırtık Kağıt/Fanzin Karışımı) */
-.peek-card {
-    background: #fdfaf1;
-    padding: 25px;
-    border: 1px solid #d4af37;
-    text-decoration: none;
-    color: #2c2c2c;
-    position: relative;
-    transform: rotate(-1deg); /* Salaş yamukluk */
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.peek-card:nth-child(even) {
-    transform: rotate(1.5deg); /* Birisi sola, birisi sağa baksın */
-}
-
-.peek-card:hover {
-    transform: scale(1.05) rotate(0deg);
-    box-shadow: 15px 15px 0px #1a331a;
-    background: #fff;
-}
-
-/* İğne/Pin Detayı */
-.pin {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-}
-
-.peek-card h3 {
-    font-family: 'Crimson Text', serif;
-    font-size: 1.8rem;
-    margin: 10px 0;
-    line-height: 1.2;
-    border-bottom: 2px solid #1a331a;
-}
-
-.peek-card p {
-    font-size: 1rem;
-    font-style: italic;
-    opacity: 0.8;
-}
+			/* ── MAIN KAPSAYICI ── */
 			main {
-				width: 1000px;
-				max-width: 90%;
-				margin: 100px auto; /* Biraz daha aşağı indirdik, tam ortalı dursun */
-				background: #fdfaf1; 
-				padding: 60px;
+				width: 90%;           /* Sabit 1000px kaldırıldı */
+				max-width: 1000px;    /* Masaüstünde hâlâ max 1000px */
+				margin: 80px auto 60px;
+				background: #fdfaf1;
+				padding: clamp(20px, 5vw, 60px); /* Fluid padding */
 				border-radius: 5px;
 				box-shadow: 0 0 50px rgba(0,0,0,0.5);
 				border: 1px solid #d4af37;
 				color: #2c2c2c;
+				box-sizing: border-box;
 			}
 
+			/* ── GİRİŞ BÖLÜMÜ ── */
 			.intro-wrapper {
 				display: flex;
 				align-items: center;
-				gap: 50px;
-				justify-content: center; /* İçeriği ortaladık */
+				gap: 40px;
+				justify-content: center;
+				flex-wrap: wrap; /* Dar ekranda alt alta geçsin */
+			}
+
+			.intro-image {
+				flex: 1 1 280px;  /* Büzülüp büyüyebilir, min 280px */
+				max-width: 450px;
 			}
 
 			.intro-image img {
-				max-width: 450px; /* İllüstrasyonu biraz daha büyüttük */
+				width: 100%;       /* Sabit 450px kaldırıldı */
 				height: auto;
 				border-radius: 20px 0 20px 0;
 				filter: sepia(0.2) contrast(1.1);
 				box-shadow: 0 0 20px rgba(0,0,0,0.1);
+				display: block;
+			}
+
+			.intro-text {
+				flex: 1 1 280px; /* Resimle yan yana, daraldığında alt alta */
 			}
 
 			.intro-text h1 {
 				font-family: 'UnifrakturMaguntia', cursive !important;
-        font-size: 4rem;
-        /* ARKA PLANDA BELİRGİNLEŞTİREN SİYAH BANT */
-        background: #1a1a1a !important; 
-        color: #fdfaf1 !important; /* Parşömen beyazı yazı */
-        padding: 10px 20px !important;
-        display: inline-block !important;
-        transform: rotate(-1.5deg); /* Salaş yamukluk */
-        box-shadow: 8px 8px 0px #d4af37; /* Witchcore altın gölge */
-        line-height: 1.1;
-    }
+				font-size: clamp(2rem, 6vw, 4rem); /* Fluid: mobilde küçülür */
+				background: #1a1a1a !important;
+				color: #fdfaf1 !important;
+				padding: 8px 16px !important;
+				display: inline-block !important;
+				transform: rotate(-1.5deg);
+				box-shadow: 8px 8px 0px #d4af37;
+				line-height: 1.1;
+			}
 
-    /* TANITIM METNİ (Yazının arkasına kirli beyaz bir zemin) */
-    .intro-text p {
-        background: rgba(253, 250, 241, 0.9); /* Şeffaf parşömen rengi */
-        padding: 20px;
-        border-left: 5px solid #1a1a1a; /* Soluna sert bir çizgi */
-        font-size: 1.4rem;
-        line-height: 1.8;
-        color: #2c2c2c;
-        margin-top: 20px;
-        box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    /* ... diğer kodların ... */
-</style>
+			.intro-text p {
+				background: rgba(253, 250, 241, 0.9);
+				padding: 16px;
+				border-left: 5px solid #1a1a1a;
+				font-size: clamp(1rem, 2.5vw, 1.4rem); /* Fluid font */
+				line-height: 1.8;
+				color: #2c2c2c;
+				margin-top: 20px;
+				box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+			}
+
+			/* ── EDITOR'S PEEK ── */
+			.editors-peek {
+				margin-top: 60px;
+				padding-top: 40px;
+				border-top: 3px dashed #1a331a;
+			}
+
+			.peek-title {
+				font-family: 'UnifrakturMaguntia', cursive !important;
+				font-size: clamp(1.8rem, 5vw, 3rem); /* Fluid font */
+				text-align: center;
+				color: #1a331a;
+				margin-bottom: 40px;
+			}
+
+			.peek-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 250→200 */
+				gap: 30px;
+			}
+
+			.peek-card {
+				background: #fdfaf1;
+				padding: 25px;
+				border: 1px solid #d4af37;
+				text-decoration: none;
+				color: #2c2c2c;
+				position: relative;
+				transform: rotate(-1deg);
+				box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+				transition: all 0.3s ease;
+				box-sizing: border-box; /* Padding taşmasını önler */
+			}
+
+			.peek-card:nth-child(even) {
+				transform: rotate(1.5deg);
+			}
+
+			.peek-card:hover {
+				transform: scale(1.05) rotate(0deg);
+				box-shadow: 15px 15px 0px #1a331a;
+				background: #fff;
+			}
+
+			.pin {
+				position: absolute;
+				top: -10px;
+				left: 50%;
+				transform: translateX(-50%);
+				font-size: 1.5rem;
+			}
+
+			.peek-card h3 {
+				font-family: 'Crimson Text', serif;
+				font-size: clamp(1.2rem, 3vw, 1.8rem); /* Fluid font */
+				margin: 10px 0;
+				line-height: 1.2;
+				border-bottom: 2px solid #1a331a;
+			}
+
+			.peek-card p {
+				font-size: 1rem;
+				font-style: italic;
+				opacity: 0.8;
+			}
+
+			/* ── MOBİL BREAKPOINT (≤600px) ── */
+			@media (max-width: 600px) {
+				main {
+					margin: 60px auto 40px;
+				}
+
+				.intro-wrapper {
+					flex-direction: column; /* Kesinlikle alt alta */
+					gap: 24px;
+				}
+
+				.intro-image {
+					max-width: 100%;
+				}
+
+				.peek-grid {
+					grid-template-columns: 1fr; /* Tek sütun */
+					gap: 20px;
+				}
+
+				.peek-card {
+					transform: rotate(0deg) !important; /* Mobilde yamukluk kaldırıldı */
+				}
+
+				header a {
+					font-size: 0.7rem !important;
+					padding: 5px 8px !important;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-		
 			<section class="intro-wrapper">
 				<div class="intro-image">
 					<img src="/illustration1.jpg" alt="Aysun İllüstrasyon" />
@@ -202,23 +233,23 @@ We are not pretending to be impartial. This journal is writing from a leftist vi
 To us, cinema is not just another art form; it is a atmosphere that clearly reveals how power, desire, and ideology are intertwined. On the other hand, literature is being seen as the voice of the oppressed, the unmentionable, and the weak. Ecology and feminism are not the minor topics of this periodical; they are at the seed  our understanding of the world.
 This publication does not want to be a platform for oppressive views. Rather, it seeks the plural, split into different phase, and difficult inquiries. Beginning with the urban space, the human body, the environment, and the past, it aspires to uncover the silenced voices.
 What is presented here is not for fast consumption but for a pause, a thought and a resistance.
-
+					</p>
 				</div>
 			</section>
+
 			<section class="editors-peek">
-    <h2 class="peek-title">Editor's Peek</h2>
-    <div class="peek-grid">
-        {posts.slice(0, 3).map((post) => ( // İlk 3 yazıyı çeker
-            <a href={`/blog/${post.slug}/`} class="peek-card">
-                <span class="pin">📌</span>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description.substring(0, 60)}...</p>
-            </a>
-        ))}
-    </div>
-</section>
-			
-			</main>
-            <Footer/>
+				<h2 class="peek-title">Editor's Peek</h2>
+				<div class="peek-grid">
+					{posts.slice(0, 3).map((post) => (
+						<a href={`/blog/${post.slug}/`} class="peek-card">
+							<span class="pin">📌</span>
+							<h3>{post.data.title}</h3>
+							<p>{post.data.description.substring(0, 60)}...</p>
+						</a>
+					))}
+				</div>
+			</section>
+		</main>
+		<Footer />
 	</body>
 </html>
