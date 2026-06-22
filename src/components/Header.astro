@@ -44,6 +44,31 @@ import HeaderLink from './HeaderLink.astro';
     transition: all 0.2s ease-in-out;
     transform: rotate(-1.5deg);
   }
+  /* News butonu - diğer nav linkleriyle aynı görünüm */
+nav .dropbtn {
+    font-family: 'Crimson Text', serif !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1a1a1a !important;      
+    background: #e9dcc9 !important;
+    padding: 8px 18px !important;
+    text-decoration: none !important;
+    border: 1px solid #3e2723; 
+    box-shadow: 4px 4px 0px #d4af37;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    transform: rotate(-1.5deg);
+    cursor: pointer;
+}
+
+nav .dropbtn:hover {
+    background: #1a1a1a !important;
+    color: #fdfaf1 !important;    
+    transform: rotate(0deg) translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.3);
+}
 
   nav a:nth-child(even) {
     transform: rotate(2deg);
