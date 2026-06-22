@@ -37,6 +37,10 @@ import BlogPost from '../layouts/BlogPost.astro';
 </BlogPost>
 
 <style is:global>
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+
 	/* ── ARKA PLAN ── */
 	html {
 		background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
@@ -59,16 +63,16 @@ import BlogPost from '../layouts/BlogPost.astro';
 
 	/* ── KAPSAYICI ── */
 	.who-container {
-		max-width: 750px;
 		width: 90%;
-		margin: 80px auto;
-		padding-top: 40px; /* Başlığın taşması için alan */
+		max-width: 750px;
+		margin: clamp(60px, 12vw, 100px) auto clamp(40px, 8vw, 80px);
+		padding-top: clamp(30px, 6vw, 50px);
 	}
 
 	/* ── BAŞLIK ── */
 	.manual-title {
 		font-family: 'Crimson Text', serif !important;
-		font-size: clamp(1.4rem, 4vw, 2rem) !important;
+		font-size: clamp(1.1rem, 4vw, 2rem) !important;
 		text-transform: uppercase;
 		background-color: #69622b !important;
 		color: #f0e6d2 !important;
@@ -79,7 +83,8 @@ import BlogPost from '../layouts/BlogPost.astro';
 		box-shadow: 5px 5px 0px #000;
 		position: relative;
 		z-index: 10;
-		transform: translateY(50%); /* Kutunun üstüne taşsın */
+		transform: translateY(50%);
+		text-align: center;
 	}
 
 	/* Diğer h1'leri gizle (layout'tan gelen boş başlık) */
@@ -90,29 +95,29 @@ import BlogPost from '../layouts/BlogPost.astro';
 	/* ── İÇERİK KUTUSU ── */
 	.who-content {
 		background-color: rgba(240, 230, 210, 0.95) !important;
-		padding: clamp(40px, 6vw, 60px) clamp(20px, 5vw, 40px);
+		padding: clamp(50px, 8vw, 70px) clamp(20px, 6vw, 50px) clamp(30px, 6vw, 50px);
 		border: 1px solid #3e2723;
 		box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4);
 		color: #3e2723 !important;
 		font-family: 'Georgia', serif;
 		line-height: 1.8;
-		box-sizing: border-box;
+		width: 100%;
 	}
 
 	/* ── METİNLER ── */
 	.main-text {
-		font-size: clamp(1.1rem, 3vw, 1.4rem);
+		font-size: clamp(1rem, 3vw, 1.4rem);
 		font-weight: bold;
 		margin: 0 0 1.5rem 0;
 	}
 
 	.sub-text {
-		font-size: clamp(1rem, 2.5vw, 1.1rem);
+		font-size: clamp(0.9rem, 2.5vw, 1.1rem);
 		margin: 0 0 1.2rem 0;
 	}
 
 	.disclaimer-text {
-		font-size: 0.9rem;
+		font-size: clamp(0.8rem, 2vw, 0.9rem);
 		opacity: 0.85;
 		margin: 1.5rem 0 0 0;
 		border-top: 1px dashed #3e2723;
@@ -142,11 +147,15 @@ import BlogPost from '../layouts/BlogPost.astro';
 		box-shadow: 6px 6px 0px #000;
 	}
 
-	/* ── MOBİL ── */
+	/* ── MOBİL (≤480px) ── */
 	@media (max-width: 480px) {
 		.who-container {
 			width: 95%;
-			margin: 60px auto;
+		}
+
+		.manual-title {
+			/* Mobilde translateY taşması sorunu yaratabilir, azalt */
+			transform: translateY(40%);
 		}
 
 		.who-content {
@@ -156,6 +165,13 @@ import BlogPost from '../layouts/BlogPost.astro';
 		.kofi-button {
 			display: block;
 			text-align: center;
+		}
+	}
+
+	/* ── HAREKET HASSAS ── */
+	@media (prefers-reduced-motion: reduce) {
+		.kofi-button:hover {
+			transform: none;
 		}
 	}
 </style>
