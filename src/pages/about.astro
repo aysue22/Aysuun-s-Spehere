@@ -2,12 +2,12 @@
 import BlogPost from '../layouts/BlogPost.astro';
 ---
 
-<BlogPost title=""> <div class="who-container" noPaper={true}>
-</div>
-    <h1 class="manual-title">Who is this?</h1>
-		<section class="who-content">
-			
+<BlogPost title="Who is this?" description="" noPaper={true}>
 
+	<div class="who-container">
+		<h1 class="manual-title">Who is this?</h1>
+
+		<section class="who-content">
 			<p class="main-text">
 				I am a sociology student based in Turkey, working at the intersection of ecology, feminism, cinema, and public life.
 			</p>
@@ -27,136 +27,154 @@ import BlogPost from '../layouts/BlogPost.astro';
 			</div>
 
 			<p class="disclaimer-text">
-				Your contribution helps cover basic expenses such as hosting, archiving, and production. 
-				<strong>Support does not influence editorial decisions.</strong> 
+				Your contribution helps cover basic expenses such as hosting, archiving, and production.
+				<strong>Support does not influence editorial decisions.</strong>
 				This space remains independent and non-commercial.
 			</p>
 		</section>
-	</main>
+	</div>
+
 </BlogPost>
 
-
-
 <style is:global>
+	/* ── ARKA PLAN ── */
+	html {
+		background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+		            url("/arkaplan10.jpg") no-repeat center center fixed !important;
+		background-size: cover !important;
+		background-color: #1a1a1a !important;
+	}
 
+	/* Tüm katmanları şeffaf yap */
+	html body,
+	main,
+	article,
+	section,
+	.who-container {
+		background-color: transparent !important;
+		background-image: none !important;
+		box-shadow: none !important;
+		border: none !important;
+	}
 
-  /* 1. Tüm katmanları şeffaf yapıyoruz ki en arkadaki HTML görünsün */
-  html, body, main, article, section, .who-container {
-    background-color: transparent !important;
-    background-image: none !important;
-  }
+	/* ── KAPSAYICI ── */
+	.who-container {
+		max-width: 750px;
+		width: 90%;
+		margin: 80px auto;
+		padding-top: 40px; /* Başlığın taşması için alan */
+	}
 
-  /* 2. Arka planı doğrudan en temele, HTML'e gömüyoruz */
-  html {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url("/arkaplan10.jpg") no-repeat center center fixed !important;
-    background-size: cover !important;
-    background-color: #1a1a1a !important; /* Resim yüklenene kadar siyah kalsın */
-  }
+	/* ── BAŞLIK ── */
+	.manual-title {
+		font-family: 'Crimson Text', serif !important;
+		font-size: clamp(1.4rem, 4vw, 2rem) !important;
+		text-transform: uppercase;
+		background-color: #69622b !important;
+		color: #f0e6d2 !important;
+		display: table !important;
+		margin: 0 auto 0 auto !important;
+		padding: 10px 25px !important;
+		border: 1px solid #3e2723;
+		box-shadow: 5px 5px 0px #000;
+		position: relative;
+		z-index: 10;
+		transform: translateY(50%); /* Kutunun üstüne taşsın */
+	}
 
-  /* 3. Senin fanzine tasarımı (Burası aynı kalabilir) */
-  .who-content {
-    background-color: rgba(240, 230, 210, 0.95) !important;
-    padding: 0px 0px;
-    border: 1px solid #3e2723;
-    box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4);
-    color: #3e2723 !important;
-    position: relative;
-    z-index: 1;
-  }
+	/* Diğer h1'leri gizle (layout'tan gelen boş başlık) */
+	h1:not(.manual-title) {
+		display: none !important;
+	}
 
-  .manual-title {
-    background-color: #69622b !important;
-    color: #f0e6d2 !important;
-    display: table !important; 
-    margin: -40px auto 40px auto !important;
-    padding: 10px 25px !important;
-    box-shadow: 5px 5px 0px #000;
-    position: relative;
-    z-index: 10;
-  }
+	/* ── İÇERİK KUTUSU ── */
+	.who-content {
+		background-color: rgba(240, 230, 210, 0.95) !important;
+		padding: clamp(40px, 6vw, 60px) clamp(20px, 5vw, 40px);
+		border: 1px solid #3e2723;
+		box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4);
+		color: #3e2723 !important;
+		font-family: 'Georgia', serif;
+		line-height: 1.8;
+		box-sizing: border-box;
+	}
 
-  
+	/* ── METİNLER ── */
+	.main-text {
+		font-size: clamp(1.1rem, 3vw, 1.4rem);
+		font-weight: bold;
+		margin: 0 0 1.5rem 0;
+	}
 
-  .who-content {
-    background-color: rgba(240, 230, 210, 0.95) !important; /* Kirli kağıt rengi */
-    padding: 60px 40px;
-    border: 1px solid #3e2723;
-    box-shadow: 15px 15px 0px rgba(188, 149, 212, 0.4); /* Mor gölge */
-    color: #3e2723 !important;
-    font-family: 'Georgia', serif;
-    line-height: 1.8;
-  }
+	.sub-text {
+		font-size: clamp(1rem, 2.5vw, 1.1rem);
+		margin: 0 0 1.2rem 0;
+	}
 
-  /* 3. BAŞLIK: Who is this? */
-  .manual-title {
-    background-color: #69622b !important; /* Zeytin/Krem */
-    color: #f0e6d2 !important;
-    display: table !important; 
-    margin: -40px auto 40px auto !important;
-    padding: 10px 25px !important;
-    font-family: 'Crimson Text', serif !important;
-    text-transform: uppercase;
-    font-size: 2rem !important;
-    border: 1px solid #3e2723;
-    position: relative;
-    z-index: 10;
-    box-shadow: 5px 5px 0px #000;
-  }
+	.disclaimer-text {
+		font-size: 0.9rem;
+		opacity: 0.85;
+		margin: 1.5rem 0 0 0;
+		border-top: 1px dashed #3e2723;
+		padding-top: 1rem;
+	}
 
-  /* Eski başlığı gizle */
-  h1:not(.manual-title) {
-    display: none !important;
-  }
+	/* ── KO-FI BUTONU ── */
+	.kofi-wrapper {
+		margin: 1.5rem 0;
+	}
 
-  /* 4. BUTON VE DİĞERLERİ */
-  .kofi-button {
-    background-color: #f0e6d2 !important;
-    color: #1a1a1a !important;
-    padding: 10px 20px !important;
-    text-decoration: none !important;
-    font-weight: 700;
-    border: 1px solid #3e2723;
-    box-shadow: 4px 4px 0px #bc95d4;
-    display: inline-block;
-  }
+	.kofi-button {
+		background-color: #f0e6d2 !important;
+		color: #1a1a1a !important;
+		padding: 10px 20px !important;
+		text-decoration: none !important;
+		font-weight: 700;
+		border: 1px solid #3e2723;
+		box-shadow: 4px 4px 0px #bc95d4;
+		display: inline-block;
+		transition: all 0.2s ease;
+	}
 
-  .main-text {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-  }
+	.kofi-button:hover {
+		background-color: #bc95d4 !important;
+		transform: translateY(-2px);
+		box-shadow: 6px 6px 0px #000;
+	}
 
-  /* Layout şeffaflığı */
-  main, .container {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
+	/* ── MOBİL ── */
+	@media (max-width: 480px) {
+		.who-container {
+			width: 95%;
+			margin: 60px auto;
+		}
+
+		.who-content {
+			box-shadow: 8px 8px 0px rgba(188, 149, 212, 0.4);
+		}
+
+		.kofi-button {
+			display: block;
+			text-align: center;
+		}
+	}
 </style>
+
 <script is:inline>
-  // Bu script Vercel'de sayfa yüklendiği an çalışır ve 
-  // temayı (layout) bypass ederek resmi direkt arka plana çiviler.
-  
-  function setBackground() {
-    const htmlEl = document.documentElement;
-    const bodyEl = document.body;
+	function setBackground() {
+		const html = document.documentElement;
+		const body = document.body;
 
-    // Önce temadan gelen tüm engelleri kaldırıyoruz
-    htmlEl.style.setProperty('background', 'none', 'important');
-    bodyEl.style.setProperty('background', 'none', 'important');
-    
-    // Şimdi resmi en tepeye yerleştiriyoruz
-    htmlEl.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan10.jpg')";
-    htmlEl.style.backgroundSize = "cover";
-    htmlEl.style.backgroundPosition = "center";
-    htmlEl.style.backgroundAttachment = "fixed";
-    htmlEl.style.backgroundColor = "#1a1a1a";
-  }
+		html.style.setProperty('background', 'none', 'important');
+		body.style.setProperty('background', 'none', 'important');
 
-  // Sayfa ilk açıldığında çalıştır
-  setBackground();
-  
-  // Astro'nun sayfa geçişlerinde (eğer varsa) tekrar çalışması için
-  document.addEventListener('astro:after-swap', setBackground);
+		html.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/arkaplan10.jpg')";
+		html.style.backgroundSize = "cover";
+		html.style.backgroundPosition = "center";
+		html.style.backgroundAttachment = "fixed";
+		html.style.backgroundColor = "#1a1a1a";
+	}
+
+	setBackground();
+	document.addEventListener('astro:after-swap', setBackground);
 </script>
