@@ -1,0 +1,871 @@
+---
+const ADMIN_PASSWORD = "aysun2004.";
+---
+
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <style>
+    /* ─── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── SAYFA ARKA PLANI ──────────────────────────── */
+    html, body {
+      height: 100%;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #1a0a24;
+      background-image: radial-gradient(rgba(255,0,0,0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #f0e6d2;
+    }
+
+    /* ─── GİRİŞ EKRANI ──────────────────────────────── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .login-box {
+      background: #000;
+      border: 3px solid #8b0000;
+      box-shadow: 8px 8px 0 #8b0000;
+      padding: 40px;
+      width: 380px;
+      transform: rotate(-1deg);
+    }
+
+    .login-box h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #f0e6d2;
+      margin-bottom: 8px;
+    }
+
+    .login-box .subtitle {
+      color: #8b0000;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    .login-box label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      background: #1a0a24;
+      border: 2px solid #3d1a4d;
+      color: #f0e6d2;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .login-box input[type="password"]:focus {
+      border-color: #8b0000;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: #8b0000;
+      color: #000;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #f0e6d2;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #8b0000;
+    }
+
+    #login-error {
+      color: #ff4444;
+      font-size: 0.8rem;
+      margin-top: 12px;
+      text-align: center;
+      display: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── ADMIN PANELİ ──────────────────────────────── */
+    #admin-panel {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 4px dashed #8b0000;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .panel-header h1 {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #f0e6d2;
+    }
+
+    .panel-header h1 span {
+      color: #8b0000;
+    }
+
+    .btn-logout {
+      padding: 8px 18px;
+      background: transparent;
+      border: 2px solid #8b0000;
+      color: #8b0000;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: #8b0000;
+      color: #000;
+    }
+
+    /* ─── BÖLÜM NAVİGASYONU ─────────────────────────── */
+    .section-nav {
+      display: flex;
+      gap: 0;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #3d1a4d;
+    }
+
+    .section-tab {
+      padding: 10px 20px;
+      background: #0d0012;
+      border: 2px solid #3d1a4d;
+      border-bottom: none;
+      color: #888;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: -2px;
+      /* tarayıcı button stilini sıfırla */
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+      outline: none;
+    }
+
+    .section-tab.active {
+      background: #8b0000;
+      color: #000;
+      border-color: #8b0000;
+    }
+
+    .section-tab:hover:not(.active) {
+      border-color: #8b0000;
+      color: #f0e6d2;
+    }
+
+    /* ─── FORM ALANLARI ─────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 14px;
+      background: #0d0012;
+      border: 2px solid #3d1a4d;
+      color: #f0e6d2;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+      /* tarayıcı override'larını sıfırla */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #8b0000;
+    }
+
+    /* select için özel ok ikonu */
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b0000'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: #0d0012;
+      color: #f0e6d2;
+    }
+
+    /* date input için takvim ikonu rengi */
+    .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) sepia(1) saturate(5) hue-rotate(300deg);
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    .form-group input[type="date"]::-webkit-datetime-edit {
+      color: #f0e6d2;
+    }
+
+    .form-group input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    /* ─── EDİTÖR ────────────────────────────────────── */
+    .editor-section {
+      margin-top: 8px;
+    }
+
+    .editor-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .editor-tab {
+      padding: 8px 20px;
+      background: #0d0012;
+      border: 2px solid #3d1a4d;
+      border-bottom: none;
+      color: #888;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .editor-tab.active {
+      background: #8b0000;
+      color: #000;
+      border-color: #8b0000;
+      font-weight: bold;
+    }
+
+    #markdown-editor {
+      width: 100%;
+      min-height: 380px;
+      padding: 20px;
+      background: #0d0012;
+      border: 2px solid #3d1a4d;
+      color: #f0e6d2;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      resize: vertical;
+      outline: none;
+      tab-size: 2;
+    }
+
+    #markdown-editor:focus {
+      border-color: #8b0000;
+    }
+
+    #preview-pane {
+      display: none;
+      min-height: 380px;
+      padding: 20px;
+      background: #0d0012;
+      border: 2px solid #3d1a4d;
+      color: #f0e6d2;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    #preview-pane h1, #preview-pane h2, #preview-pane h3 {
+      color: #f0e6d2;
+      margin: 1.5rem 0 0.5rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    #preview-pane p { margin-bottom: 1rem; }
+    #preview-pane img { max-width: 100%; border: 2px solid #8b0000; }
+    #preview-pane a { color: #8b0000; }
+    #preview-pane blockquote {
+      border-left: 4px solid #8b0000;
+      padding-left: 16px;
+      color: #aaa;
+      margin: 1rem 0;
+    }
+    #preview-pane code {
+      background: #1a0a24;
+      padding: 2px 6px;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ─── ALT BUTONLAR ──────────────────────────────── */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-download {
+      padding: 14px 28px;
+      background: #8b0000;
+      color: #000;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-download:hover {
+      background: #f0e6d2;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #8b0000;
+    }
+
+    .btn-clear {
+      padding: 14px 28px;
+      background: transparent;
+      color: #555;
+      border: 2px solid #333;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-clear:hover {
+      border-color: #8b0000;
+      color: #8b0000;
+    }
+
+    /* ─── YARDIM KUTUSU ─────────────────────────────── */
+    .help-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #0d0012;
+      border: 1px solid #3d1a4d;
+      border-left: 4px solid #8b0000;
+    }
+
+    .help-box h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #8b0000;
+      margin-bottom: 12px;
+    }
+
+    .help-box p, .help-box li {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.8;
+    }
+
+    .help-box code {
+      color: #f0e6d2;
+      background: #1a0a24;
+      padding: 1px 5px;
+    }
+
+    /* ─── TOAST BİLDİRİMİ ───────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #8b0000;
+      color: #000;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 14px 24px;
+      border: 2px solid #f0e6d2;
+      box-shadow: 4px 4px 0 #f0e6d2;
+      display: none;
+      z-index: 999;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .login-box { width: 90%; padding: 28px; }
+      .section-tab { padding: 8px 12px; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     GİRİŞ EKRANI
+════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>// Admin</h1>
+    <div class="subtitle">Restricted Access</div>
+    <label for="pwd-input">Şifre</label>
+    <input type="password" id="pwd-input" placeholder="••••••••••" autocomplete="current-password" />
+    <button class="btn-primary" id="login-btn">Giriş Yap</button>
+    <div id="login-error">Hatalı şifre. Tekrar dene.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     ADMIN PANELİ
+════════════════════════════════════ -->
+<div id="admin-panel">
+
+  <div class="panel-header">
+    <h1>// İçerik <span>Editörü</span></h1>
+    <button class="btn-logout" id="logout-btn">Çıkış</button>
+  </div>
+
+  <!-- BÖLÜM SEÇİM MENÜSÜ -->
+  <div class="section-nav" id="section-nav"></div>
+
+  <!-- DİNAMİK FORM ALANI -->
+  <div id="form-fields" class="form-grid"></div>
+
+  <!-- MARKDOWN EDİTÖRÜ -->
+  <div class="editor-section">
+    <label style="font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;color:#888;display:block;margin-bottom:8px;">
+      İçerik *
+    </label>
+    <div class="editor-tabs">
+      <button class="editor-tab active" id="tab-write" onclick="switchTab('write')">✏ Yaz</button>
+      <button class="editor-tab" id="tab-preview" onclick="switchTab('preview')">👁 Önizle</button>
+    </div>
+    <textarea id="markdown-editor" placeholder=""></textarea>
+    <div id="preview-pane"></div>
+  </div>
+
+  <!-- BUTONLAR -->
+  <div class="actions">
+    <button class="btn-download" id="download-btn">⬇ .md Dosyası İndir</button>
+    <button class="btn-clear" id="clear-btn">Formu Temizle</button>
+  </div>
+
+  <!-- YARDIM -->
+  <div class="help-box">
+    <h3>// Nasıl kullanılır?</h3>
+    <ul id="help-list"></ul>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script is:inline>
+const ADMIN_PASSWORD = "aysun2004.";
+/* ════════════════════════════════════════════════════
+   BÖLÜM TANIMLARI
+════════════════════════════════════════════════════ */
+const SECTIONS = {
+  blog: {
+    label: "Blog",
+    folder: "src/content/blog/",
+    mainField: null,
+    mainPlaceholder: "## Giriş\n\nYazını buraya yaz. Markdown desteklenir.\n\n![Görsel açıklaması](/gorsel.jpg)",
+    fields: [
+      { key: "title", label: "Başlık *", type: "text", placeholder: "Yazının başlığı", autoSlug: true },
+      { key: "slug", label: "Slug (URL) *", type: "text", placeholder: "yazi-basligi-kucuk-harf" },
+      { key: "description", label: "Açıklama", type: "text", placeholder: "Kısa açıklama / meta description" },
+      { key: "pubDate", label: "Tarih *", type: "date" },
+      { key: "heroImage", label: "Hero Resim Yolu", type: "text", placeholder: "/resim.jpg" },
+      { key: "theme", label: "Tema", type: "select", options: [["", "Varsayılan (Parşömen)"], ["green", "Yeşil Tema"], ["dark-mode", "Karanlık Tema"]] },
+    ],
+    help: [
+      "Formu doldurup <strong>.md Dosyası İndir</strong> butonuna bas.",
+      "İndirilen <code>.md</code> dosyasını <code>src/content/blog/</code> klasörüne at.",
+      "Resimleri <code>public/</code> klasörüne koy, Hero alanına <code>/resim.jpg</code> yaz.",
+      "Hostinger'dan siteyi yeniden deploy et — yazın yayında!",
+    ],
+  },
+
+  fieldnotes: {
+    label: "Field Notes",
+    folder: "src/content/field-notes/",
+    mainField: "whatIRead",
+    mainPlaceholder: "Ne fark ettin? Gözlemini buraya yaz...",
+    fields: [
+      { key: "location", label: "Konum *", type: "text", placeholder: "Online / Şehir adı", autoSlug: true },
+      { key: "slug", label: "Slug (URL) *", type: "text", placeholder: "konum-tarih-kucuk-harf" },
+      { key: "date", label: "Tarih *", type: "date" },
+      { key: "context", label: "Bağlam (Context) *", type: "text", placeholder: "Örn: Multitasking" },
+      { key: "socioNote", label: "Sosyolojik Not *", type: "text", placeholder: "Örn: Zuboff: ..." },
+      { key: "link", label: "Link", type: "text", placeholder: "# veya URL" },
+    ],
+    help: [
+      "Formu doldur, ana metin kutusuna gözlemini (<code>whatIRead</code>) yaz.",
+      "İndirilen <code>.md</code> dosyasını <code>src/content/field-notes/</code> klasörüne at.",
+      "Field Notes sayfasının bu klasörden veri okuyacak şekilde ayarlandığından emin ol.",
+    ],
+  },
+
+  collective: {
+    label: "Collective",
+    folder: "src/content/collective/",
+    mainField: "content",
+    mainPlaceholder: "Bu proje/kişi hakkında uzun açıklama, alıntı veya tanıtım metni (opsiyonel)...",
+    fields: [
+      { key: "projectName", label: "Proje / Kişi Adı *", type: "text", placeholder: "Örn: Luna Press", autoSlug: true },
+      { key: "slug", label: "Slug (URL) *", type: "text", placeholder: "proje-adi-kucuk-harf" },
+      { key: "tag", label: "Etiket (Tür · Şehir) *", type: "text", placeholder: "Örn: Publishing · Berlin" },
+      { key: "shortDesc", label: "Kısa Açıklama *", type: "text", placeholder: "Örn: Independent feminist publishing." },
+      { key: "link", label: "Link", type: "text", placeholder: "/collective/proje-adi" },
+    ],
+    help: [
+      "Formu doldur (ana metin kutusu opsiyonel — kart sayfasında uzun yazı varsa kullan).",
+      "İndirilen <code>.md</code> dosyasını <code>src/content/collective/</code> klasörüne at.",
+      "Collective grid sayfasının bu koleksiyondan kart oluşturacak şekilde güncellendiğinden emin ol.",
+    ],
+  },
+
+  reports: {
+    label: "Reports",
+    folder: "src/content/reports/",
+    mainField: "analysis",
+    mainPlaceholder: "Analiz bölümünün uzun metnini buraya yaz...",
+    fields: [
+      { key: "title", label: "Başlık *", type: "text", placeholder: "Örn: St. Augustine and Pirates", autoSlug: true },
+      { key: "slug", label: "Slug (URL) *", type: "text", placeholder: "baslik-kucuk-harf" },
+      { key: "intro", label: "Giriş (Intro) *", type: "textarea", placeholder: "Kısa giriş paragrafı" },
+      { key: "theory", label: "Teorik Perspektif *", type: "textarea", placeholder: "İlgili teori/teorisyenler" },
+      { key: "result", label: "Sonuç (Soo?) *", type: "text", placeholder: "Kısa sonuç cümlesi" },
+      { key: "link", label: "Link", type: "text", placeholder: "# veya URL" },
+    ],
+    help: [
+      "Ana metin kutusuna <code>analysis</code> bölümünün uzun metnini yaz.",
+      "Diğer kısa alanları (intro, theory, result) üst formdan doldur.",
+      "İndirilen <code>.md</code> dosyasını <code>src/content/reports/</code> klasörüne at.",
+    ],
+  },
+
+  headlines: {
+    label: "Headlines",
+    folder: "src/content/headlines/",
+    mainField: "summary",
+    mainPlaceholder: "Haberin özetini buraya yaz...",
+    fields: [
+      { key: "title", label: "Başlık *", type: "text", placeholder: "Örn: Femicide is being classic daily life news.", autoSlug: true },
+      { key: "slug", label: "Slug (URL) *", type: "text", placeholder: "baslik-kucuk-harf" },
+      { key: "whyItMatters", label: "Why It Matters *", type: "textarea", placeholder: "Bu neden önemli?" },
+      { key: "link", label: "Kaynak Linki *", type: "text", placeholder: "https://..." },
+    ],
+    help: [
+      "Ana metin kutusuna haberin <code>summary</code>'sini yaz.",
+      "<code>whyItMatters</code> alanını üst formdan doldur.",
+      "İndirilen <code>.md</code> dosyasını <code>src/content/headlines/</code> klasörüne at.",
+    ],
+  },
+};
+
+let currentSection = "blog";
+
+/* ── ŞİFRE KONTROLÜ ─────────────────────────────── */
+const SESSION_KEY = "blog_admin_auth";
+
+function checkSession() {
+  return sessionStorage.getItem(SESSION_KEY) === "ok";
+}
+
+function showPanel() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("admin-panel").style.display = "block";
+  buildSectionNav();
+  renderSection("blog");
+}
+
+if (checkSession()) showPanel();
+
+document.getElementById("login-btn").addEventListener("click", () => {
+  const val = document.getElementById("pwd-input").value;
+  if (val === ADMIN_PASSWORD) {
+    sessionStorage.setItem(SESSION_KEY, "ok");
+    showPanel();
+  } else {
+    document.getElementById("login-error").style.display = "block";
+    document.getElementById("pwd-input").value = "";
+    document.getElementById("pwd-input").focus();
+  }
+});
+
+document.getElementById("pwd-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("login-btn").click();
+});
+
+document.getElementById("logout-btn").addEventListener("click", () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+});
+
+/* ── ÜST MENÜYÜ OLUŞTUR ─────────────────────────── */
+function buildSectionNav() {
+  const nav = document.getElementById("section-nav");
+  nav.innerHTML = "";
+  Object.keys(SECTIONS).forEach((key) => {
+    const btn = document.createElement("button");
+    btn.className = "section-tab" + (key === currentSection ? " active" : "");
+    btn.textContent = SECTIONS[key].label;
+    btn.dataset.section = key;
+    btn.addEventListener("click", () => renderSection(key));
+    nav.appendChild(btn);
+  });
+}
+
+/* ── SEÇİLİ BÖLÜME GÖRE FORMU ÇİZ ───────────────── */
+function renderSection(key) {
+  currentSection = key;
+  const cfg = SECTIONS[key];
+
+  // nav aktiflik
+  document.querySelectorAll(".section-tab").forEach((b) => {
+    b.classList.toggle("active", b.dataset.section === key);
+  });
+
+  // form alanları
+  const wrap = document.getElementById("form-fields");
+  wrap.innerHTML = "";
+  cfg.fields.forEach((f) => {
+    const group = document.createElement("div");
+    group.className = "form-group" + (f.type === "textarea" ? " full" : "");
+
+    const label = document.createElement("label");
+    label.textContent = f.label;
+    label.setAttribute("for", "f-" + f.key);
+    group.appendChild(label);
+
+    let input;
+    if (f.type === "select") {
+      input = document.createElement("select");
+      f.options.forEach(([val, text]) => {
+        const opt = document.createElement("option");
+        opt.value = val;
+        opt.textContent = text;
+        input.appendChild(opt);
+      });
+    } else if (f.type === "textarea") {
+      input = document.createElement("textarea");
+      input.rows = 3;
+      input.placeholder = f.placeholder || "";
+    } else {
+      input = document.createElement("input");
+      input.type = f.type;
+      input.placeholder = f.placeholder || "";
+    }
+    input.id = "f-" + f.key;
+    group.appendChild(input);
+    wrap.appendChild(group);
+
+    if (f.autoSlug) {
+      input.addEventListener("input", (e) => {
+        const slug = e.target.value
+          .toLowerCase()
+          .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
+          .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-");
+        const slugInput = document.getElementById("f-slug");
+        if (slugInput) slugInput.value = slug;
+      });
+    }
+  });
+
+  // tarih alanlarına bugünü varsayılan koy
+  cfg.fields.filter((f) => f.type === "date").forEach((f) => {
+    const el = document.getElementById("f-" + f.key);
+    if (el) el.value = new Date().toISOString().split("T")[0];
+  });
+
+  // ana metin editörü
+  const editor = document.getElementById("markdown-editor");
+  editor.value = "";
+  editor.placeholder = cfg.mainPlaceholder;
+  switchTab("write");
+
+  // yardım kutusu
+  const helpList = document.getElementById("help-list");
+  helpList.innerHTML = cfg.help.map((h) => `<li>${h}</li>`).join("");
+}
+
+/* ── SEKME DEĞİŞTİRME ───────────────────────────── */
+function switchTab(tab) {
+  const editor = document.getElementById("markdown-editor");
+  const preview = document.getElementById("preview-pane");
+  const tabWrite = document.getElementById("tab-write");
+  const tabPreview = document.getElementById("tab-preview");
+
+  if (tab === "write") {
+    editor.style.display = "block";
+    preview.style.display = "none";
+    tabWrite.classList.add("active");
+    tabPreview.classList.remove("active");
+  } else {
+    editor.style.display = "none";
+    preview.style.display = "block";
+    tabWrite.classList.remove("active");
+    tabPreview.classList.add("active");
+    if (typeof marked !== "undefined") {
+      preview.innerHTML = marked.parse(editor.value || "_İçerik yok._");
+    } else {
+      preview.innerHTML = "<p>Önizleme yüklenemedi.</p>";
+    }
+  }
+}
+window.switchTab = switchTab;
+
+/* ── YAML GÜVENLİ STRING ─────────────────────────── */
+function yamlStr(val) {
+  if (val === undefined || val === null) return '""';
+  const escaped = String(val).replace(/"/g, '\\"').replace(/\n/g, " ");
+  return `"${escaped}"`;
+}
+
+/* ── DOSYA OLUŞTURMA & İNDİRME ──────────────────── */
+document.getElementById("download-btn").addEventListener("click", () => {
+  const cfg = SECTIONS[currentSection];
+  const values = {};
+  let missing = [];
+
+  cfg.fields.forEach((f) => {
+    const el = document.getElementById("f-" + f.key);
+    const val = el ? el.value.trim() : "";
+    values[f.key] = val;
+    if (f.label.includes("*") && !val) missing.push(f.label.replace(" *", ""));
+  });
+
+  const mainContent = document.getElementById("markdown-editor").value;
+  if (cfg.mainField && !mainContent.trim()) {
+    missing.push("Ana içerik");
+  } else if (!cfg.mainField && !mainContent.trim()) {
+    missing.push("İçerik");
+  }
+
+  if (!values.slug) missing.push("Slug");
+
+  if (missing.length) {
+    showToast("⚠ Zorunlu alanlar eksik: " + missing.join(", "));
+    return;
+  }
+
+  // frontmatter oluştur
+  let frontmatter = "---\n";
+  cfg.fields.forEach((f) => {
+    if (f.key === "slug") return;
+    const val = values[f.key];
+    if (f.type === "select" && !val) return;
+    if (val === "" && !f.label.includes("*")) return;
+    frontmatter += `${f.key}: ${f.type === "date" ? val : yamlStr(val)}\n`;
+  });
+
+  if (cfg.mainField) {
+    const blockText = mainContent.split("\n").map((l) => "  " + l).join("\n");
+    frontmatter += `${cfg.mainField}: |\n${blockText}\n`;
+  }
+  frontmatter += "---\n";
+
+  const fileContent = cfg.mainField ? frontmatter : frontmatter + "\n" + mainContent;
+  const fileName = values.slug + ".md";
+
+  const blob = new Blob([fileContent], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  showToast(`✓ ${fileName} indirildi! → ${cfg.folder}`);
+});
+
+/* ── FORMU TEMİZLE ──────────────────────────────── */
+document.getElementById("clear-btn").addEventListener("click", () => {
+  if (!confirm("Formu temizlemek istediğine emin misin?")) return;
+  renderSection(currentSection);
+});
+
+/* ── TOAST ──────────────────────────────────────── */
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  setTimeout(() => { t.style.display = "none"; }, 3500);
+}
+</script>
+
+</body>
+</html>
