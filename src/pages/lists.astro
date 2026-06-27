@@ -60,58 +60,83 @@ function stars(n: number) {
     <h1 class="shelf-title">The Alchemist's Shelf</h1>
 
     <div class="alchemy-container">
-      <div class="bookshelf-bg">
+      <div class="bookcase-wrapper">
 
-        <!-- RAF 1: KİTAPLAR -->
-        <div class="shelf-group">
-          <div class="shelf-label"><span>GRIMOIRES &amp; BOOKS</span></div>
-          <section class="shelf-layer">
-            <div class="potion-grid">
-              {books.map((item) => (
-                <div class="potion-bottle">
-                  <div class="bubbles-container">
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
-                  </div>
-                  <img src={item.potion} class="potion-img-element" alt={item.title} />
-                  <div class="tooltip-card" role="tooltip">
-                    <p class="tc-title">{item.title}</p>
-                    <p class="tc-by">{item.author}</p>
-                    <p class="tc-note">{item.note}</p>
-                    <p class="tc-stars">{stars(item.stars)}</p>
-                  </div>
-                  <span class="bottle-name">{item.title}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
+        <!-- Bookcase frame -->
+        <div class="bookcase-frame">
+          <!-- Side panels -->
+          <div class="side-panel left-panel"></div>
+          <div class="side-panel right-panel"></div>
+          <!-- Top rail -->
+          <div class="top-rail"></div>
+          <!-- Bottom base -->
+          <div class="base-board"></div>
 
-        <!-- RAF 2: FİLMLER -->
-        <div class="shelf-group">
-          <div class="shelf-label"><span>VISIONS &amp; CINEMA</span></div>
-          <section class="shelf-layer">
-            <div class="potion-grid">
-              {movies.map((item) => (
-                <div class="potion-bottle">
-                  <div class="bubbles-container">
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
-                  </div>
-                  <img src={item.potion} class="potion-img-element" alt={item.title} />
-                  <div class="tooltip-card" role="tooltip">
-                    <p class="tc-title">{item.title}</p>
-                    <p class="tc-by">{item.author}</p>
-                    <p class="tc-note">{item.note}</p>
-                    <p class="tc-stars">{stars(item.stars)}</p>
-                  </div>
-                  <span class="bottle-name">{item.title}</span>
+          <!-- Inner shelves area -->
+          <div class="shelves-inner">
+
+            <!-- RAF 1: KİTAPLAR -->
+            <div class="shelf-unit">
+              <div class="shelf-label-tag"><span>GRIMOIRES &amp; BOOKS</span></div>
+              <div class="shelf-surface">
+                <div class="potion-grid">
+                  {books.map((item) => (
+                    <div class="potion-bottle">
+                      <div class="bubbles-container">
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                      </div>
+                      <div class="tooltip-card" role="tooltip">
+                        <p class="tc-title">{item.title}</p>
+                        <p class="tc-by">{item.author}</p>
+                        <p class="tc-note">{item.note}</p>
+                        <p class="tc-stars">{stars(item.stars)}</p>
+                      </div>
+                      <img src={item.potion} class="potion-img-element" alt={item.title} />
+                      <span class="bottle-name">{item.title}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <!-- Shelf plank -->
+                <div class="shelf-plank">
+                  <div class="plank-grain"></div>
+                  <div class="plank-edge"></div>
+                </div>
+              </div>
             </div>
-          </section>
+
+            <!-- RAF 2: FİLMLER -->
+            <div class="shelf-unit">
+              <div class="shelf-label-tag"><span>VISIONS &amp; CINEMA</span></div>
+              <div class="shelf-surface">
+                <div class="potion-grid">
+                  {movies.map((item) => (
+                    <div class="potion-bottle">
+                      <div class="bubbles-container">
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                      </div>
+                      <div class="tooltip-card" role="tooltip">
+                        <p class="tc-title">{item.title}</p>
+                        <p class="tc-by">{item.author}</p>
+                        <p class="tc-note">{item.note}</p>
+                        <p class="tc-stars">{stars(item.stars)}</p>
+                      </div>
+                      <img src={item.potion} class="potion-img-element" alt={item.title} />
+                      <span class="bottle-name">{item.title}</span>
+                    </div>
+                  ))}
+                </div>
+                <div class="shelf-plank">
+                  <div class="plank-grain"></div>
+                  <div class="plank-edge"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
@@ -126,7 +151,7 @@ function stars(n: number) {
   * { margin: 0; padding: 0; box-sizing: border-box; }
   ul, li { list-style: none; }
 
-  /* ── Arka plan override (Layout'un !important'ını geçer) ── */
+  /* ── Arka plan ── */
   body:has(.alchemy-room) {
     background-color: transparent !important;
     background-image: none !important;
@@ -142,19 +167,6 @@ function stars(n: number) {
       url('/arkaplan3.jpg') center / cover no-repeat;
   }
 
-  /* ── Ana alan ── */
-  .alchemy-room {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
   /* ── Animasyonlar ── */
   @keyframes spellGlow {
     0%   { text-shadow: 0 0 5px rgba(232,224,224,0.4); opacity: 0.8; }
@@ -167,6 +179,11 @@ function stars(n: number) {
     15%  { opacity: 0.9; transform: translateX(-50%) scale(1)   translateY(-8px); }
     85%  { opacity: 0.4; transform: translateX(-50%) scale(1.1) translateY(-60px); }
     100% { opacity: 0;   transform: translateX(-50%) scale(0.6) translateY(-75px); }
+  }
+
+  @keyframes cardAppear {
+    from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 
   /* ── Başlık ── */
@@ -184,99 +201,321 @@ function stars(n: number) {
     text-align: center;
   }
 
-  /* ── Raf etiketi ── */
-  .shelf-label {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    position: relative;
-    z-index: 20;
-    margin-bottom: -20px;
+  /* ── Ana alan ── */
+  .alchemy-room {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
-
-  .shelf-label span {
-    background-color: #000 !important;
-    color: #d4af37 !important;
-    padding: 4px 15px !important;
-    border: 1px solid #d4af37;
-    display: inline-block;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-family: 'Crimson Text', serif;
-  }
-
-  /* ── Container ── */
-  .alchemy-room { display: block !important; width: 100%; }
 
   .alchemy-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 0 50px;
+    padding: 20px 0 60px;
   }
 
-  /* ── Kitaplık görseli ── */
-  .bookshelf-bg {
-    background-image: url('/potions/pngwing.com.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    width: 800px;
-    height: 850px;
+  /* ═══════════════════════════════════════
+     BOOKCASE — CSS-only realistic wooden shelf
+     ═══════════════════════════════════════ */
+
+  .bookcase-wrapper {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 180px 80px 100px 80px;
-    gap: 40px;
-    margin: 0 auto;
   }
 
-  /* ── Raf grupları ── */
-  .shelf-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    height: 350px;
+  /* Outer frame */
+  .bookcase-frame {
+    position: relative;
+    width: 780px;
+    background:
+      /* wood grain overlay */
+      repeating-linear-gradient(
+        92deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(0,0,0,0.04) 18px,
+        rgba(0,0,0,0.04) 20px
+      ),
+      repeating-linear-gradient(
+        180deg,
+        transparent 0px,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 62px
+      ),
+      linear-gradient(180deg,
+        #2c1a0e 0%,
+        #3b2210 15%,
+        #2a1808 30%,
+        #3a2010 50%,
+        #291708 70%,
+        #3b2210 85%,
+        #2c1a0e 100%
+      );
+    border-radius: 4px 4px 2px 2px;
+    box-shadow:
+      /* outer glow/depth */
+      0 20px 60px rgba(0,0,0,0.85),
+      0 8px 20px rgba(0,0,0,0.6),
+      /* inner highlight top */
+      inset 0 1px 0 rgba(255,200,120,0.15),
+      /* subtle border */
+      0 0 0 1px rgba(0,0,0,0.8);
+    padding: 28px 28px 36px 28px;
   }
 
-  .shelf-layer {
-    width: 100%;
+  /* Side panels — thick wooden sides */
+  .side-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 6px,
+        rgba(0,0,0,0.06) 6px,
+        rgba(0,0,0,0.06) 7px
+      ),
+      linear-gradient(90deg,
+        #1a0e06 0%,
+        #3b2210 30%,
+        #4a2c14 60%,
+        #2c1a0e 100%
+      );
+    z-index: 10;
+    border-radius: 3px;
+  }
+
+  .left-panel {
+    left: 0;
+    box-shadow: inset -3px 0 8px rgba(0,0,0,0.5), 3px 0 6px rgba(0,0,0,0.4);
+  }
+
+  .right-panel {
+    right: 0;
+    box-shadow: inset 3px 0 8px rgba(0,0,0,0.5), -3px 0 6px rgba(0,0,0,0.4);
+  }
+
+  /* Top rail */
+  .top-rail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background:
+      repeating-linear-gradient(
+        92deg,
+        transparent 0px,
+        transparent 22px,
+        rgba(0,0,0,0.05) 22px,
+        rgba(0,0,0,0.05) 24px
+      ),
+      linear-gradient(180deg,
+        #4a2c14 0%,
+        #3b2210 40%,
+        #2c1a0e 100%
+      );
+    z-index: 10;
+    border-radius: 4px 4px 0 0;
+    box-shadow:
+      inset 0 3px 6px rgba(255,180,80,0.08),
+      0 4px 8px rgba(0,0,0,0.5);
+  }
+
+  /* Base board */
+  .base-board {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background:
+      repeating-linear-gradient(
+        92deg,
+        transparent 0px,
+        transparent 20px,
+        rgba(0,0,0,0.06) 20px,
+        rgba(0,0,0,0.06) 22px
+      ),
+      linear-gradient(180deg,
+        #2c1a0e 0%,
+        #3b2210 30%,
+        #4a2c14 60%,
+        #1a0e06 100%
+      );
+    z-index: 10;
+    border-radius: 0 0 3px 3px;
+    box-shadow:
+      inset 0 -2px 4px rgba(0,0,0,0.6),
+      0 6px 16px rgba(0,0,0,0.7);
+  }
+
+  /* Inner area */
+  .shelves-inner {
+    position: relative;
+    z-index: 5;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    gap: 0;
+    /* dark back wall */
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.03) 3px,
+        rgba(0,0,0,0.03) 4px
+      ),
+      linear-gradient(180deg,
+        #0d0805 0%,
+        #100a06 50%,
+        #0d0805 100%
+      );
+    border-radius: 2px;
+    padding: 10px 0 0 0;
+  }
+
+  /* ── Shelf unit (raf + label) ── */
+  .shelf-unit {
+    position: relative;
+    padding: 0 0 0 0;
+    /* extra top space for tooltips to float freely */
     overflow: visible;
   }
 
+  /* Label tag */
+  .shelf-label-tag {
+    display: flex;
+    justify-content: center;
+    padding-top: 18px;
+    padding-bottom: 10px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .shelf-label-tag span {
+    background: #0d0805;
+    color: #d4af37;
+    padding: 4px 18px;
+    border: 1px solid rgba(212,175,55,0.5);
+    font-family: 'Crimson Text', serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    box-shadow:
+      0 0 12px rgba(212,175,55,0.15),
+      inset 0 0 8px rgba(0,0,0,0.5);
+  }
+
+  /* Shelf surface: holds potions + plank */
+  .shelf-surface {
+    position: relative;
+    overflow: visible;
+    /* room above for tooltips */
+    padding-top: 10px;
+  }
+
+  /* ── Potion grid ── */
   .potion-grid {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 20px;
+    gap: 28px;
     width: 100%;
     overflow: visible;
-    padding-bottom: 70px;
+    /* sits above the plank; plank height is ~22px */
+    padding-bottom: 22px;
+    padding-top: 8px;
+    position: relative;
+    z-index: 6;
+  }
+
+  /* ── Shelf plank ── */
+  .shelf-plank {
+    position: relative;
+    height: 22px;
+    margin: 0 10px;
+    border-radius: 2px;
+    background:
+      repeating-linear-gradient(
+        92deg,
+        transparent 0px,
+        transparent 30px,
+        rgba(0,0,0,0.04) 30px,
+        rgba(0,0,0,0.04) 32px
+      ),
+      linear-gradient(180deg,
+        #5c3820 0%,
+        #7a4a28 15%,
+        #6b3e20 35%,
+        #7d4c26 55%,
+        #5a3418 80%,
+        #3e2210 100%
+      );
+    box-shadow:
+      /* top highlight — wood catching light */
+      inset 0 2px 3px rgba(255,200,120,0.18),
+      /* bottom depth shadow */
+      0 6px 14px rgba(0,0,0,0.75),
+      0 3px 6px rgba(0,0,0,0.5);
+    z-index: 4;
+  }
+
+  .plank-grain {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      95deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(255,255,255,0.018) 8px,
+      rgba(255,255,255,0.018) 9px
+    );
+    border-radius: 2px;
+  }
+
+  /* Front edge of the plank — 3D lip */
+  .plank-edge {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(180deg,
+      #3a1e0a 0%,
+      #2a1406 60%,
+      #1a0c04 100%
+    );
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
   }
 
   /* ── İksir şişesi ── */
   .potion-bottle {
-    width: 160px;
     position: relative;
+    width: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 5;
+    /* tooltip floats upward — needs overflow visible on parents */
     overflow: visible;
     cursor: pointer;
-    transition: transform 0.3s ease, z-index 0s;
+    transition: transform 0.3s ease;
+    z-index: 5;
   }
 
   .potion-bottle:hover {
-    transform: scale(1.15) translateY(-14px);
-    z-index: 100;
+    transform: scale(1.12) translateY(-10px);
+    z-index: 50;
   }
 
   /* ── PNG görseli ── */
@@ -285,13 +524,13 @@ function stars(n: number) {
     height: auto;
     display: block;
     position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+    z-index: 2;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.7));
     transition: filter 0.3s ease;
   }
 
   .potion-bottle:hover .potion-img-element {
-    filter: drop-shadow(0 0 16px rgba(212,175,55,0.8));
+    filter: drop-shadow(0 0 16px rgba(212,175,55,0.85));
   }
 
   /* ── Şişe altı isim ── */
@@ -310,43 +549,49 @@ function stars(n: number) {
     margin-top: 5px;
     text-shadow: 0 1px 4px rgba(0,0,0,0.9);
     animation: spellGlow 3s infinite ease-in-out;
+    position: relative;
+    z-index: 2;
   }
 
-  /* ── Tooltip kart ── */
+  /* ── Tooltip kart ──
+     Rendered BEFORE the img in DOM so it stacks above
+     via z-index without needing a portal.
+     Positioned above the bottle top.
+  ── */
   .tooltip-card {
     display: none;
     position: absolute;
-    bottom: calc(100% + 12px);
+    /* anchor to bottom of the tooltip-card itself = just above bottle */
+    bottom: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    width: 190px;
+    width: 200px;
     padding: 12px 14px;
     background: #1a1008;
-    border: 1px solid rgba(212,175,55,0.4);
+    border: 1px solid rgba(212,175,55,0.45);
     border-radius: 8px;
-    box-shadow: 0 10px 32px rgba(0,0,0,0.85), 0 0 0 1px rgba(212,175,55,0.12);
+    box-shadow:
+      0 12px 36px rgba(0,0,0,0.9),
+      0 0 0 1px rgba(212,175,55,0.1);
     pointer-events: none;
-    z-index: 200;
+    /* must be above everything */
+    z-index: 999;
     font-family: 'Crimson Text', serif;
   }
 
+  /* Arrow pointing down */
   .tooltip-card::after {
     content: "";
     position: absolute;
     top: 100%; left: 50%;
     transform: translateX(-50%);
     border: 7px solid transparent;
-    border-top-color: rgba(212,175,55,0.4);
+    border-top-color: rgba(212,175,55,0.45);
   }
 
   .potion-bottle:hover .tooltip-card {
     display: block;
     animation: cardAppear 0.18s ease;
-  }
-
-  @keyframes cardAppear {
-    from { opacity: 0; transform: translateX(-50%) translateY(6px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 
   .tc-title {
