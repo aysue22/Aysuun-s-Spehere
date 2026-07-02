@@ -6,7 +6,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-import { getCollection } from 'astro:content';
+
 
 const posts = await getCollection('blog');
 posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());

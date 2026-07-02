@@ -19,6 +19,19 @@ const { Content } = await post.render();
 
 <html lang="en">
 	<head>
+	<script type="application/ld+json" set:html={JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"headline": post.data.title,
+	"description": post.data.description,
+	"datePublished": post.data.pubDate.toISOString(),
+	...(post.data.updatedDate && { "dateModified": post.data.updatedDate.toISOString() }),
+	"image": post.data.heroImage ? new URL(post.data.heroImage, Astro.site).toString() : undefined,
+	"author": {
+		"@type": "Person",
+		"name": "NNsuen"
+	}
+})} />
 		<BaseHead title={post.data.title} description={post.data.description} />
 		<style is:global>
 			body {
