@@ -1,6 +1,6 @@
 ---
 title: "A Sociological and Historical Study on Earthquakes, Climate Crisis and Conspiracy Theories in the Century"
-description: "What is the real truth?"
+description: "In our high-tech century, a dark paradox looms within the knowledge society: as scientific data accelerates, cognitive resistance holds firm. From a sociological perspective, knowledge is never neutral. It is anchored in power hierarchies, structural inequalities, and deep institutional mistrust. When sudden earthquakes or slow-developing crises like global warming disrupt life, communities feel helpless. Instead of synthesizing rational data from seismology or climate science, the collective psyche seeks refuge in alternative realities. Yesterday’s fatalism has merely mutated into digitized conspiracy theories—blaming out-of-context phantoms like HAARP or global hoaxes. This widespread science denial thrives inside algorithm-driven disinformation bubbles. Our crisis is not a lack of scientific evidence, but a failure of the social conditions required to trust it. The content of the myth changes effortlessly, but the underlying cognitive denial remains completely unbroken"
 pubDate: 2026-06-27
 heroImage: "/komplo.jpg"
 ---
