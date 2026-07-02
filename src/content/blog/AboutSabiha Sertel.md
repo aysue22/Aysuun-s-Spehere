@@ -1,6 +1,6 @@
 ---
 title: "About Sabiha Sertel"
-description: "Sabiha Sertel, Turkey's first female journalist, weaponized her pen against early Republican patriarchs and oppressive regimes. Defying the strict, endogamous boundaries of her Dönme society heritage. She reconstructed her identity on universal language and culture. Influenced by American socialism and her brother's Young Turk roots, Sertel’s fierce journalism in Resimli Ay and Cumhuriyet directly challenged the Ankara regime's illusions."
+description: "Sabiha Sertel, Turkey's first female journalist, weaponized her pen against early Republican patriarchs and oppressive regimes. "
 pubDate: "2023-07-11"
 heroImage: "/sertelresim.jpg"
 ---
