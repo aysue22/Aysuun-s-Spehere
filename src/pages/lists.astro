@@ -236,38 +236,41 @@ function stars(n: number) {
     background:
       /* wood grain overlay */
       repeating-linear-gradient(
-        92deg,
-        transparent 0px,
-        transparent 18px,
-        rgba(0,0,0,0.04) 18px,
-        rgba(0,0,0,0.04) 20px
-      ),
-      repeating-linear-gradient(
-        180deg,
-        transparent 0px,
-        transparent 60px,
-        rgba(255,255,255,0.015) 60px,
-        rgba(255,255,255,0.015) 62px
-      ),
-      linear-gradient(180deg,
-        #2c1a0e 0%,
-        #3b2210 15%,
-        #2a1808 30%,
-        #3a2010 50%,
-        #291708 70%,
-        #3b2210 85%,
-        #2c1a0e 100%
-      );
-    border-radius: 4px 4px 2px 2px;
-    box-shadow:
-      /* outer glow/depth */
-      0 20px 60px rgba(0,0,0,0.85),
-      0 8px 20px rgba(0,0,0,0.6),
-      /* inner highlight top */
-      inset 0 1px 0 rgba(255,200,120,0.15),
-      /* subtle border */
-      0 0 0 1px rgba(0,0,0,0.8);
-    padding: 28px 28px 36px 28px;
+         91deg,
+      transparent 0px,
+      transparent 16px,
+      rgba(0,0,0,0.06) 16px,
+      rgba(0,0,0,0.06) 18px,
+      transparent 18px,
+      transparent 34px,
+      rgba(0,0,0,0.03) 34px,
+      rgba(0,0,0,0.03) 35px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 45px,
+      rgba(255,255,255,0.02) 45px,
+      rgba(255,255,255,0.02) 47px
+    ),
+    radial-gradient(ellipse 200px 120px at 20% 10%, rgba(80,45,15,0.25), transparent 60%),
+    radial-gradient(ellipse 180px 140px at 80% 85%, rgba(60,35,12,0.25), transparent 60%),
+    linear-gradient(180deg,
+      #24140a 0%,
+      #35200f 15%,
+      #241408 30%,
+      #33200f 50%,
+      #22120a 70%,
+      #35200f 85%,
+      #24140a 100%
+    );
+  border-radius: 4px 4px 2px 2px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.85),
+    0 8px 20px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,190,110,0.1),
+    0 0 0 1px rgba(0,0,0,0.8);
+  padding: 28px 28px 36px 28px;
   }
 
   /* Side panels — thick wooden sides */
@@ -367,21 +370,49 @@ function stars(n: number) {
     flex-direction: column;
     gap: 0;
     /* dark back wall */
-    background:
-      repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 3px,
-        rgba(0,0,0,0.03) 3px,
-        rgba(0,0,0,0.03) 4px
-      ),
-      linear-gradient(180deg,
-        #0d0805 0%,
-        #100a06 50%,
-        #0d0805 100%
-      );
-    border-radius: 2px;
-    padding: 10px 0 0 0;
+   background:
+    /* dikey panel ayrım çizgileri */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0.4) 0px,
+      rgba(0,0,0,0.4) 2px,
+      transparent 2px,
+      transparent 140px
+    ),
+    /* ince yatay çizik dokusu */
+    repeating-linear-gradient(
+      89deg,
+      rgba(0,0,0,0.10) 0px,
+      transparent 1px,
+      transparent 5px
+    ),
+    /* hafif parlama çizgileri (eski cila kalıntısı) */
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,210,150,0.025) 0px,
+      transparent 3px,
+      transparent 6px
+    ),
+    /* nem / patina lekeleri */
+    radial-gradient(ellipse 320px 200px at 12% 15%, rgba(90,55,20,0.4), transparent 60%),
+    radial-gradient(ellipse 280px 220px at 88% 65%, rgba(70,40,15,0.35), transparent 55%),
+    radial-gradient(ellipse 260px 180px at 45% 90%, rgba(50,28,10,0.4), transparent 55%),
+    radial-gradient(ellipse 500px 300px at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%),
+    /* taban ahşap gradyanı — sıcak koyu ceviz */
+    linear-gradient(180deg,
+      #291706 0%,
+      #3a230f 18%,
+      #2c1a0b 38%,
+      #38220e 58%,
+      #241407 78%,
+      #1c0f06 100%
+    );
+  border-radius: 2px;
+  padding: 10px 0 0 0;
+  box-shadow:
+    inset 0 14px 34px rgba(0,0,0,0.6),
+    inset 0 -14px 34px rgba(0,0,0,0.55);
+
   }
 
   /* ── Shelf unit (raf + label) ── */
@@ -433,7 +464,7 @@ function stars(n: number) {
     width: 100%;
     overflow: visible;
     /* sits above the plank; plank height is ~22px */
-    padding-bottom: 22px;
+    padding-bottom: 11px;
     padding-top: 8px;
     position: relative;
     z-index: 6;
@@ -446,28 +477,35 @@ function stars(n: number) {
     margin: 0 10px;
     border-radius: 2px;
     background:
-      repeating-linear-gradient(
-        92deg,
-        transparent 0px,
-        transparent 30px,
-        rgba(0,0,0,0.04) 30px,
-        rgba(0,0,0,0.04) 32px
-      ),
-      linear-gradient(180deg,
-        #5c3820 0%,
-        #7a4a28 15%,
-        #6b3e20 35%,
-        #7d4c26 55%,
-        #5a3418 80%,
-        #3e2210 100%
-      );
-    box-shadow:
-      /* top highlight — wood catching light */
-      inset 0 2px 3px rgba(255,200,120,0.18),
-      /* bottom depth shadow */
-      0 6px 14px rgba(0,0,0,0.75),
-      0 3px 6px rgba(0,0,0,0.5);
-    z-index: 4;
+       repeating-linear-gradient(
+      91deg,
+      transparent 0px,
+      transparent 26px,
+      rgba(0,0,0,0.06) 26px,
+      rgba(0,0,0,0.06) 28px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      rgba(0,0,0,0.07) 0px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse 60px 10px at 30% 50%, rgba(30,15,5,0.3), transparent 70%),
+    radial-gradient(ellipse 80px 10px at 75% 50%, rgba(30,15,5,0.25), transparent 70%),
+    linear-gradient(180deg,
+      #4a2e18 0%,
+      #654024 14%,
+      #573320 32%,
+      #6b4526 50%,
+      #4c2e18 70%,
+      #35200f 88%,
+      #241408 100%
+    );
+  box-shadow:
+    inset 0 2px 3px rgba(255,180,100,0.12),
+    0 6px 14px rgba(0,0,0,0.75),
+    0 3px 6px rgba(0,0,0,0.5);
+  z-index: 4;
   }
 
   .plank-grain {
@@ -525,8 +563,10 @@ function stars(n: number) {
     display: block;
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.7));
-    transition: filter 0.3s ease;
+    margin-bottom: -50px;   /* PNG içindeki alt boşluğu telafi eder */
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.7));
+  transition: filter 0.3s ease;
+
   }
 
   .potion-bottle:hover .potion-img-element {
