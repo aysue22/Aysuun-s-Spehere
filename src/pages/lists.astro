@@ -698,4 +698,48 @@ function stars(n: number) {
   @media (prefers-reduced-motion: reduce) {
     .potion-bottle, .bubble { animation: none !important; transition: none !important; }
   }
+  /* ============ MOBİL: RAF (720px altı) ============ */
+@media (max-width: 720px) {
+  .bookcase-frame {
+    width: 100%;
+    max-width: 780px;
+    padding: 16px 10px 24px 10px;
+  }
+
+  .side-panel { width: 14px; }
+  .top-rail, .base-board { height: 18px; }
+
+  .potion-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .potion-bottle { width: 90px; }
+
+  .bottle-name {
+    font-size: 0.62rem;
+    max-width: 80px;
+  }
+
+  .shelf-title {
+    font-size: 1.8rem !important;
+    padding: 10px 20px !important;
+  }
+
+  .tooltip-card {
+    width: 150px;
+    padding: 8px 10px;
+  }
+}
+
+/* ============ MOBİL: (480px altı) ============ */
+@media (max-width: 480px) {
+  .potion-bottle { width: 72px; }
+  .shelf-label-tag span {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    padding: 3px 12px;
+  }
+}
 </style>
