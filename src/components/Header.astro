@@ -6,23 +6,28 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 
 	<nav class="anarchist-nav">
-  <div class="nav-links">
-    <a href="/">HOME</a>
-    <a href="/blog">BLOGS</a>
-    <a href="/lists">LISTS</a>
-    <a href="/collective">COLLECTIVE</a>
-<div class="dropdown">
-    <span class="dropbtn">News ▾</span>
-    <div class="dropdown-content">
-      <a href="/news/headlines" class="dropdown-link">→ Headlines</a>
-      <a href="/news/reports" class="dropdown-link">→ Reports</a>
-      <a href="/news/field-notes" class="dropdown-link">→ Field Notes</a>
-    </div>
-</div>
-    <a href="/about">WHO?</a>
-  </div>
-  <div class="anarchy-symbol">Ⓐ</div>
-</nav>
+		<button class="menu-toggle" id="menu-toggle" aria-label="Menüyü aç/kapat">
+			<span></span><span></span><span></span>
+		</button>
+
+		<div class="nav-links" id="nav-links">
+			<a href="/">HOME</a>
+			<a href="/blog">BLOGS</a>
+			<a href="/lists">LISTS</a>
+			<a href="/collective">COLLECTIVE</a>
+			<div class="dropdown" id="news-dropdown">
+				<span class="dropbtn">News ▾</span>
+				<div class="dropdown-content">
+					<a href="/news/headlines" class="dropdown-link">→ Headlines</a>
+					<a href="/news/reports" class="dropdown-link">→ Reports</a>
+					<a href="/news/field-notes" class="dropdown-link">→ Field Notes</a>
+				</div>
+			</div>
+			<a href="/about">WHO?</a>
+		</div>
+
+		<div class="anarchy-symbol">Ⓐ</div>
+	</nav>
 </header>
 
 <style is:global>
@@ -380,5 +385,107 @@ nav .dropbtn:hover {
   .dropdown:hover .dropdown-content {
     display: block !important;
   }
+/* ============ HAMBURGER BUTONU (varsayılan gizli, sadece mobilde görünür) ============ */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
 
+  .menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
+  /* ============ MOBİL DÜZENİ (768px ve altı) ============ */
+  @media (max-width: 768px) {
+
+    .anarchist-nav {
+      position: relative;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 1em;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fdfaf1;
+      padding: 1em;
+      gap: 12px;
+      border: 1px solid #3e2723;
+      box-shadow: 4px 4px 0px #d4af37;
+      z-index: 1000;
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    /* Mobilde yamuk yazıları düzelt, tıklama alanını genişlet */
+    .nav-links a,
+    .nav-links .dropbtn {
+      transform: none !important;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
+      font-size: 1rem !important;
+    }
+
+    /* Dropdown mobilde artık hover değil, tıklamayla açılacak (JS ile yönetiliyor) */
+    .dropdown {
+      width: 100%;
+    }
+
+    .dropdown-content {
+      position: static !important;
+      display: none;
+      box-shadow: none !important;
+      border: none !important;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block !important;
+    }
+
+    .anarchy-symbol {
+      display: none; /* mobilde yer kaplamasın istersen kaldırabilirsin */
+    }
+  }
 </style>
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const links = document.getElementById('nav-links');
+  const newsDropdown = document.getElementById('news-dropdown');
+
+  toggle?.addEventListener('click', () => {
+    links?.classList.toggle('open');
+  });
+
+  // Mobilde News'e tıklayınca aç/kapat (masaüstünde zaten hover çalışıyor)
+  const dropBtn = newsDropdown?.querySelector('.dropbtn');
+  dropBtn?.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      newsDropdown?.classList.toggle('open');
+    }
+  });
+</script>
