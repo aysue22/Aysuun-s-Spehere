@@ -34,8 +34,9 @@ const { Content } = await post.render();
 })} />
 		<BaseHead title={post.data.title} description={post.data.description} />
 		<style is:global>
-		html, body 
+		html, body {
   overflow-x: hidden;
+}
 			body {
 				background-color: #dfdfdf;
 				background-image: radial-gradient(#000 0.5px, transparent 0.5px), url('https://www.transparenttextures.com/patterns/p6-static.png');
