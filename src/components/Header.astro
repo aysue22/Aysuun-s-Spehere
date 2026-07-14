@@ -6,11 +6,15 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 
 	<nav class="anarchist-nav">
-		<button class="menu-toggle" id="menu-toggle" aria-label="Menüyü aç/kapat">
-			<span></span><span></span><span></span>
-		</button>
+    <a href="/" class="site-logo">
+        <img src="/covenjournallogo2.png" alt="Site Logo" />
+    </a>
 
-		<div class="nav-links" id="nav-links">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menüyü aç/kapat">
+        <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="nav-links">
 			<a href="/">HOME</a>
 			<a href="/blog">BLOGS</a>
 			<a href="/lists">LISTS</a>
@@ -39,7 +43,7 @@ import HeaderLink from './HeaderLink.astro';
     font-size: 1.1rem !important;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #1a1a1a !important;      
+    color: #39a05a !important;      
     background: #e9dcc9 !important; /* Kirli kağıt rengi */
     padding: 8px 18px !important;
     text-decoration: none !important;
@@ -386,22 +390,39 @@ nav .dropbtn:hover {
     display: block !important;
   }
 /* ============ HAMBURGER BUTONU (varsayılan gizli, sadece mobilde görünür) ============ */
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 1001;
-  }
+  /* ============ LOGO ============ */
 
-  .menu-toggle span {
-    width: 28px;
-    height: 3px;
-    background: #1a1a1a;
-    border-radius: 2px;
+/* ============ HAMBURGER BUTONU (varsayılan gizli, sadece mobilde görünür) ============ */
+/* ============ LOGO ============ */
+.site-logo {
+  display: none; /* masaüstünde gizli */
+  align-items: center;
+}
+
+.site-logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* ============ HAMBURGER BUTONU (varsayılan gizli, sadece mobilde görünür) ============ */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  width: 28px;
+  height: 3px;
+  background: #d4af37;
+  border-radius: 2px;
+
   }
 
   /* ============ MOBİL DÜZENİ (768px ve altı) ============ */
@@ -409,9 +430,14 @@ nav .dropbtn:hover {
 
     .anarchist-nav {
       position: relative;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0 1em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* logo solda, hamburger sağda */
+        width: 100%;
+        padding: 0 1em;
+    }
+ .site-logo {
+      display: flex; /* mobilde logoyu göster */
     }
 
     .menu-toggle {
