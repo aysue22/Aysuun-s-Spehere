@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import TranslateWidget from './TranslateWidget.astro';
 ---
 
 <header>
@@ -28,6 +29,7 @@ import HeaderLink from './HeaderLink.astro';
 				</div>
 			</div>
 			<a href="/about">WHO?</a>
+      <TranslateWidget />
 		</div>
 
 		<div class="anarchy-symbol">Ⓐ</div>
@@ -188,13 +190,12 @@ nav .dropbtn:hover {
   .news-dropdown:hover .news-menu {
     display: block;
   }
-
-  /* Diğer linklerin (Home, Essays vb.) altındaki çizgiyi kaldırmak için */
-  .nav-link {
+.nav-link {
     text-decoration: none;
     color: #e0e0e0;
     margin: 0 10px;
   }
+  
 
   /* Dropdown Konteynırı */
   .news-dropdown {

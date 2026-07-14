@@ -1,0 +1,45 @@
+<div id="google_translate_element"></div>
+
+<style>
+  #google_translate_element {
+    display: inline-block;
+  }
+
+  /* Google'ın çirkin varsayılan görünümünü sitenize uyacak şekilde sadeleştirelim */
+  #google_translate_element :global(.goog-te-gadget) {
+    font-family: 'Crimson Text', serif !important;
+    font-size: 0.85rem !important;
+    color: #1a1a1a !important;
+  }
+
+  #google_translate_element :global(.goog-te-gadget-simple) {
+    background-color: #e9dcc9 !important;
+    border: 1px solid #3e2723 !important;
+    padding: 6px 10px !important;
+    border-radius: 4px;
+  }
+
+  /* Google'ın "Powered by" logosunu gizle */
+  #google_translate_element :global(.goog-logo-link) {
+    display: none !important;
+  }
+
+  #google_translate_element :global(.goog-te-gadget span) {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'tr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false,
+      },
+      'google_translate_element'
+    );
+  }
+</script>
+<script is:inline src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
