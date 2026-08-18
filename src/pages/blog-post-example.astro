@@ -1,0 +1,38 @@
+---
+// ÖRNEK: Mevcut blog yazısı sayfalarınıza bu mantığı entegre edin.
+// Gerçek projede src/pages/blog/[slug].astro içine eklenmeli.
+const postSlug = "ornek-yazi-slug"; // gerçek projede Astro.params.slug kullanılır
+---
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Örnek Blog Yazısı</title>
+</head>
+<body>
+  <article>
+    <h1>Örnek Blog Yazısı Başlığı</h1>
+    <p>Yazı içeriği burada...</p>
+  </article>
+
+  <script define:vars={{ postSlug }}>
+    // Kullanıcı sayfaya girdiğinde zamanlayıcı başlar,
+    // sayfadan ayrılırken (veya 30 sn sonra) görüntüleme kaydedilir.
+    const startTime = Date.now();
+    let sent = false;
+
+    function sendTrackEvent() {
+      if (sent) return;
+      sent = true;
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+
+      // sendBeacon: sayfa kapanırken bile güvenilir şekilde istek gönderir
+      const payload = JSON.stringify({ post_slug: postSlug, time_spent_seconds: timeSpent });
+      navigator.sendBeacon("/api/track-view", new Blob([payload], { type: "application/json" }));
+    }
+
+    window.addEventListener("beforeunload", sendTrackEvent);
+    // Kullanıcı 20 saniyeden fazla kalırsa "gerçekten ilgilendi" say
+    setTimeout(sendTrackEvent, 20000);
+  </script>
+</body>
+</html>

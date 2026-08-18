@@ -6,13 +6,20 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "export-data": "node scripts/export-data.mjs",
+    "seed-survey": "node scripts/seed-survey.mjs",
+    "hash-admin-password": "node scripts/hash-admin-password.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.1",
+    "@astrojs/vercel": "^8.0.0",
+    "@libsql/client": "^0.14.0",
     "astro": "^5.16.9",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5"
   }
 }

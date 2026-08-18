@@ -1,0 +1,151 @@
+---
+import FormPage from '../layouts/FormPage.astro';
+export const prerender = false;
+---
+<FormPage title="Kayıt Ol — The Coven Journal" description="The Coven Journal'a katılın, sosyolojik ankete dahil olun.">
+  <h1>// Kayıt Ol</h1>
+
+  <form id="register-form">
+    <div class="stamp-field">
+      <label for="f-email">E-posta</label>
+      <input type="email" id="f-email" name="email" required />
+    </div>
+
+    <div class="stamp-field">
+      <label for="f-password">Şifre</label>
+      <input type="password" id="f-password" name="password" required minlength="8" />
+    </div>
+
+    <fieldset class="stamp-fieldset">
+      <legend>Temel demografik bilgiler (isteğe bağlı ama önerilir)</legend>
+
+      <div class="stamp-field">
+        <label for="f-age">Yaş</label>
+        <select id="f-age" name="age_range">
+          <option value="">Belirtmek istemiyorum</option>
+          <option value="18 altı">18 altı</option>
+          <option value="18-20">18–20</option>
+          <option value="21-24">21–24</option>
+          <option value="25-29">25–29</option>
+          <option value="30-39">30–39</option>
+          <option value="40-49">40–49</option>
+          <option value="50+">50+</option>
+        </select>
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-gender">Cinsiyet</label>
+        <select id="f-gender" name="gender">
+          <option value="">Belirtmek istemiyorum</option>
+          <option value="kadın">Kadın</option>
+          <option value="erkek">Erkek</option>
+          <option value="non-binary">Non-binary</option>
+          <option value="diğer">Diğer</option>
+        </select>
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-edu">Eğitim düzeyi</label>
+        <select id="f-edu" name="education_level">
+          <option value="">Belirtmek istemiyorum</option>
+          <option value="lise">Lise</option>
+          <option value="üniversite öğrencisi">Üniversite öğrencisi</option>
+          <option value="lisans mezunu">Lisans mezunu</option>
+          <option value="yüksek lisans">Yüksek lisans</option>
+          <option value="doktora">Doktora</option>
+          <option value="diğer">Diğer</option>
+        </select>
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-occ">Meslek / çalışma durumu</label>
+        <select id="f-occ" name="occupation_status">
+          <option value="">Belirtmek istemiyorum</option>
+          <option value="öğrenci">Öğrenci</option>
+          <option value="tam zamanlı çalışan">Tam zamanlı çalışan</option>
+          <option value="yarı zamanlı çalışan">Yarı zamanlı çalışan</option>
+          <option value="iş arıyor">İş arıyor</option>
+          <option value="serbest çalışan">Serbest çalışan</option>
+          <option value="akademisyen/araştırmacı">Akademisyen/araştırmacı</option>
+          <option value="diğer">Diğer</option>
+        </select>
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-country">Yaşadığınız ülke</label>
+        <input type="text" id="f-country" name="country" placeholder="örn: Türkiye" />
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-city">Yaşadığınız şehir</label>
+        <input type="text" id="f-city" name="city" placeholder="örn: Ankara" />
+      </div>
+
+      <div class="stamp-field">
+        <label for="f-settlement">Yerleşim tipi</label>
+        <select id="f-settlement" name="settlement_type">
+          <option value="">Belirtmek istemiyorum</option>
+          <option value="büyükşehir">Büyükşehir</option>
+          <option value="şehir">Şehir</option>
+          <option value="ilçe">İlçe</option>
+          <option value="kasaba">Kasaba</option>
+          <option value="köy/kırsal">Köy/kırsal</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <div class="stamp-checkbox">
+      <input type="checkbox" id="f-consent" name="consent_research" required />
+      <label for="f-consent">
+        Yaş, cinsiyet, eğitim, ilgi alanlarım ve anket cevaplarım dahil verilerimin anonim/agregatif
+        şekilde sosyolojik araştırma amacıyla işlenmesine; bu amaçla yurt dışında konumlanan bir bulut
+        veritabanı hizmetinde güvenli (şifreli) şekilde saklanmasına açık rızam vardır. (zorunlu)
+        Detaylar için <a href="/gizlilik" target="_blank">Gizlilik Notu</a>'nu inceleyebilirsiniz.
+      </label>
+    </div>
+
+    <button type="submit" class="stamp-btn">Kayıt Ol</button>
+    <p id="form-message" class="form-error"></p>
+  </form>
+
+  <p style="margin-top: 20px; font-size: 0.9rem;">
+    Zaten hesabın var mı? <a href="/login">Giriş yap</a>
+  </p>
+</FormPage>
+
+<script>
+  const form = document.getElementById("register-form") as HTMLFormElement;
+  const message = document.getElementById("form-message")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const payload = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      age_range: formData.get("age_range") || null,
+      gender: formData.get("gender") || null,
+      education_level: formData.get("education_level") || null,
+      occupation_status: formData.get("occupation_status") || null,
+      country: formData.get("country") || null,
+      city: formData.get("city") || null,
+      settlement_type: formData.get("settlement_type") || null,
+      consent_research: formData.get("consent_research") === "on",
+    };
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      message.textContent = data.error || "Bir hata oluştu.";
+      return;
+    }
+
+    window.location.href = "/survey";
+  });
+</script>

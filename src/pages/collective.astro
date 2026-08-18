@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import BlogPost from '../layouts/BlogPost.astro';
 ---
 
@@ -41,8 +42,7 @@ import BlogPost from '../layouts/BlogPost.astro';
 		</div>
 
 		<section class="submissions">
-			<p>This space is curated. You may suggest your work, but inclusion is not guaranteed.</p>
-			<a href="/contact" class="submit-btn">Open Submissions</a>
+			<a href="/submit-collective" class="submit-btn">✎ Yazmak İstiyorum</a>
 		</section>
 	</div>
 </BlogPost>
@@ -210,8 +210,60 @@ import BlogPost from '../layouts/BlogPost.astro';
 		text-decoration: none;
 		font-weight: bold;
 		box-shadow: 4px 4px 0px #bc95d4;
-		/* Küçük ekranlarda tam genişlik olsun */
+		border: none;
+		cursor: pointer;
+		font-size: 1rem;
+		font-family: inherit;
 	}
+
+	/* ── GÖNDERİM FORMU (kart tarzı) ── */
+	.submit-form-box {
+		margin-top: 1.5rem;
+		border: 2px solid #000;
+		background: #fffaf0 !important;
+		padding: 1.2rem;
+		box-shadow: 6px 6px 0px #bc95d4;
+	}
+
+	.cf-field {
+		margin-bottom: 1rem;
+	}
+
+	.cf-field label {
+		display: block;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 0.5px;
+		margin-bottom: 5px;
+		color: #1a1a1a !important;
+		background: transparent !important;
+	}
+
+	.cf-field input,
+	.cf-field textarea {
+		width: 100%;
+		box-sizing: border-box;
+		font-family: inherit;
+		font-size: 1rem;
+		padding: 8px 10px;
+		background: #f0e6d2;
+		border: 2px solid #000;
+		color: #1a1a1a;
+	}
+
+	.cf-field input:focus,
+	.cf-field textarea:focus {
+		outline: 2px solid #bc95d4;
+	}
+
+	#cf-message {
+		margin-top: 10px;
+		font-weight: bold;
+		background: transparent !important;
+	}
+	#cf-message.error { color: #a33; }
+	#cf-message.success { color: #2e7d32; }
 
 	/* ── MOBİL BREAKPOINT (≤480px) ── */
 	@media (max-width: 480px) {

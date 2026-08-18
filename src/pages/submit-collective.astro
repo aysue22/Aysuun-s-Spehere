@@ -1,0 +1,87 @@
+---
+import FormPage from '../layouts/FormPage.astro';
+import { getCurrentUser, hasCompletedSurvey } from '../lib/auth';
+export const prerender = false;
+
+const user = await getCurrentUser(Astro.cookies);
+
+if (!user) {
+  return Astro.redirect('/register');
+}
+
+const surveyDone = await hasCompletedSurvey((user as any).id);
+if (!surveyDone) {
+  return Astro.redirect('/survey');
+}
+---
+<FormPage title="Collective'e Katkıda Bulun — The Coven Journal" description="Collective bölümüne kendi projenizi/yazınızı gönderin.">
+  <h1>// Yazını Paylaş</h1>
+  <p style="color: #6b4423; font-size: 0.95rem;">
+    Gönderdiğin yazı, yayınlanmadan önce incelenir. Onaylanan katkılar Collective bölümünde yer alacaktır.
+  </p>
+
+  <form id="submit-form">
+    <div class="stamp-field">
+      <label for="f-name">Proje / Kişi Adı *</label>
+      <input type="text" id="f-name" name="project_name" required placeholder="Örn: Luna Press" />
+    </div>
+
+    <div class="stamp-field">
+      <label for="f-tag">Etiket (Tür · Şehir)</label>
+      <input type="text" id="f-tag" name="tag" placeholder="Örn: Publishing · Berlin" />
+    </div>
+
+    <div class="stamp-field">
+      <label for="f-desc">Kısa Açıklama *</label>
+      <input type="text" id="f-desc" name="short_desc" required placeholder="Örn: Independent feminist publishing." />
+    </div>
+
+    <div class="stamp-field">
+      <label for="f-link">Link</label>
+      <input type="text" id="f-link" name="link" placeholder="https://..." />
+    </div>
+
+    <div class="stamp-field">
+      <label for="f-content">Yazın *</label>
+      <textarea id="f-content" name="content" rows="10" required placeholder="Yazını buraya yaz..."></textarea>
+    </div>
+
+    <button type="submit" class="stamp-btn">Gönder</button>
+    <p id="form-message" class="form-error"></p>
+  </form>
+</FormPage>
+
+<script>
+  const form = document.getElementById("submit-form") as HTMLFormElement;
+  const message = document.getElementById("form-message")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const payload = {
+      project_name: formData.get("project_name"),
+      tag: formData.get("tag") || null,
+      short_desc: formData.get("short_desc"),
+      link: formData.get("link") || null,
+      content: formData.get("content") || null,
+    };
+
+    const res = await fetch("/api/collective/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      message.textContent = data.error || "Bir hata oluştu.";
+      return;
+    }
+
+    message.className = "form-success";
+    message.textContent = "Teşekkürler! Gönderiniz incelemeye alındı.";
+    form.reset();
+    form.querySelector("button")!.setAttribute("disabled", "true");
+  });
+</script>

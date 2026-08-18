@@ -1,5 +1,12 @@
 ---
-const ADMIN_PASSWORD = "aysun2004.";
+const ADMIN_PASSWORD_HASH = "c8a6a04cb14a1ae1bb40f195add8d55283567b343fb76bd06c77182381e53379";
+
+async function hashPassword(pwd) {
+  const data = new TextEncoder().encode(pwd);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 ---
 
 <!doctype html>
@@ -651,9 +658,10 @@ function showPanel() {
 
 if (checkSession()) showPanel();
 
-document.getElementById("login-btn").addEventListener("click", () => {
+document.getElementById("login-btn").addEventListener("click", async () => {
   const val = document.getElementById("pwd-input").value;
-  if (val === ADMIN_PASSWORD) {
+  const valHash = await hashPassword(val);
+  if (valHash === ADMIN_PASSWORD_HASH) {
     sessionStorage.setItem(SESSION_KEY, "ok");
     showPanel();
   } else {

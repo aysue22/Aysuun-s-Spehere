@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -60,6 +61,25 @@ const notes = [
 			</section>
 		</main>
 		<Footer />
+		
+<script define:vars={{ pageSlug: Astro.url.pathname }}>
+  (function () {
+    const startTime = Date.now();
+    let sent = false;
+
+    function sendTrackEvent() {
+      if (sent) return;
+      sent = true;
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      const payload = JSON.stringify({ post_slug: pageSlug, time_spent_seconds: timeSpent });
+      navigator.sendBeacon("/api/track-view", new Blob([payload], { type: "application/json" }));
+    }
+
+    window.addEventListener("beforeunload", sendTrackEvent);
+    setTimeout(sendTrackEvent, 20000);
+  })();
+</script>
+
 	</body>
 </html>
 

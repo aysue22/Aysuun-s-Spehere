@@ -1,0 +1,47 @@
+---
+import FormPage from '../layouts/FormPage.astro';
+export const prerender = true;
+---
+<FormPage title="Gizlilik Notu — The Coven Journal" description="Verilerinizin nasıl kullanıldığına dair bilgilendirme.">
+  <h1>// Gizlilik Notu</h1>
+
+  <p style="font-size: 0.85rem; color: #6b4423; font-style: italic;">
+    Bu metin bilgilendirme amaçlıdır, bir hukuk danışmanlığı belgesi değildir.
+  </p>
+
+  <h2>Hangi verileri topluyoruz?</h2>
+  <p>
+    Kayıt olduğunuzda: e-posta, şifre (şifrelenmiş olarak saklanır), ve isteğe bağlı olarak
+    yaş aralığı, cinsiyet, eğitim düzeyi, meslek/çalışma durumu, ülke, şehir ve yerleşim tipi.
+    Anketi doldurduğunuzda: verdiğiniz cevaplar. Site kullanımınız sırasında: hangi yazı/haberle
+    ne kadar süre ilgilendiğiniz ve yaptığınız yorumlar.
+  </p>
+
+  <h2>Bu veriler ne için kullanılıyor?</h2>
+  <p>
+    Yalnızca anonim/agregatif (toplu) sosyolojik araştırma amacıyla — örneğin "belirli bir yaş
+    grubu hangi konularla daha çok ilgileniyor" gibi analizler için. Verileriniz üçüncü taraflarla
+    pazarlama amacıyla paylaşılmaz veya satılmaz.
+  </p>
+
+  <h2>Verileriniz nerede saklanıyor?</h2>
+  <p>
+    Verileriniz, yurt dışında konumlanan Turso adlı bir bulut veritabanı hizmetinde, şifreli
+    (disk üzerinde ve aktarım sırasında) olarak saklanmaktadır. Bu servis, token tabanlı kimlik
+    doğrulama ve TLS şifreli bağlantılar kullanır.
+  </p>
+
+  <h2>Haklarınız</h2>
+  <p>
+    KVKK kapsamında verilerinizin silinmesini, düzeltilmesini veya işlenmesinin durdurulmasını
+    talep edebilirsiniz. Bu tür bir talep için site yöneticisiyle iletişime geçebilirsiniz.
+  </p>
+
+  <h2>Onayınızı geri çekmek isterseniz</h2>
+  <p>
+    Kaydınızın ve verilerinizin silinmesini istediğinizde, site yöneticisine e-posta yoluyla
+    ulaşarak bu talebi iletebilirsiniz.
+  </p>
+
+  <p style="margin-top: 30px;"><a href="/register">← Kayıt sayfasına dön</a></p>
+</FormPage>
