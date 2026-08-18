@@ -1,0 +1,260 @@
+---
+interface Props {
+  postSlug: string;
+}
+const { postSlug } = Astro.props;
+---
+<section class="coven-comments" data-post-slug={postSlug}>
+  <div class="coven-comments-box">
+    <h3 class="coven-comments-title">// Yorumlar</h3>
+
+    <div id="coven-comments-list" class="coven-comments-list">
+      <p class="coven-comments-loading">Yükleniyor...</p>
+    </div>
+
+    <div id="coven-comment-form-wrap" class="coven-comment-form-wrap" style="display:none;">
+      <label for="coven-comment-text" class="coven-comment-label">Fikrini paylaş</label>
+      <textarea id="coven-comment-text" rows="3" placeholder="Yorumunu buraya yaz..." required></textarea>
+      <div class="coven-comment-form-footer">
+        <button type="button" id="coven-comment-submit">Gönder</button>
+        <p id="coven-comment-message"></p>
+      </div>
+    </div>
+
+    <p id="coven-comment-login-note" class="coven-comments-login-note" style="display:none;">
+      Yorum yapmak için <a href="/login">giriş yap</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .coven-comments {
+    margin: 3rem 0 1rem;
+  }
+
+  .coven-comments-box {
+    background: #fff;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    padding: 28px;
+    color: #1a1a1a;
+  }
+
+  .coven-comments-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #000;
+    color: #1a1a1a;
+  }
+
+  .coven-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .coven-comments-loading,
+  .coven-comments-empty {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .coven-comment-item {
+    padding: 12px 16px;
+    background: #f7f7f7;
+    border-left: 3px solid #000;
+  }
+
+  .coven-comment-item-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .coven-comment-author {
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .coven-comment-date {
+    font-size: 0.72rem;
+    opacity: 0.55;
+  }
+
+  .coven-comment-text {
+    line-height: 1.55;
+    font-size: 0.95rem;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .coven-comment-form-wrap {
+    border-top: 2px dashed #000;
+    padding-top: 18px;
+  }
+
+  .coven-comment-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .coven-comment-form-wrap textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 12px;
+    border: 2px solid #000;
+    border-radius: 0;
+    resize: vertical;
+  }
+
+  .coven-comment-form-wrap textarea:focus {
+    outline: none;
+    box-shadow: 3px 3px 0px #000;
+  }
+
+  .coven-comment-form-footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  #coven-comment-submit {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 9px 22px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  #coven-comment-submit:hover {
+    background: #333;
+  }
+
+  #coven-comment-message {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .coven-comments-login-note {
+    border-top: 2px dashed #000;
+    padding-top: 16px;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .coven-comments-login-note a {
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .coven-comments-box {
+      padding: 18px;
+      box-shadow: 5px 5px 0px #000;
+    }
+  }
+</style>
+
+<script>
+  function escapeHtml(s: string) {
+    const div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function formatDate(iso: string) {
+    try {
+      const d = new Date(iso.replace(" ", "T") + "Z");
+      return d.toLocaleDateString("tr-TR", { day: "2-digit", month: "short", year: "numeric" });
+    } catch {
+      return iso;
+    }
+  }
+
+  async function loadComments(container: HTMLElement) {
+    const postSlug = container.dataset.postSlug!;
+    const listEl = container.querySelector("#coven-comments-list")!;
+
+    const res = await fetch(`/api/comments?post_slug=${encodeURIComponent(postSlug)}`);
+    const data = await res.json();
+
+    if (data.comments.length === 0) {
+      listEl.innerHTML = `<p class="coven-comments-empty">Henüz yorum yok. İlk yorumu sen yaz!</p>`;
+      return;
+    }
+
+    listEl.innerHTML = data.comments
+      .map(
+        (c: any) => `
+      <div class="coven-comment-item">
+        <div class="coven-comment-item-head">
+          <span class="coven-comment-author">Üye #${c.user_id}</span>
+          <span class="coven-comment-date">${formatDate(c.created_at)}</span>
+        </div>
+        <p class="coven-comment-text">${escapeHtml(c.comment_text)}</p>
+      </div>`
+      )
+      .join("");
+  }
+
+  document.querySelectorAll<HTMLElement>(".coven-comments").forEach(async (container) => {
+    loadComments(container);
+
+    const whoami = await fetch("/api/whoami").then((r) => r.json());
+    const formWrap = container.querySelector<HTMLElement>("#coven-comment-form-wrap")!;
+    const loginNote = container.querySelector<HTMLElement>("#coven-comment-login-note")!;
+
+    if (whoami.loggedIn) {
+      formWrap.style.display = "block";
+    } else {
+      loginNote.style.display = "block";
+    }
+
+    const submitBtn = container.querySelector<HTMLButtonElement>("#coven-comment-submit");
+    submitBtn?.addEventListener("click", async () => {
+      const textarea = container.querySelector<HTMLTextAreaElement>("#coven-comment-text")!;
+      const message = container.querySelector<HTMLElement>("#coven-comment-message")!;
+      const postSlug = container.dataset.postSlug!;
+
+      if (!textarea.value.trim()) return;
+
+      const res = await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ post_slug: postSlug, comment_text: textarea.value }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        message.style.color = "#a33";
+        message.textContent = data.error || "Bir hata oluştu.";
+        return;
+      }
+
+      textarea.value = "";
+      message.style.color = "#2e7d32";
+      message.textContent = "Yorumun eklendi.";
+      loadComments(container);
+    });
+  });
+</script>

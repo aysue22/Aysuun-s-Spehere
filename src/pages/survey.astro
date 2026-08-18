@@ -1,0 +1,169 @@
+---
+import FormPage from '../layouts/FormPage.astro';
+export const prerender = false;
+---
+<FormPage title="Sosyolojik Anket — The Coven Journal" description="The Coven Journal sosyolojik anketi." wide={true}>
+  <h1>// Sosyolojik Anket</h1>
+  <p style="color: #6b4423; font-size: 0.95rem;">
+    Tüm sorular isteğe bağlıdır, dilediğinizi boş bırakabilirsiniz.
+    Cevaplarınız yalnızca anonim/agregatif sosyolojik analiz için kullanılacaktır.
+  </p>
+
+  <form id="survey-form">
+    <div id="questions-container">Yükleniyor...</div>
+    <button type="submit" class="stamp-btn">Cevapları Gönder</button>
+    <p id="form-message" class="form-error"></p>
+  </form>
+</FormPage>
+
+<script>
+  const SECTION_LABELS: Record<string, string> = {
+    sosyoekonomik: "Sosyoekonomik Konum",
+    okuma: "Okuma Alışkanlıkları",
+    sinema: "Sinema Alışkanlıkları",
+    politik_tutum: "Politik ve Toplumsal Yönelimler",
+    kesif: "Coven'ı Nasıl Buldunuz",
+    ilgi_alanlari: "İlgi Alanları",
+    medya: "Medya / İnternet Kullanımı",
+    beklenti: "Coven'dan Beklentiler",
+  };
+
+  type Question = {
+    id: number;
+    question_text: string;
+    question_type: "single_choice" | "multi_choice" | "likert" | "open_text" | "number";
+    options_json: string | null;
+    section: string;
+  };
+
+  async function loadQuestions() {
+    const res = await fetch("/api/survey");
+    const data = await res.json();
+    const questions: Question[] = data.questions;
+
+    const bySection: Record<string, Question[]> = {};
+    for (const q of questions) {
+      (bySection[q.section] ??= []).push(q);
+    }
+
+    const container = document.getElementById("questions-container")!;
+    container.innerHTML = "";
+
+    for (const [section, qs] of Object.entries(bySection)) {
+      const fieldset = document.createElement("fieldset");
+      fieldset.className = "stamp-fieldset";
+      const legend = document.createElement("legend");
+      legend.textContent = SECTION_LABELS[section] || section;
+      fieldset.appendChild(legend);
+
+      for (const q of qs) {
+        fieldset.appendChild(renderQuestion(q));
+      }
+      container.appendChild(fieldset);
+    }
+  }
+
+  function renderQuestion(q: Question): HTMLElement {
+    const wrap = document.createElement("div");
+    wrap.className = "stamp-field";
+    wrap.dataset.questionId = String(q.id);
+    wrap.dataset.questionType = q.question_type;
+
+    const label = document.createElement("label");
+    label.style.textTransform = "none";
+    label.style.fontWeight = "700";
+    label.style.fontSize = "1rem";
+    label.textContent = q.question_text;
+    wrap.appendChild(label);
+
+    const options: string[] = q.options_json ? JSON.parse(q.options_json) : [];
+
+    if (q.question_type === "single_choice" || q.question_type === "likert") {
+      for (const opt of options) {
+        const optLabel = document.createElement("label");
+        optLabel.style.cssText = "display:block; font-weight:400; text-transform:none; font-size:0.95rem; margin:4px 0;";
+        optLabel.innerHTML = `<input type="radio" name="q_${q.id}" value="${opt}" /> ${opt}`;
+        wrap.appendChild(optLabel);
+      }
+    } else if (q.question_type === "multi_choice") {
+      for (const opt of options) {
+        const optLabel = document.createElement("label");
+        optLabel.style.cssText = "display:block; font-weight:400; text-transform:none; font-size:0.95rem; margin:4px 0;";
+        optLabel.innerHTML = `<input type="checkbox" name="q_${q.id}" value="${opt}" /> ${opt}`;
+        wrap.appendChild(optLabel);
+      }
+    } else if (q.question_type === "number") {
+      const input = document.createElement("input");
+      input.type = "number";
+      input.name = `q_${q.id}`;
+      wrap.appendChild(input);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.name = `q_${q.id}`;
+      textarea.rows = 3;
+      wrap.appendChild(textarea);
+    }
+
+    return wrap;
+  }
+
+  function collectAnswers(): { question_id: number; answer_text: string }[] {
+    const answers: { question_id: number; answer_text: string }[] = [];
+    const questionDivs = document.querySelectorAll<HTMLElement>(".stamp-field[data-question-id]");
+
+    questionDivs.forEach((div) => {
+      const qId = Number(div.dataset.questionId);
+      const qType = div.dataset.questionType;
+
+      if (qType === "single_choice" || qType === "likert") {
+        const checked = div.querySelector<HTMLInputElement>("input[type=radio]:checked");
+        if (checked) answers.push({ question_id: qId, answer_text: checked.value });
+      } else if (qType === "multi_choice") {
+        const checked = Array.from(
+          div.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked")
+        ).map((el) => el.value);
+        if (checked.length > 0) {
+          answers.push({ question_id: qId, answer_text: JSON.stringify(checked) });
+        }
+      } else {
+        const input = div.querySelector<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
+        if (input && input.value.trim() !== "") {
+          answers.push({ question_id: qId, answer_text: input.value.trim() });
+        }
+      }
+    });
+
+    return answers;
+  }
+
+  loadQuestions();
+
+  const form = document.getElementById("survey-form") as HTMLFormElement;
+  const message = document.getElementById("form-message")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const answers = collectAnswers();
+
+    if (answers.length === 0) {
+      message.textContent = "En az bir soruyu cevaplamalısınız.";
+      return;
+    }
+
+    const res = await fetch("/api/survey", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      message.textContent = data.error || "Bir hata oluştu.";
+      return;
+    }
+
+    message.className = "form-success";
+    message.textContent = "Teşekkürler! Cevaplarınız kaydedildi.";
+    form.querySelector("button")!.setAttribute("disabled", "true");
+  });
+</script>

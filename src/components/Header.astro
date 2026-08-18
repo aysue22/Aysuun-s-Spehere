@@ -29,6 +29,7 @@ import Translatewidget from './Translatewidget.astro';
 				</div>
 			</div>
 			<a href="/about">WHO?</a>
+      <a href="/register">JOIN</a>
       <Translatewidget />
 		</div>
 
@@ -396,7 +397,7 @@ nav .dropbtn:hover {
 /* ============ HAMBURGER BUTONU (varsayılan gizli, sadece mobilde görünür) ============ */
 /* ============ LOGO ============ */
 .site-logo {
-  display: none; /* masaüstünde gizli */
+  display: flex;
   align-items: center;
 }
 
@@ -443,6 +444,7 @@ nav .dropbtn:hover {
 
     .menu-toggle {
       display: flex;
+      align-items: center;
     }
 
     .nav-links {
